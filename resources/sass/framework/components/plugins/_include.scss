@@ -1,0 +1,39 @@
+//
+//** 3rd Party Plugin Integration
+// 
+
+//== Base Plugins
+@import "base/blockui";
+@import "base/scrollable";
+@import "base/jstree";
+@import "base/bootstrap-notify";
+@import "base/toastr";
+@import "base/sweetalert2";
+
+//== Form Plugins
+@import "form/bootstrap-maxlength";
+@import "form/bootstrap-datepicker";
+@import "form/bootstrap-datetimepicker";
+@import "form/bootstrap-daterangepicker";
+@import "form/bootstrap-timepicker";
+@import "form/bootstrap-touchspin";
+@import "form/bootstrap-switch";
+@import "form/bootstrap-select";
+@import "form/select2";
+@import "form/typeahead";
+@import "form/ion-range-slider";
+@import "form/nouislider";
+@import "form/dropzone";
+@import "form/recaptcha";
+@import "form/summernote";
+@import "form/bootstrap-markdown";
+
+//== Maps Plugins
+@import "maps/gmaps";
+@import "maps/jqvmap";
+
+//== Misc Plugins
+@import "misc/datatables";
+@import "misc/fullcalendar";
+@import "misc/bootstrap-session-timeout";
+@import "misc/fontawesome5";
