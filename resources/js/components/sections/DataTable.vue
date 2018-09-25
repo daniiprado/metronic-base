@@ -38,7 +38,7 @@
         methods: {
             datatable: function () {
                 this.table = $('#'+ this.id ).DataTable(this.options);
-                this.$emit('datatable', this.table);
+                this.$emit('onDatatable', this.table);
             },
             onSelect: function () {
                 let that = this;

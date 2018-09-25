@@ -65,9 +65,11 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from, next) => {
-
     setTimeout(() => {
         $('body').removeClass('m-page--loading');
+        mApp.init();
+        mUtil.init();
+        mLayout.init();
     }, 2000)
 });
 

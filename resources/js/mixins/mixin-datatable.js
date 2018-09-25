@@ -70,26 +70,58 @@ export const mixinDataTable = {
     methods: {
         settingsDataTable: function () {
             var defaults = {
-                "language": {
-                    "paginate": {
-                        "first": '<i class="la la-angle-double-left"></i>',
-                        "last": '<i class="la la-angle-double-right"></i>',
-                        "next": '<i class="la la-angle-right"></i>',
-                        "previous": '<i class="la la-angle-left"></i>'
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ registros",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                language: {
+                    paginate: {
+                        first: '<i class="la la-angle-double-left"></i>',
+                        last: '<i class="la la-angle-double-right"></i>',
+                        next: '<i class="la la-angle-right"></i>',
+                        previous: '<i class="la la-angle-left"></i>'
                     }
-                }
+                },
+                oAria: {
+                    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending: ": Activar para ordenar la columna de manera descendente",
+                },
             };
 
             if (mUtil.isRTL()) {
                 defaults = {
-                    "language": {
-                        "paginate": {
-                            "first": '<i class="la la-angle-double-right"></i>',
-                            "last": '<i class="la la-angle-double-left"></i>',
-                            "next": '<i class="la la-angle-left"></i>',
-                            "previous": '<i class="la la-angle-right"></i>'
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar _MENU_ registros",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Ningún dato disponible en esta tabla",
+                    sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    language: {
+                        paginate: {
+                            first: '<i class="la la-angle-double-right"></i>',
+                            last: '<i class="la la-angle-double-left"></i>',
+                            next: '<i class="la la-angle-left"></i>',
+                            previous: '<i class="la la-angle-right"></i>'
                         }
-                    }
+                    },
+                    oAria: {
+                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending: ": Activar para ordenar la columna de manera descendente",
+                    },
                 }
             }
             let self = this;

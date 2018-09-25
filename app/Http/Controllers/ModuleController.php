@@ -16,10 +16,7 @@ class ModuleController extends ApiController
      */
     public function index()
     {
-        return $this->collectionResponse(
-            ModuleResource::collection( $this->getModel( new Module ) ),
-            200
-        );
+        return datatables()->eloquent( Module::query() )->toJson();
     }
 
     /**
@@ -31,11 +28,12 @@ class ModuleController extends ApiController
     public function store(StoreModuleRequest $request)
     {
         $module = new Module;
-        $module->save( $request->all() );
-        return $this->singleResponse(
-            new ModuleResource( $module ),
-            201
-        );
+        $module->create( $request->all() );
+        return $this->api_success([
+            'data'      =>  new ModuleResource( $module ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -62,10 +60,11 @@ class ModuleController extends ApiController
     public function update(UpdateModuleRequest $request, Module $module)
     {
         $module->update( $request->all() );
-        return $this->singleResponse(
-            new ModuleResource( $module ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ModuleResource( $module ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -78,9 +77,10 @@ class ModuleController extends ApiController
     public function destroy(Module $module)
     {
         $module->delete();
-        return $this->singleResponse(
-            new ModuleResource( $module ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ModuleResource( $module ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  200
+        ], 200);
     }
 }

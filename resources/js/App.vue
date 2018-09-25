@@ -8,6 +8,7 @@
             </dashboard-layout>
 
 
+            <quick-sidebar></quick-sidebar>
 
             <scroll-top></scroll-top>
 

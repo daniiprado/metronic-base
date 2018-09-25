@@ -68,6 +68,12 @@
                 type: Number,
                 default: 300
             }
+        },
+        mounted: function () {
+            mApp.initPortlet(this.id, {});
+            this.$nextTick(() => {
+                this.$emit('onPortlet', new mPortlet(this.id))
+            })
         }
     }
 </script>

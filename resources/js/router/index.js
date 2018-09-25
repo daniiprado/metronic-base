@@ -31,5 +31,32 @@ export default new Router({
                 //bodyClass: common
             }
         },
+        {
+            path: '/modules',
+            name: 'modules',
+            component: () => import(/* webpackChunkName: "modules" */ './../views/security/modules/Modules'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/modules/create',
+            name: 'modules.create',
+            component: () => import(/* webpackChunkName: "modules" */ './../views/security/modules/CreateModule'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/modules/:id/edit',
+            name: 'modules.edit',
+            component: () => import(/* webpackChunkName: "modules" */ './../views/security/modules/EditModule'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
     ]
 })

@@ -16,8 +16,8 @@ return [
     'login' => [
         'forget_password'   =>  '¿Olvidaste tu contraseña?'
     ],
-    'country' => [
-        'title' =>  '{0} :prefix País|{2} Países',
+    'modules' => [
+        'title' =>  '{0} :prefix Módulo|{2} Módulos',
     ],
 
     'buttons' => [
@@ -31,6 +31,10 @@ return [
         'save'          =>  'Guardar',
         'cancel'        =>  'Cancelar',
         'add'           =>  'Añadir',
+        'add_file'      =>  'Añadir Archivo',
+        'zoom_in'       =>  'Ampliar',
+        'zoom_out'      =>  'Alejar',
+        'rotate'        =>  'Girar',
         'new'           =>  'Nuevo',
         'print'         =>  'Imprimir',
         'copy'          =>  'Copiar',
@@ -45,7 +49,17 @@ return [
         'warning'   =>  'Advertencia',
         'error'     =>  'Error',
         'info'      =>  'Información',
-        'question'  =>  'Pregunta'
+        'question'  =>  'Pregunta',
+        'comfirm_delete' => '{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?'
+    ],
+
+    'responses' =>  [
+        'created'       =>  'Se han almacenado los datos satisfactoriamente.',
+        'created_fail'  =>  'No se han almacenado los datos intenta de nuevo.',
+        'updated'       =>  'Se han actualizado los datos satisfactoriamente.',
+        'updated_fail'  =>  'No se han actualizado los datos intenta de nuevo.',
+        'deleted'       =>  'Se han eliminado los datos satisfactoriamente.',
+        'deleted_fail'  =>  'No se han eliminado los datos intenta de nuevo.',
     ]
 
 ];

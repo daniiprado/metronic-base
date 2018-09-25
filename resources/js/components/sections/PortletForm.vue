@@ -46,6 +46,12 @@
                 type: String,
                 default: 'flaticon-cogwheel-2'
             },
+        },
+        mounted: function () {
+            mApp.initPortlet(this.id, {});
+            this.$nextTick(() => {
+                this.$emit('onPortletForm', new mPortlet(this.id))
+            })
         }
     }
 </script>

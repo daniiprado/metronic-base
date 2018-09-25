@@ -1,5 +1,4 @@
 import {Errors} from "./Errors";
-import swal from 'sweetalert';
 
 export class Form {
 
@@ -72,14 +71,9 @@ export class Form {
 
     onSuccess(response) {
         this.reset();
-        swal({
-            title: lang.get('pages.messages.success'),
-            text: response.message,
-            icon: 'success'
-        });
     }
 
     onFail(errors) {
-        this.errors.record( errors )
+        this.errors.record( errors.errors )
     }
 }

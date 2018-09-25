@@ -27,6 +27,7 @@
         <link href="{{ asset('css/fonts.bundle.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/jquery-ui.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
         <!--end::Global Theme Styles -->
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
     </head>
@@ -42,22 +43,27 @@
 
         <div id="app">
             <app></app>
-
-            <quick-sidebar></quick-sidebar>
-
-            <!-- end:: Page -->
         </div>
 
         <!--begin::Global Theme Bundle -->
-            <script src="{{ asset('js/vendors.bundle.js') }}" ></script>
-            <script src="{{ asset('js/jquery-ui.bundle.js') }}" defer></script>
-            <script src="{{ asset('js/scripts.bundle.js') }}" defer></script>
-            <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ asset('js/vendors.bundle.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui.bundle.js') }}"></script>
+        <script src="{{ asset('js/scripts.bundle.js') }}" ></script>
+        <script src="{{ asset('js/datatables.bundle.js') }}" ></script>
+        <script src="{{ mix('js/app.js') }}"></script>
         <!--end::Global Theme Bundle -->
         <!-- begin::Page Loader -->
         <script>
             $(window).on('load', function () {
                 $('body').removeClass('m-page--loading');
+                mApp.init();
+                mUtil.init();
+                mLayout.init();
+            });
+            $(document).ready(function () {
+                mApp.init();
+                mUtil.init();
+                mLayout.init();
             });
         </script>
         <!-- end::Page Loader -->

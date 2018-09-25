@@ -37,4 +37,9 @@ trait ApiResponse
     {
         return $instance->response()->setStatusCode( $code );
     }
+
+    protected function api_success( $data, $code = 200 )
+    {
+        return $this->success($data, $code);
+    }
 }

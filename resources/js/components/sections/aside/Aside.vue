@@ -16,10 +16,10 @@
             <aside-section>Locations</aside-section>
 
             <aside-menu-sub-menu route="countries">
-                Locations
+                Security
                 <template slot="item">
-                    <aside-menu-item :href="{ name: 'home' }">
-                        Home
+                    <aside-menu-item :href="{ name: 'modules' }">
+                        Modules
                     </aside-menu-item>
                 </template>
             </aside-menu-sub-menu>

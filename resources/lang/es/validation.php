@@ -211,10 +211,5 @@ return [
         'active'                => 'vigente',
         'modified'              => 'modificado',
         'remember_me'           => 'recordame',
-        'country_code'          => 'código del país',
-        'iso_2'                 => 'formato ISO 2',
-        'iso_3'                 => 'formato ISO 3',
-        'country_name'          => 'nombre del país',
-        'flag'                  => 'bandera',
     ],
 ];

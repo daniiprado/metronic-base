@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "deaf2a0af1a22a875b64d4913d541ecf",
+    "content-hash": "a0e00ca68f728639c903ea3abc4ec3b8",
     "packages": [
         {
             "name": "caouecs/laravel-lang",
@@ -5640,8 +5640,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "zizaco/entrust": 20,
-        "webpatser/laravel-countries": 20
+        "webpatser/laravel-countries": 20,
+        "zizaco/entrust": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
