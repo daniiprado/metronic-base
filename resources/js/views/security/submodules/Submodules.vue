@@ -1,7 +1,7 @@
 <template>
     <draggable-row>
         <div class="col-lg-12">
-            <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.modules.title', 2)">
+            <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.submodules.title', 2)">
                 <template slot="actions">
                     <action-item v-if="selected.length === 1">
                         <a href="javascript:;"
@@ -85,22 +85,19 @@
 
 <script>
     import swal from 'sweetalert2'
-    import {Module} from "../../../services/models/Module";
+    import {Submodule} from "../../../services/models/Submodule";
 
     export default {
-        name: "Modules",
+        name: "Submodules",
         data: () => {
             return {
                 lang: lang,
                 selected: [],
                 portlet: null,
-                form: new Module({
-                    name: null
-                }),
                 datatable: null,
                 options: {
                     ajax: {
-                        url: '/api/module',
+                        url: '/api/submodule',
                     },
                     columns: [
                         {
@@ -111,35 +108,48 @@
                         {
                             data: 'name',
                             name: 'name',
+                            title: lang.choice('pages.submodules.title', 2),
+                            sortable: true,
+                            filterable: true, // disable or enable filtering
+                            width: '20%',
+                        },
+                        {
+                            data: 'module',
+                            name: 'module',
                             title: lang.choice('pages.modules.title', 2),
                             sortable: true,
                             filterable: true, // disable or enable filtering
                             width: '20%',
+                        },
+                        {
+                            data: 'module_id',
+                            name: 'module_id',
+                            visible: false
                         }
                     ],
                     buttons: [
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2 ]
                             }
                         },
                         {
                             extend: 'copyHtml5',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2 ]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2 ]
                             }
                         },
                         {
                             extend: 'csvHtml5',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2 ]
                             }
                         },
                         {
@@ -147,11 +157,15 @@
                             orientation: 'portrait',
                             pageSize: 'LETTER',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2 ]
                             }
                         },
                     ],
                 },
+                form: new Submodule({
+                    name: null,
+                    module_id: null
+                })
             }
         },
         mounted: function () {
@@ -227,7 +241,7 @@
                 })
             },
             onEdit: function () {
-                this.$router.push({ name: 'modules.edit', params: { id: this.selected[0].id } })
+                this.$router.push({ name: 'submodules.edit', params: { id: this.selected[0].id } })
             }
         },
         beforeDestroy: function () {

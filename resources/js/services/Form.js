@@ -4,7 +4,6 @@ export class Form {
 
     constructor(data) {
         this.originalData = data;
-        // this.data = data;
 
         for (let field in data) {
             this[field] = data[field];
@@ -74,6 +73,6 @@ export class Form {
     }
 
     onFail(errors) {
-        this.errors.record( errors.errors )
+        this.errors.record( errors.error )
     }
 }

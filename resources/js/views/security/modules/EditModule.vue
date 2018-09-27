@@ -19,13 +19,18 @@
                                        :has-errors="form.errors"
                                        validation="required|alpha_spaces|min:3"
                                        name="name"
-                                       :input-attrs="{'minlength': 3, 'required': true, 'autocomplete': 'off' }">
+                                       :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>
 
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit"
+                                    :class="{ 'm-loader m-loader--right m-loader--light': loading }"
+                                    :disabled="loading || form.errors.any() || errors.any()"
+                                    class="btn btn-primary">
+                                Submit
+                            </button>
                             <button type="reset" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
@@ -38,17 +43,28 @@
 
 <script>
     import swal from 'sweetalert2'
-    import {Form} from "../../../services/Form";
+    import {Module} from "../../../services/models/Module";
+
     export default {
         name: "EditModule",
         data: () => {
             return {
                 lang: lang,
                 portlet_form: null,
-                form: new Form({
+                form: new Module({
                     name: null
                 }),
+                loading: false
             }
+        },
+        created: function () {
+            this.form.show( this.$route.params.id )
+                .then( (response) => {
+                    this.form.name = response.data.name
+                })
+                .catch( error => {
+                    console.log(error)
+                })
         },
         mounted: function () {
             mApp.initTooltips();
@@ -81,16 +97,22 @@
                 this.$validator.validateAll().then( (result) => {
                     if (result) {
                         mApp.blockPage();
-                        this.form.put('/api/module/'+ this.$route.params.id)
+                        this.form.update( this.$route.params.id )
                             .then( (response) => {
+                                this.loading = true;
                                 mApp.unblockPage();
                                 swal({
                                     type: 'success',
                                     title: this.lang.get('pages.messages.success'),
                                     text: response.message
                                 })
+                                    .then(() => {
+                                        this.loading = false;
+                                        this.$router.push({ name: 'modules' })
+                                    })
                             })
                             .catch( (error) => {
+                                this.loading = false;
                                 mApp.unblockPage();
                                 swal({
                                     title: this.lang.get('pages.messages.error'),
@@ -105,16 +127,6 @@
                 })
             },
         },
-        beforeRouteEnter (to, from, next) {
-            axios.get( '/api/module/'+ to.params.id )
-                .then( response  => {
-                    $data.form.name = response.data.data.name
-                    next();
-                })
-                .catch( error => {
-                    console.log(error)
-                })
-        }
     }
 </script>
 

@@ -58,5 +58,14 @@ export default new Router({
                 //bodyClass: common
             }
         },
+        {
+            path: '/submodules',
+            name: 'submodules',
+            component: () => import(/* webpackChunkName: "submodules" */ './../views/security/submodules/Submodules'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
     ]
 })

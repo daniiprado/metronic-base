@@ -21,6 +21,9 @@
                     <aside-menu-item :href="{ name: 'modules' }">
                         Modules
                     </aside-menu-item>
+                    <aside-menu-item :href="{ name: 'submodules' }">
+                        Submodules
+                    </aside-menu-item>
                 </template>
             </aside-menu-sub-menu>
 

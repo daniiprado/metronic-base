@@ -1,57 +1,58 @@
 <template>
     <draggable-row>
-        <div class="col-lg-6 offset-lg-3">
-            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.modules.title', 0, {prefix: lang.get('pages.buttons.create')})">
-                <template slot="actions">
-                    <action-item>
-                        <portlet-tool tool="remove"></portlet-tool>
-                    </action-item>
-                </template>
+        <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.submodules.title', 0, {prefix: lang.get('pages.buttons.create')})">
+            <template slot="actions">
+                <action-item>
+                    <portlet-tool tool="remove"></portlet-tool>
+                </action-item>
+            </template>
 
-                <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right">
-                    <div class="m-portlet__body">
+            <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right">
+                <div class="m-portlet__body">
 
-                        <portlet-input :value="form.name" v-model="form.name"
-                                       :has-errors="form.errors"
-                                       validation="required|alpha_spaces|min:3"
-                                       name="name"
-                                       :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
-                        </portlet-input>
+                    <portlet-input :value="form.name" v-model="form.name"
+                                   :has-errors="form.errors"
+                                   validation="required|alpha_spaces|min:3"
+                                   name="name"
+                                   :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
+                    </portlet-input>
 
+                </div>
+                <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions">
+                        <button type="submit"
+                                :class="{ 'm-loader m-loader--right m-loader--light': loading }"
+                                :disabled="loading || form.errors.any() || errors.any()"
+                                class="btn btn-primary">
+                            Submit
+                        </button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
                     </div>
-                    <div class="m-portlet__foot m-portlet__foot--fit">
-                        <div class="m-form__actions">
-                            <button type="submit"
-                                    :class="{ 'm-loader m-loader--right m-loader--light': loading }"
-                                    :disabled="loading || form.errors.any() || errors.any()"
-                                    class="btn btn-primary">
-                                Submit
-                            </button>
-                            <button type="reset" class="btn btn-secondary">Cancel</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
+            </form>
 
-            </portlet-form>
-        </div>
+        </portlet-form>
     </draggable-row>
 </template>
 
 <script>
-    import swal from 'sweetalert2'
-    import {Module} from "../../../services/models/Module";
 
     export default {
-        name: "CreateModule",
+        name: "CreateSubmodule",
         data: () => {
             return {
                 lang: lang,
                 loading: false,
                 portlet_form: null,
-                form: new Module({
-                    name: null
-                })
+                form: new Form({
+                    name: null,
+                    module_id: null
+                }),
+                options: []
             }
+        },
+        created: function () {
+            
         },
         mounted: function () {
             mApp.initTooltips();
@@ -85,7 +86,7 @@
                     if (result) {
                         this.loading = true;
                         mApp.blockPage();
-                        this.form.store()
+                        this.form.post('/api/module')
                             .then( (response) => {
                                 this.loading = false;
                                 mApp.unblockPage();
@@ -108,8 +109,8 @@
                                     })
                             })
                     }
-                });
-            }
+                })
+            },
         }
     }
 </script>

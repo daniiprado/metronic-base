@@ -19,6 +19,9 @@ return [
     'modules' => [
         'title' =>  '{0} :prefix Módulo|{2} Módulos',
     ],
+    'submodules' => [
+        'title' =>  '{0} :prefix Submódulo|{2} Submódulos',
+    ],
 
     'buttons' => [
         'sign_in'       =>  'Iniciar Sesión',

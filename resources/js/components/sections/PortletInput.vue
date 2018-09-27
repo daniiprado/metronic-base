@@ -1,7 +1,7 @@
 <template>
     <div class="form-group m-form__group" :class="{'has-danger': ( errors.has( name ) || hasErrors.has( name ) ) }">
         <label :for="name"> {{ inputName | capitalize }} </label>
-        <input type="text" :id="name"
+        <input :type="type" :id="name"
                v-bind="inputAttrs"
                autocomplete="off"
                :name="name"
@@ -13,7 +13,7 @@
                :placeholder="inputName.capitalize()">
         <slot></slot>
         <feedback :show="errors.has( name ) || hasErrors.has( name )">
-            {{ errors.first( name ) || hasErrors.has( name ) }}
+            {{ errors.first( name ) || hasErrors.first( name ) }}
         </feedback>
     </div>
 </template>
@@ -24,6 +24,10 @@
     export default {
         name: "PortletInput",
         props: {
+            type: {
+                type: String,
+                default: 'text'
+            },
             inputAttrs: {
                 type: [Array, Object]
             },

@@ -13,3 +13,7 @@ yarn-error.log
 .env
 .phpunit.result.cache
 /resources/tools/node_modules/
+
+*.rdb
+
+\.DS_Store

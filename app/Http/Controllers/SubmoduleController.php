@@ -17,10 +17,13 @@ class SubmoduleController extends ApiController
      */
     public function index()
     {
-        return $this->collectionResponse(
-            SubmoduleResource::collection( $this->getModel( new Submodule ) ),
-            200
-        );
+        return datatables()->eloquent( Submodule::with('module') )
+                            ->addColumn('module', function (Submodule $submodule) {
+                                return isset( $submodule->module->name )
+                                        ? $submodule->module->name
+                                        : null;
+                            })
+                            ->toJson();
     }
 
     /**
@@ -28,15 +31,18 @@ class SubmoduleController extends ApiController
      *
      * @param StoreSubmoduleRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreSubmoduleRequest $request)
     {
-        $submodule = new Submodule();
-        $submodule->save( $request->all() );
-        return $this->singleResponse(
-            new SubmoduleResource( $submodule ),
-            201
-        );
+        $submodule = new Submodule;
+        $submodule->fill( $request->all() );
+        $submodule->saveOrFail();
+        return $this->api_success([
+            'data'      =>  new SubmoduleResource( $submodule ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -63,10 +69,11 @@ class SubmoduleController extends ApiController
     public function update(UpdateSubmoduleRequest $request, Submodule $submodule)
     {
         $submodule->update( $request->all() );
-        return $this->singleResponse(
-            new SubmoduleResource( $submodule ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new SubmoduleResource( $submodule ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -79,9 +86,10 @@ class SubmoduleController extends ApiController
     public function destroy(Submodule $submodule)
     {
         $submodule->delete();
-        return $this->singleResponse(
-            new SubmoduleResource( $submodule ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ModuleResource( $submodule ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  200
+        ], 200);
     }
 }

@@ -24,11 +24,13 @@ class ModuleController extends ApiController
      *
      * @param StoreModuleRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreModuleRequest $request)
     {
         $module = new Module;
-        $module->create( $request->all() );
+        $module->fill( $request->all() );
+        $module->saveOrFail();
         return $this->api_success([
             'data'      =>  new ModuleResource( $module ),
             'message'   =>  __('pages.responses.created'),
