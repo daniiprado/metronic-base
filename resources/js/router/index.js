@@ -64,6 +64,15 @@ export default new Router({
             }
         },
         {
+            path: '/users/:id/edit',
+            name: 'users.edit',
+            component: () => import(/* webpackChunkName: "users" */ './../views/security/users/EditUser'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
             path: '/modules',
             name: 'modules',
             component: () => import(/* webpackChunkName: "modules" */ './../views/security/modules/Modules'),

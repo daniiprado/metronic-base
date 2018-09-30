@@ -24,7 +24,7 @@ class UpdateProductsOrderStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'data'              =>  'required|array',
+            'data'              => 'required|array',
             'data.*.id'         => 'required|exists:products_order,id',
             'data.*.status'     => 'required|boolean',
         ];

@@ -31629,6 +31629,16 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
             //bodyClass: common
         }
     }, {
+        path: '/users/:id/edit',
+        name: 'users.edit',
+        component: function component() {
+            return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 518));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
         path: '/modules',
         name: 'modules',
         component: function component() {

@@ -22639,5 +22639,480 @@ if (false) {
   }
 }
 
+/***/ }),
+/* 518 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(519)
+}
+var normalizeComponent = __webpack_require__(15)
+/* script */
+var __vue_script__ = __webpack_require__(521)
+/* template */
+var __vue_template__ = __webpack_require__(522)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-0c916e88"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/views/security/users/EditUser.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0c916e88", Component.options)
+  } else {
+    hotAPI.reload("data-v-0c916e88", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 519 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(520);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("0b5f1fdd", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c916e88\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditUser.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c916e88\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditUser.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 520 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 521 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_models_User__ = __webpack_require__(511);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_Api__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sweetalert2__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "EditUser",
+    data: function data() {
+        return {
+            lang: lang,
+            portlet_form: null,
+            form: new __WEBPACK_IMPORTED_MODULE_0__services_models_User__["a" /* User */]({
+                name: null,
+                email: null,
+                company_id: null
+            }),
+            loading: false
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        this.form.show(this.$route.params.id).then(function (response) {
+            _this.form.name = response.data.name;
+            _this.form.email = response.data.email;
+            _this.form.company_id = response.data.company_id;
+        }).catch(function (error) {
+            console.log(error);
+        });
+    },
+    mounted: function mounted() {
+        mApp.initTooltips();
+    },
+    methods: {
+        /** Actions for create Modules **/
+        onPortletForm: function onPortletForm(portlet) {
+            this.portlet_form = portlet;
+            if (this.portlet_form !== null) {
+                this.onReloadForm();
+                this.onRemoveForm();
+            }
+        },
+        onReloadForm: function onReloadForm() {
+            var that = this;
+            this.portlet_form.on('reload', function (portlet) {
+                that.form.reset();
+                that.errors.clear();
+            });
+        },
+        onRemoveForm: function onRemoveForm() {
+            var that = this;
+            this.portlet_form.on('beforeRemove', function (portlet) {
+                that.$router.push({ name: 'users' });
+            });
+        },
+        onSubmit: function onSubmit() {
+            var _this2 = this;
+
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    mApp.blockPage();
+                    _this2.form.update(_this2.$route.params.id).then(function (response) {
+                        _this2.loading = true;
+                        mApp.unblockPage();
+                        __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default()({
+                            type: 'success',
+                            title: _this2.lang.get('pages.messages.success'),
+                            text: response.message
+                        }).then(function () {
+                            _this2.loading = false;
+                            _this2.$router.push({ name: 'users' });
+                        });
+                    }).catch(function (error) {
+                        _this2.loading = false;
+                        mApp.unblockPage();
+                        __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default()({
+                            title: _this2.lang.get('pages.messages.error'),
+                            text: error.message,
+                            type: 'error'
+                        }).then(function () {
+                            mUtil.scrollTop();
+                        });
+                    });
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 522 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("draggable-row", [
+    _c(
+      "div",
+      { staticClass: "col-lg-6 offset-lg-3" },
+      [
+        _c(
+          "portlet-form",
+          {
+            attrs: {
+              id: "m_portlet_tools_form",
+              title: _vm.lang.choice("pages.users.title", 0, {
+                prefix: _vm.lang.get("pages.buttons.create")
+              })
+            },
+            on: { onPortletForm: _vm.onPortletForm }
+          },
+          [
+            _c(
+              "template",
+              { slot: "actions" },
+              [
+                _c(
+                  "action-item",
+                  [_c("portlet-tool", { attrs: { tool: "remove" } })],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                staticClass: "m-form m-form--fit m-form--label-align-right",
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.onSubmit($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "m-portlet__body" },
+                  [
+                    _c("portlet-select", {
+                      attrs: {
+                        options: _vm.select,
+                        value: _vm.form.company_id,
+                        "has-errors": _vm.form.errors,
+                        "input-attrs": { required: true },
+                        name: "company_id",
+                        validation: "required"
+                      },
+                      model: {
+                        value: _vm.form.company_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "company_id", _vm._n($$v))
+                        },
+                        expression: "form.company_id"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("portlet-input", {
+                      attrs: {
+                        value: _vm.form.name,
+                        "has-errors": _vm.form.errors,
+                        validation: "required|alpha_spaces|min:3|max:60",
+                        name: "name",
+                        "input-attrs": {
+                          minlength: 3,
+                          maxlength: 191,
+                          required: true,
+                          autocomplete: "off"
+                        }
+                      },
+                      model: {
+                        value: _vm.form.name,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "name", $$v)
+                        },
+                        expression: "form.name"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("portlet-input", {
+                      attrs: {
+                        value: _vm.form.email,
+                        type: "email",
+                        "has-errors": _vm.form.errors,
+                        validation: "required|email",
+                        name: "email",
+                        "input-attrs": {
+                          minlength: 3,
+                          maxlength: 80,
+                          required: true,
+                          autocomplete: "off"
+                        }
+                      },
+                      model: {
+                        value: _vm.form.email,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "email", $$v)
+                        },
+                        expression: "form.email"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("portlet-input", {
+                      attrs: {
+                        value: _vm.form.password,
+                        type: "password",
+                        "has-errors": _vm.form.errors,
+                        validation:
+                          "required|max:16|min:6|confirmed:password_confirmation",
+                        name: "password",
+                        "input-attrs": {
+                          minlength: 6,
+                          maxlength: 16,
+                          required: true,
+                          autocomplete: "off"
+                        }
+                      },
+                      model: {
+                        value: _vm.form.password,
+                        callback: function($$v) {
+                          _vm.$set(
+                            _vm.form,
+                            "password",
+                            typeof $$v === "string" ? $$v.trim() : $$v
+                          )
+                        },
+                        expression: "form.password"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("portlet-input", {
+                      attrs: {
+                        value: _vm.form.password_confirmation,
+                        type: "password",
+                        "has-errors": _vm.form.errors,
+                        validation: "required|min:6|max:16",
+                        name: "password_confirmation",
+                        "input-attrs": {
+                          minlength: 6,
+                          maxlength: 16,
+                          required: true,
+                          autocomplete: "off"
+                        }
+                      },
+                      model: {
+                        value: _vm.form.password_confirmation,
+                        callback: function($$v) {
+                          _vm.$set(
+                            _vm.form,
+                            "password_confirmation",
+                            typeof $$v === "string" ? $$v.trim() : $$v
+                          )
+                        },
+                        expression: "form.password_confirmation"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "m-portlet__foot m-portlet__foot--fit" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "m-form__actions" },
+                      [
+                        _c("portlet-submit", {
+                          attrs: { loadiing: _vm.loading, form: _vm.form }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "reset" }
+                          },
+                          [_vm._v("Cancel")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          2
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0c916e88", module.exports)
+  }
+}
+
 /***/ })
 ]));
