@@ -34,7 +34,7 @@ Route::prefix('api')->group( function () {
         'except' => ['create', 'edit']
     ]);
 
-    Route::pacth('products-order/status', 'ProductsOrderController@status');
+    Route::patch('products-order/status', 'ProductsOrderController@status');
     Route::resource('products-order', 'ProductsOrderController', [
         'except' => ['create', 'edit']
     ]);
