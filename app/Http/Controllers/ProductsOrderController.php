@@ -92,6 +92,9 @@ class ProductsOrderController extends ApiController
      */
     public function status(UpdateProductsOrderStatusRequest $request )
     {
+
+        dd($request->all());
+
         $i = 0;
         if ( $request->has('data') ) {
             foreach ( $request->all() as $purchase ) {
