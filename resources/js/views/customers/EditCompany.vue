@@ -1,7 +1,7 @@
 <template>
     <draggable-row>
         <div class="col-lg-6 offset-lg-3">
-            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.modules.title', 0, {prefix: lang.get('pages.buttons.create')})">
+            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form_edit" :title="lang.choice('pages.company.title', 0, {prefix: lang.get('pages.buttons.edit')})">
                 <template slot="actions">
                     <action-item>
                         <portlet-tool tool="remove"></portlet-tool>
@@ -16,6 +16,20 @@
                                        validation="required|alpha_spaces|min:3"
                                        name="name"
                                        :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+
+                        <portlet-input :value="form.nit" v-model="form.nit"
+                                       :has-errors="form.errors"
+                                       validation="required|min:3|max:12"
+                                       name="nit"
+                                       :input-attrs="{'minlength': 3, 'maxlength': 12, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+
+                        <portlet-input :value="form.phone" v-model="form.phone"
+                                       :has-errors="form.errors"
+                                       validation="required|min:7|max:12"
+                                       name="phone"
+                                       :input-attrs="{'minlength': 7, 'maxlength': 12, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>
 
                     </div>
@@ -34,19 +48,32 @@
 
 <script>
     import swal from 'sweetalert2'
-    import {Module} from "../../../services/models/Module";
+    import {Company} from "../../services/models/Company";
 
     export default {
-        name: "CreateModule",
+        name: "EditCompany",
         data: () => {
             return {
                 lang: lang,
-                loading: false,
                 portlet_form: null,
-                form: new Module({
-                    name: null
-                })
+                form: new Company({
+                    name: null,
+                    nit: null,
+                    phone: null
+                }),
+                loading: false
             }
+        },
+        created: function () {
+            this.form.show( this.$route.params.id )
+                .then( (response) => {
+                    this.form.name = response.data.name
+                    this.form.nit = response.data.nit
+                    this.form.phone = response.data.phone
+                })
+                .catch( error => {
+                    console.log(error)
+                })
         },
         mounted: function () {
             mApp.initTooltips();
@@ -55,40 +82,41 @@
             /** Actions for create Modules **/
             onPortletForm: function (portlet) {
                 this.portlet_form = portlet;
-                this.onReloadForm();
-                this.onRemoveForm();
+                if (this.portlet_form !== null) {
+                    this.onReloadForm();
+                    this.onRemoveForm();
+                }
             },
             onReloadForm: function () {
-                if (this.portlet_form !== null) {
-                    let that = this;
-                    this.portlet_form.on('reload', function (portlet) {
-                        that.form.reset();
-                        that.errors.clear();
-                    });
-                }
+                let that = this;
+                this.portlet_form.on('reload', function (portlet) {
+                    that.form.reset();
+                    that.errors.clear();
+                });
             },
             onRemoveForm: function () {
-                if ( this.portlet_form !== null ) {
-                    let that = this;
-                    this.portlet_form.on('beforeRemove', function (portlet) {
-                        that.$router.push({ name: 'modules'  })
-                    });
-                }
+                let that = this;
+                this.portlet_form.on('beforeRemove', function (portlet) {
+                    that.$router.push({ name: 'companies'  })
+                });
             },
             onSubmit: function () {
                 this.$validator.validateAll().then( (result) => {
                     if (result) {
-                        this.loading = true;
                         mApp.blockPage();
-                        this.form.store()
+                        this.form.update( this.$route.params.id )
                             .then( (response) => {
-                                this.loading = false;
+                                this.loading = true;
                                 mApp.unblockPage();
                                 swal({
                                     type: 'success',
                                     title: this.lang.get('pages.messages.success'),
                                     text: response.message
                                 })
+                                    .then(() => {
+                                        this.loading = false;
+                                        this.$router.push({ name: 'companies' })
+                                    })
                             })
                             .catch( (error) => {
                                 this.loading = false;
@@ -103,8 +131,8 @@
                                     })
                             })
                     }
-                });
-            }
+                })
+            },
         }
     }
 </script>

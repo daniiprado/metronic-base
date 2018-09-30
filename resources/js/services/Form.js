@@ -2,8 +2,9 @@ import {Errors} from "./Errors";
 
 export class Form {
 
-    constructor(data) {
+    constructor(data, options = {}) {
         this.originalData = data;
+        this.options = options;
 
         for (let field in data) {
             this[field] = data[field];
@@ -33,9 +34,12 @@ export class Form {
     submit(method, url) {
         return new Promise((resolve, reject) => {
             method = method.toLowerCase();
-            axios[method]( url, this.data() )
-                .then( (response) => {
-                    this.onSuccess( response.data );
+            let request = ( method === 'get' || method === 'delete' )
+                        ? axios[method]( url, this.options )
+                        : axios[method]( url, this.data(), this.options );
+
+            request.then( (response) => {
+                    this.onSuccess();
                     resolve( response.data );
                 } )
                 .catch( (error)  => {
@@ -68,7 +72,7 @@ export class Form {
         return this.submit('PATCH', url);
     }
 
-    onSuccess(response) {
+    onSuccess() {
         this.reset();
     }
 

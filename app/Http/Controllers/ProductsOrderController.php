@@ -3,6 +3,7 @@
 namespace Logistic\Http\Controllers;
 
 use Logistic\Http\Requests\StoreProductsOrderRequest;
+use Logistic\Http\Requests\UpdateProductsOrderStatusRequest;
 use Logistic\Http\Requests\UpdateProductsOrderRequest;
 use Logistic\Http\Resources\ProductsOrderResource;
 use Logistic\ProductsOrder;
@@ -82,5 +83,27 @@ class ProductsOrderController extends ApiController
             new ProductsOrderResource( $products_order ),
             200
         );
+    }
+
+    /**
+     * Update product status
+     *
+     * @param UpdateProductsOrderStatusRequest $request
+     */
+    public function status(UpdateProductsOrderStatusRequest $request )
+    {
+        $i = 0;
+        if ( $request->has('data') ) {
+            foreach ( $request->all() as $purchase ) {
+                $i++;
+                $product = ProductsOrder::find( $purchase['id'] );
+                $product->received = $purchase['status'];
+                $product->save();
+            }
+            return $this->api_success([
+                'message'   =>  "Se ha actualizado el estado de {$i} productos",
+                'code'      =>  200
+            ], 200);
+        }
     }
 }

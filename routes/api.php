@@ -24,14 +24,17 @@ Route::prefix('api')->group( function () {
     /**
      * Application Routes
      */
+    Route::get('company/datatable', 'CompanyController@datatable');
     Route::resource('company', 'CompanyController', [
         'except' => ['create', 'edit']
     ]);
 
+    Route::get('product/datatable', 'ProductController@datatable');
     Route::resource('product', 'ProductController', [
         'except' => ['create', 'edit']
     ]);
 
+    Route::get('products-order/status', 'ProductsOrderController@status');
     Route::resource('products-order', 'ProductsOrderController', [
         'except' => ['create', 'edit']
     ]);
@@ -51,10 +54,12 @@ Route::prefix('api')->group( function () {
     /**
      * Administrative Routes
      */
+    Route::get('module/datatable', 'ModuleController@datatable');
     Route::resource('module', 'ModuleController', [
         'except' => ['create', 'edit']
     ]);
 
+    Route::get('submodule/datatable', 'SubmoduleController@datatable');
     Route::resource('submodule', 'SubmoduleController', [
         'except' => ['create', 'edit']
     ]);
@@ -75,7 +80,8 @@ Route::prefix('api')->group( function () {
         'except' => ['create', 'edit']
     ]);
 
-    Route::resource('user', 'UserController', [
+    Route::get('users/datatable', 'UserController@datatable');
+    Route::resource('users', 'UserController', [
         'except' => ['create', 'edit']
     ]);
 

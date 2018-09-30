@@ -23,7 +23,7 @@
                         {{ lang.get('pages.buttons.export_tools') }}
                         <template slot="items">
                             <li class="m-nav__item">
-                                <router-link class="m-nav__link" :to="{ name: 'modules.create' }">
+                                <router-link class="m-nav__link" :to="{ name: 'submodules.create' }">
                                     <i class="m-nav__link-icon la la-plus-circle"></i>
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.add')">Create</span>
                                 </router-link>
@@ -86,6 +86,7 @@
 <script>
     import swal from 'sweetalert2'
     import {Submodule} from "../../../services/models/Submodule";
+    import {API} from "../../../services/Api";
 
     export default {
         name: "Submodules",
@@ -97,7 +98,7 @@
                 datatable: null,
                 options: {
                     ajax: {
-                        url: '/api/submodule',
+                        url: API.END_POINTS.SECURITY.SUBMODULES.DATATABLE,
                     },
                     columns: [
                         {
@@ -181,6 +182,7 @@
                 if ( this.portlet !== null ) {
                     let that = this;
                     this.portlet.on('reload', function () {
+                        this.selected = [];
                         that.datatable.ajax.reload(false);
                     });
                 }
@@ -249,7 +251,6 @@
             this.selected = [];
             this.portlet = null;
             this.datatable = null;
-
         }
     }
 </script>

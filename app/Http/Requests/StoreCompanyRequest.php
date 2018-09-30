@@ -25,8 +25,8 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'name'  =>  'required|string|max:191',
-            'nit'   =>  'required|numeric|max:12|unique:companies,nit',
-            'phone' =>  'required|numeric|max:12',
+            'nit'   =>  'required|string|max:12|unique:companies,nit',
+            'phone' =>  'required|string|max:12',
         ];
     }
 }

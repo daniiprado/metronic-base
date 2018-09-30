@@ -16,8 +16,10 @@ class CreateSubmodulesActionsTable extends Migration
         Schema::create('submodules_actions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 60);
+            $table->unsignedInteger('submodule_id');
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('submodule_id')->references('id')->on('submodules');
         });
     }
 

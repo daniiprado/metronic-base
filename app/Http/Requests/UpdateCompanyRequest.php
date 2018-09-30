@@ -25,8 +25,8 @@ class UpdateCompanyRequest extends FormRequest
     {
         return [
             'name'  =>  'required|string|max:191',
-            'nit'   =>  'required|numeric|max:12|unique:companies,nit,'.$this->get('id'),
-            'phone' =>  'required|numeric|max:12',
+            'nit'   =>  'required|string|max:12|unique:companies,nit,'.$this->route('company')->id,
+            'phone' =>  'required|string|max:12',
         ];
     }
 }

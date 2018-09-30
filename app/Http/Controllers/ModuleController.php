@@ -16,7 +16,10 @@ class ModuleController extends ApiController
      */
     public function index()
     {
-        return datatables()->eloquent( Module::query() )->toJson();
+        return $this->collectionResponse(
+            ModuleResource::collection( $this->getModel( new Module ) ),
+            200
+        );
     }
 
     /**
@@ -82,7 +85,17 @@ class ModuleController extends ApiController
         return $this->api_success([
             'data'      =>  new ModuleResource( $module ),
             'message'   =>  __('pages.responses.deleted'),
-            'code'      =>  200
-        ], 200);
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( Module::query() )->toJson();
     }
 }

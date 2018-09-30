@@ -17,11 +17,9 @@ class CreateSubmodulesTable extends Migration
             $table->increments('id');
             $table->string('name', 60);
             $table->unsignedInteger('module_id');
-            $table->unsignedInteger('submodule_action_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('module_id')->references('id')->on('modules');
-            $table->foreign('submodule_action_id')->references('id')->on('submodules_actions');
         });
     }
 

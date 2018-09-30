@@ -4,7 +4,7 @@ namespace Logistic\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSubmoduleRequest extends FormRequest
+class UpdateProductsOrderStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class StoreSubmoduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          =>  'required|string|min:3|max:60',
-            'module_id'     =>  'required|numeric|exists:modules,id'
+            'data'              =>  'required|array',
+            'data.*.id'         => 'required|exists:products_order,id',
+            'data.*.status'     => 'required|boolean',
         ];
     }
 }

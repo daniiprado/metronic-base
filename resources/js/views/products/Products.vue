@@ -1,7 +1,7 @@
 <template>
     <draggable-row>
         <div class="col-lg-12">
-            <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.modules.title', 2)">
+            <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.product.title', 2)">
                 <template slot="actions">
                     <action-item v-if="selected.length === 1">
                         <a href="javascript:;"
@@ -23,7 +23,7 @@
                         {{ lang.get('pages.buttons.export_tools') }}
                         <template slot="items">
                             <li class="m-nav__item">
-                                <router-link class="m-nav__link" :to="{ name: 'modules.create' }">
+                                <router-link class="m-nav__link" :to="{ name: 'companies.create' }">
                                     <i class="m-nav__link-icon la la-plus-circle"></i>
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.add')">Create</span>
                                 </router-link>
@@ -85,23 +85,29 @@
 
 <script>
     import swal from 'sweetalert2'
-    import {Module} from "../../../services/models/Module";
-    import {API} from "../../../services/Api";
+    import moment from 'moment-timezone'
+    import {Product} from "../../services/models/Product";
+    import {API} from "../../services/Api";
 
     export default {
-        name: "Modules",
+        name: "Products",
         data: () => {
             return {
                 lang: lang,
                 selected: [],
                 portlet: null,
-                form: new Module({
-                    name: null
+                form: new Product({
+                    code: null,
+                    name: null,
+                    stock: null,
+                    price: null,
+                    company_id: null,
+                    expired_at: null,
                 }),
                 datatable: null,
                 options: {
                     ajax: {
-                        url: API.END_POINTS.SECURITY.MODULES.DATATABLE,
+                        url: API.END_POINTS.CUSTOMERS.PRODUCT.DATATABLE,
                     },
                     columns: [
                         {
@@ -110,37 +116,80 @@
                             width: '5%',
                         },
                         {
-                            data: 'name',
-                            name: 'name',
-                            title: lang.choice('pages.modules.title', 2),
+                            data: 'code',
+                            name: 'code',
+                            title: lang.get('validation.attributes.code').capitalize(),
                             sortable: true,
                             filterable: true, // disable or enable filtering
                             width: '20%',
+                        },
+                        {
+                            data: 'name',
+                            name: 'name',
+                            title: lang.get('validation.attributes.name').capitalize(),
+                            sortable: true,
+                            filterable: true, // disable or enable filtering
+                            width: '20%',
+                        },
+                        {
+                            data: 'stock',
+                            name: 'stock',
+                            title: lang.get('validation.attributes.stock').capitalize(),
+                            sortable: true,
+                            filterable: true, // disable or enable filtering
+                            width: '20%',
+                        },
+                        {
+                            data: 'price',
+                            name: 'price',
+                            title: lang.get('validation.attributes.price').capitalize(),
+                            sortable: true,
+                            filterable: true, // disable or enable filtering
+                            width: '20%',
+                        },
+                        {
+                            data: 'company',
+                            name: 'company',
+                            title: lang.choice('pages.company.title', 2),
+                            sortable: true,
+                            filterable: true, // disable or enable filtering
+                            width: '20%',
+                        },
+                        {
+                            data: 'expired_at',
+                            name: 'expired_at',
+                            title: lang.get('validation.attributes.expired_at').capitalize(),
+                            sortable: true,
+                            filterable: true, // disable or enable filtering
+                            width: '20%',
+                            render: function (data, type, row) {
+                                return moment( data ).isValid() ? moment(data).format('YYYY-MM-DD') : null;
+                            }
                         }
                     ],
                     buttons: [
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2, 3, 4, 5, 6 ]
                             }
                         },
                         {
                             extend: 'copyHtml5',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2, 3, 4, 5, 6 ]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2, 3, 4, 5, 6 ]
                             }
                         },
                         {
                             extend: 'csvHtml5',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2, 3, 4, 5, 6 ]
                             }
                         },
                         {
@@ -148,15 +197,12 @@
                             orientation: 'portrait',
                             pageSize: 'LETTER',
                             exportOptions: {
-                                columns: [ 1 ]
+                                columns: [ 1, 2, 3, 4, 5, 6 ]
                             }
                         },
                     ],
-                },
+                }
             }
-        },
-        mounted: function () {
-            mApp.initTooltips();
         },
         methods: {
             /** Actions for Portlet **/
@@ -229,7 +275,7 @@
                 })
             },
             onEdit: function () {
-                this.$router.push({ name: 'modules.edit', params: { id: this.selected[0].id } })
+                //this.$router.push({ name: 'products.edit', params: { id: this.selected[0].id } })
             }
         },
         beforeDestroy: function () {

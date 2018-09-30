@@ -16,17 +16,27 @@ return [
     'login' => [
         'forget_password'   =>  '¿Olvidaste tu contraseña?'
     ],
+    'users' => [
+        'title' =>  '{0} :prefix Usuario|{2} Usuarios',
+    ],
     'modules' => [
         'title' =>  '{0} :prefix Módulo|{2} Módulos',
     ],
     'submodules' => [
         'title' =>  '{0} :prefix Submódulo|{2} Submódulos',
     ],
+    'company' => [
+        'title' =>  '{0} :prefix Compañía|{2} Compañías',
+    ],
+    'product' => [
+        'title' =>  '{0} :prefix Producto|{2} Productos',
+    ],
 
     'buttons' => [
         'sign_in'       =>  'Iniciar Sesión',
         'log_out'       =>  'Cerrar Sesión',
         'create'        =>  'Crear',
+        'select'        =>  'Seleccionar',
         'update'        =>  'Actualizar',
         'edit'          =>  'Modificar',
         'delete'        =>  'Eliminar',

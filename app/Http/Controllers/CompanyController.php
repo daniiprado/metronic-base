@@ -34,11 +34,13 @@ class CompanyController extends ApiController
     public function store(StoreCompanyRequest $request)
     {
         $company = new Company;
-        $company->save( $request->all() );
-        return $this->singleResponse(
-            new CompanyResource( $company ),
-            201
-        );
+        $company->fill( $request->all() );
+        $company->saveOrFail();
+        return $this->api_success([
+            'data'      =>  new CompanyResource( $company ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -65,10 +67,11 @@ class CompanyController extends ApiController
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         $company->update( $request->all() );
-        return $this->singleResponse(
-            new CompanyResource( $company ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new CompanyResource( $company ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -81,9 +84,20 @@ class CompanyController extends ApiController
     public function destroy(Company $company)
     {
         $company->delete();
-        return $this->singleResponse(
-            new CompanyResource( $company ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new CompanyResource( $company ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( Company::query() )->toJson();
     }
 }

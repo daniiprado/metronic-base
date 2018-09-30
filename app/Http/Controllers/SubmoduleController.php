@@ -17,13 +17,10 @@ class SubmoduleController extends ApiController
      */
     public function index()
     {
-        return datatables()->eloquent( Submodule::with('module') )
-                            ->addColumn('module', function (Submodule $submodule) {
-                                return isset( $submodule->module->name )
-                                        ? $submodule->module->name
-                                        : null;
-                            })
-                            ->toJson();
+        return $this->collectionResponse(
+            SubmoduleResource::collection( $this->getModel( new Submodule ) ),
+            200
+        );
     }
 
     /**
@@ -89,7 +86,23 @@ class SubmoduleController extends ApiController
         return $this->api_success([
             'data'      =>  new ModuleResource( $submodule ),
             'message'   =>  __('pages.responses.deleted'),
-            'code'      =>  200
-        ], 200);
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( Submodule::with('module') )
+                            ->addColumn('module', function (Submodule $submodule) {
+                                return isset( $submodule->module->name )
+                                    ? $submodule->module->name
+                                    : null;
+                            })
+                            ->toJson();
     }
 }

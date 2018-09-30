@@ -27,15 +27,18 @@ class ProductController extends ApiController
      *
      * @param StoreProductRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreProductRequest $request)
     {
         $product = new Product;
-        $product->save( $request->all() );
-        return $this->singleResponse(
-            new ProductResource( $product ),
-            201
-        );
+        $product->fill( $request->all() );
+        $product->saveOrFail();
+        return $this->api_success([
+            'data'      =>  new ProductResource( $product ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -62,10 +65,11 @@ class ProductController extends ApiController
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update( $request->all() );
-        return $this->singleResponse(
-            new ProductResource( $product ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ProductResource( $product ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -78,9 +82,26 @@ class ProductController extends ApiController
     public function destroy(Product $product)
     {
         $product->delete();
-        return $this->singleResponse(
-            new ProductResource( $product ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ProductResource( $product ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( Product::query() )
+                            ->addColumn('company', function (Product $product) {
+                                return isset( $product->comany->name )
+                                        ? $product->comany->name
+                                        : null;
+                            })
+                            ->toJson();
     }
 }

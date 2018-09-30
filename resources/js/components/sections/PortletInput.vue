@@ -10,6 +10,7 @@
                v-validate="validation"
                :data-vv-as="inputName"
                class="form-control m-input"
+               :ref="name"
                :placeholder="inputName.capitalize()">
         <slot></slot>
         <feedback :show="errors.has( name ) || hasErrors.has( name )">

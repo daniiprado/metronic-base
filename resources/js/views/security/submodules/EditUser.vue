@@ -1,7 +1,7 @@
 <template>
     <draggable-row>
         <div class="col-lg-6 offset-lg-3">
-            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form_edit" :title="lang.choice('pages.modules.title', 0, {prefix: lang.get('pages.buttons.edit')})">
+            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.users.title', 0, {prefix: lang.get('pages.buttons.create')})">
                 <template slot="actions">
                     <action-item>
                         <portlet-tool tool="remove"></portlet-tool>
@@ -11,11 +11,43 @@
                 <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right">
                     <div class="m-portlet__body">
 
+                        <portlet-select :options="select"
+                                        :value="form.company_id"
+                                        v-model.number="form.company_id"
+                                        :has-errors="form.errors"
+                                        :input-attrs="{'required': true}"
+                                        name="company_id" validation="required">
+                        </portlet-select>
+
                         <portlet-input :value="form.name" v-model="form.name"
                                        :has-errors="form.errors"
-                                       validation="required|alpha_spaces|min:3"
+                                       validation="required|alpha_spaces|min:3|max:60"
                                        name="name"
-                                       :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
+                                       :input-attrs="{'minlength': 3, 'maxlength': 191, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+
+                        <portlet-input :value="form.email" v-model="form.email"
+                                       type="email"
+                                       :has-errors="form.errors"
+                                       validation="required|email"
+                                       name="email"
+                                       :input-attrs="{'minlength': 3, 'maxlength': 80, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+
+                        <portlet-input :value="form.password" v-model.trim="form.password"
+                                       type="password"
+                                       :has-errors="form.errors"
+                                       validation="required|max:16|min:6|confirmed:password_confirmation"
+                                       name="password"
+                                       :input-attrs="{'minlength': 6, 'maxlength': 16, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+
+                        <portlet-input :value="form.password_confirmation" v-model.trim="form.password_confirmation"
+                                       type="password"
+                                       :has-errors="form.errors"
+                                       validation="required|min:6|max:16"
+                                       name="password_confirmation"
+                                       :input-attrs="{'minlength': 6, 'maxlength': 16, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>
 
                     </div>
@@ -33,17 +65,19 @@
 </template>
 
 <script>
+    import {User} from "../../../services/models/User";
+    import {API} from "../../../services/Api";
     import swal from 'sweetalert2'
-    import {Module} from "../../../services/models/Module";
-
     export default {
-        name: "EditModule",
+        name: "EditUser",
         data: () => {
             return {
                 lang: lang,
                 portlet_form: null,
-                form: new Module({
-                    name: null
+                form: new User({
+                    name: null,
+                    email: null,
+                    company_id: null
                 }),
                 loading: false
             }
@@ -52,6 +86,8 @@
             this.form.show( this.$route.params.id )
                 .then( (response) => {
                     this.form.name = response.data.name
+                    this.form.email = response.data.email
+                    this.form.company_id = response.data.company_id
                 })
                 .catch( error => {
                     console.log(error)
@@ -79,7 +115,7 @@
             onRemoveForm: function () {
                 let that = this;
                 this.portlet_form.on('beforeRemove', function (portlet) {
-                    that.$router.push({ name: 'modules'  })
+                    that.$router.push({ name: 'users'  })
                 });
             },
             onSubmit: function () {
@@ -97,7 +133,7 @@
                                 })
                                     .then(() => {
                                         this.loading = false;
-                                        this.$router.push({ name: 'modules' })
+                                        this.$router.push({ name: 'users' })
                                     })
                             })
                             .catch( (error) => {

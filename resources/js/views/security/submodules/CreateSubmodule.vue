@@ -1,6 +1,7 @@
 <template>
     <draggable-row>
-        <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.submodules.title', 0, {prefix: lang.get('pages.buttons.create')})">
+        <div class="col-lg-6 offset-lg-3">
+            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.submodules.title', 0, {prefix: lang.get('pages.buttons.create')})">
             <template slot="actions">
                 <action-item>
                     <portlet-tool tool="remove"></portlet-tool>
@@ -10,9 +11,17 @@
             <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right">
                 <div class="m-portlet__body">
 
+                    <portlet-select :options="select"
+                                    :value="form.module_id"
+                                    v-model="form.module_id"
+                                    :has-errors="form.errors"
+                                    :input-attrs="{'required': true}"
+                                    name="module_id" validation="required">
+                    </portlet-select>
+
                     <portlet-input :value="form.name" v-model="form.name"
                                    :has-errors="form.errors"
-                                   validation="required|alpha_spaces|min:3"
+                                   validation="required|alpha_spaces|min:3|max:60"
                                    name="name"
                                    :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
                     </portlet-input>
@@ -20,23 +29,21 @@
                 </div>
                 <div class="m-portlet__foot m-portlet__foot--fit">
                     <div class="m-form__actions">
-                        <button type="submit"
-                                :class="{ 'm-loader m-loader--right m-loader--light': loading }"
-                                :disabled="loading || form.errors.any() || errors.any()"
-                                class="btn btn-primary">
-                            Submit
-                        </button>
+                        <portlet-submit :loadiing="loading" :form="form"></portlet-submit>
                         <button type="reset" class="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
             </form>
 
         </portlet-form>
+        </div>
     </draggable-row>
 </template>
 
 <script>
-
+    import {Submodule} from "../../../services/models/Submodule";
+    import {API} from "../../../services/Api";
+    import swal from 'sweetalert2';
     export default {
         name: "CreateSubmodule",
         data: () => {
@@ -44,15 +51,39 @@
                 lang: lang,
                 loading: false,
                 portlet_form: null,
-                form: new Form({
+                form: new Submodule({
                     name: null,
                     module_id: null
                 }),
-                options: []
+                options: [],
+                select: {
+                    ajax: {
+                        url: API.END_POINTS.SECURITY.MODULES.ROOT,
+                        data: function (params) {
+                            let query = {
+                                query: params.term,
+                                per_page: 15,
+                                page: params.page || 1,
+                            }
+                            return query;
+                        },
+                        processResults: function (data, params) {
+                            params.page = params.page || 1;
+                            return {
+                                results: data.data.map( (item) => {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    }
+                                }),
+                                pagination: {
+                                    more: (params.page * 10) < data.meta.total
+                                }
+                            }
+                        },
+                    }
+                }
             }
-        },
-        created: function () {
-            
         },
         mounted: function () {
             mApp.initTooltips();
@@ -61,32 +92,30 @@
             /** Actions for create Modules **/
             onPortletForm: function (portlet) {
                 this.portlet_form = portlet;
-                this.onReloadForm();
-                this.onRemoveForm();
+                if (this.portlet_form !== null) {
+                    this.onReloadForm();
+                    this.onRemoveForm();
+                }
             },
             onReloadForm: function () {
-                if (this.portlet_form !== null) {
-                    let that = this;
-                    this.portlet_form.on('reload', function (portlet) {
-                        that.form.reset();
-                        that.errors.clear();
-                    });
-                }
+                let that = this;
+                this.portlet_form.on('reload', function (portlet) {
+                    that.form.reset();
+                    that.errors.clear();
+                });
             },
             onRemoveForm: function () {
-                if ( this.portlet_form !== null ) {
-                    let that = this;
-                    this.portlet_form.on('beforeRemove', function (portlet) {
-                        that.$router.push({ name: 'modules'  })
-                    });
-                }
+                let that = this;
+                this.portlet_form.on('beforeRemove', function (portlet) {
+                    that.$router.push({ name: 'submodules'  })
+                });
             },
             onSubmit: function () {
                 this.$validator.validateAll().then( (result) => {
                     if (result) {
                         this.loading = true;
                         mApp.blockPage();
-                        this.form.post('/api/module')
+                        this.form.store()
                             .then( (response) => {
                                 this.loading = false;
                                 mApp.unblockPage();

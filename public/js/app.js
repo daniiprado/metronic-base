@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		5: 0
+/******/ 		7: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/" + ({"0":"global","1":"modules","2":"login","3":"submodules","4":"dashboard"}[chunkId]||chunkId) + ".bundle.js";
+/******/ 		script.src = __webpack_require__.p + "js/" + ({"0":"global","1":"modules","2":"companies","3":"submodules","4":"products","5":"login","6":"dashboard","8":"users"}[chunkId]||chunkId) + ".bundle.js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -495,7 +495,33 @@ var API = {
     PATH: '/api/',
     CLIENT_ID: 2,
     CLIENT_SECRET: 'b6T5HoJmA6IJ7t7YCtaS0dXszae8ysxdgySdX2sf',
-    GRANT_TYPE: 'password'
+    GRANT_TYPE: 'password',
+    END_POINTS: {
+        SECURITY: {
+            MODULES: {
+                ROOT: '/api/module',
+                DATATABLE: '/api/module/datatable'
+            },
+            SUBMODULES: {
+                ROOT: '/api/submodule',
+                DATATABLE: '/api/submodule/datatable'
+            },
+            USERS: {
+                ROOT: '/api/users',
+                DATATABLE: '/api/users/datatable'
+            }
+        },
+        CUSTOMERS: {
+            COMPANY: {
+                ROOT: '/api/company',
+                DATATABLE: '/api/company/datatable'
+            },
+            PRODUCT: {
+                ROOT: '/api/product',
+                DATATABLE: '/api/product/datatable'
+            }
+        }
+    }
 };
 
 /***/ }),
@@ -12687,9 +12713,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Form = function () {
     function Form(data) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
         _classCallCheck(this, Form);
 
         this.originalData = data;
+        this.options = options;
 
         for (var field in data) {
             this[field] = data[field];
@@ -12725,8 +12754,10 @@ var Form = function () {
 
             return new Promise(function (resolve, reject) {
                 method = method.toLowerCase();
-                axios[method](url, _this.data()).then(function (response) {
-                    _this.onSuccess(response.data);
+                var request = method === 'get' || method === 'delete' ? axios[method](url, _this.options) : axios[method](url, _this.data(), _this.options);
+
+                request.then(function (response) {
+                    _this.onSuccess();
                     resolve(response.data);
                 }).catch(function (error) {
                     if (error.hasOwnProperty('response')) {
@@ -12764,7 +12795,7 @@ var Form = function () {
         }
     }, {
         key: 'onSuccess',
-        value: function onSuccess(response) {
+        value: function onSuccess() {
             this.reset();
         }
     }, {
@@ -12778,8 +12809,7 @@ var Form = function () {
 }();
 
 /***/ }),
-/* 17 */,
-/* 18 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -12807,6 +12837,7 @@ module.exports = function(module) {
 
 
 /***/ }),
+/* 18 */,
 /* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -30154,7 +30185,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(18)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(17)(module)))
 
 /***/ }),
 /* 25 */
@@ -31545,7 +31576,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/login',
         name: 'login',
         component: function component() {
-            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 17));
+            return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 18));
         },
         meta: {
             forVisitors: true
@@ -31555,7 +31586,43 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/home',
         name: 'home',
         component: function component() {
-            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 84));
+            return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 84));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    },
+    /**
+     * ------------------------------
+     * Security
+     * ------------------------------
+     */
+    {
+        path: '/users',
+        name: 'users',
+        component: function component() {
+            return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 507));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/users/create',
+        name: 'users.create',
+        component: function component() {
+            return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 513));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/users/create',
+        name: 'users.create',
+        component: function component() {
+            return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 513));
         },
         meta: {
             requiresAuth: true
@@ -31596,6 +31663,62 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         name: 'submodules',
         component: function component() {
             return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 88));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/submodules/create',
+        name: 'submodules.create',
+        component: function component() {
+            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 89));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    },
+    /**
+     * ------------------------------
+     * Customers
+     * ------------------------------
+     */
+    {
+        path: '/companies',
+        name: 'companies',
+        component: function component() {
+            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 90));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/companies/create',
+        name: 'companies.create',
+        component: function component() {
+            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 91));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/companies/:id/edit',
+        name: 'companies.edit',
+        component: function component() {
+            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 92));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/products',
+        name: 'products',
+        component: function component() {
+            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 93));
         },
         meta: {
             requiresAuth: true
@@ -44224,7 +44347,7 @@ module.exports = {"accepted":"The :attribute must be accepted.","active_url":"Th
 /* 69 */
 /***/ (function(module, exports) {
 
-module.exports = {"accepted":"El campo :attribute debe ser aceptado.","active_url":"El campo :attribute no es una URL válida.","after":"El campo :attribute debe ser una fecha posterior a :date.","after_or_equal":"El campo :attribute debe ser una fecha posterior o igual a :date.","alpha":"El campo :attribute sólo debe contener letras.","alpha_dash":"El campo :attribute sólo debe contener letras, números y guiones.","alpha_num":"El campo :attribute sólo debe contener letras y números.","array":"El campo :attribute debe ser un conjunto.","before":"El campo :attribute debe ser una fecha anterior a :date.","before_or_equal":"El campo :attribute debe ser una fecha anterior o igual a :date.","between":{"numeric":"El campo :attribute tiene que estar entre :min - :max.","file":"El campo :attribute debe pesar entre :min - :max kilobytes.","string":"El campo :attribute tiene que tener entre :min - :max caracteres.","array":"El campo :attribute tiene que tener entre :min - :max ítems."},"boolean":"El campo :attribute debe tener un valor verdadero o falso.","confirmed":"La confirmación de :attribute no coincide.","date":"El campo :attribute no es una fecha válida.","date_format":"El campo :attribute no corresponde al formato :format.","different":"El campo :attribute y :other deben ser diferentes.","digits":"El campo :attribute debe tener :digits dígitos.","digits_between":"El campo :attribute debe tener entre :min y :max dígitos.","dimensions":"Las dimensiones de la imagen :attribute no son válidas.","distinct":"El campo :attribute contiene un valor duplicado.","email":"El campo :attribute no es un correo válido","exists":"El campo :attribute es inválido.","file":"El campo :attribute debe ser un archivo.","filled":"El campo :attribute es obligatorio.","gt":{"numeric":"El campo :attribute debe ser mayor que :value.","file":"El campo :attribute debe tener más de :value kilobytes.","string":"El campo :attribute debe tener más de :value caracteres.","array":"El campo :attribute debe tener más de :value elementos."},"gte":{"numeric":"El campo :attribute debe ser como mínimo :value.","file":"El campo :attribute debe tener como mínimo :value kilobytes.","string":"El campo :attribute debe tener como mínimo :value caracteres.","array":"El campo :attribute debe tener como mínimo :value elementos."},"image":"El campo :attribute debe ser una imagen.","in":"El campo :attribute es inválido.","in_array":"El campo :attribute no existe en :other.","integer":"El campo :attribute debe ser un número entero.","ip":"El campo :attribute debe ser una dirección IP válida.","ipv4":"El campo :attribute debe ser un dirección IPv4 válida","ipv6":"El campo :attribute debe ser un dirección IPv6 válida.","json":"El campo :attribute debe tener una cadena JSON válida.","lt":{"numeric":"El campo :attribute debe ser menor que :value.","file":"El campo :attribute debe tener menos de :value kilobytes.","string":"El campo :attribute debe tener menos de :value caracteres.","array":"El campo :attribute debe tener menos de :value elementos."},"lte":{"numeric":"El campo :attribute debe ser como máximo :value.","file":"El campo :attribute debe tener como máximo :value kilobytes.","string":"El campo :attribute debe tener como máximo :value caracteres.","array":"El campo :attribute debe tener como máximo :value elementos."},"max":{"numeric":"El campo :attribute no debe ser mayor a :max.","file":"El campo :attribute no debe ser mayor que :max kilobytes.","string":"El campo :attribute no debe ser mayor que :max caracteres.","array":"El campo :attribute no debe tener más de :max elementos."},"mimes":"El campo :attribute debe ser un archivo con formato: :values.","mimetypes":"El campo :attribute debe ser un archivo con formato: :values.","min":{"numeric":"El tamaño de :attribute debe ser de al menos :min.","file":"El tamaño de :attribute debe ser de al menos :min kilobytes.","string":"El campo :attribute debe contener al menos :min caracteres.","array":"El campo :attribute debe tener al menos :min elementos."},"not_in":"El campo :attribute es inválido.","not_regex":"El formato del campo :attribute no es válido.","numeric":"El campo :attribute debe ser numérico.","order_by":"El campo :attribute sólo puede contener los valores \"asc\" o \"desc\"","present":"El campo :attribute debe estar presente.","regex":"El formato de :attribute es inválido.","required":"El campo :attribute es obligatorio.","required_if":"El campo :attribute es obligatorio cuando :other es :value.","required_unless":"El campo :attribute es obligatorio a menos que :other esté en :values.","required_with":"El campo :attribute es obligatorio cuando :values está presente.","required_with_all":"El campo :attribute es obligatorio cuando :values está presente.","required_without":"El campo :attribute es obligatorio cuando :values no está presente.","required_without_all":"El campo :attribute es obligatorio cuando ninguno de :values estén presentes.","same":"El campo :attribute y :other deben coincidir.","size":{"numeric":"El tamaño de :attribute debe ser :size.","file":"El tamaño de :attribute debe ser :size kilobytes.","string":"El campo :attribute debe contener :size caracteres.","array":"El campo :attribute debe contener :size elementos."},"string":"El campo :attribute debe ser una cadena de caracteres.","timezone":"El :attribute debe ser una zona válida.","unique":"El campo :attribute ya ha sido registrado.","uploaded":"Subir :attribute ha fallado.","url":"El formato :attribute es inválido.","custom":{"password":{"min":"La :attribute debe contener más de :min caracteres"},"email":{"unique":"El :attribute ya ha sido registrado."}},"handler":{"resource_not_found":"No existe ninguna instacia para el valor especificado.","resource_not_found_url":"La URL solicitada no existe.","unauthenticated":"No estás autenticado para esta solicitud.","unauthorized":"No estás autorizado para esta solicitud.","relation_not_found":"La relación solicitada no existe.","column_not_found":"La columna solicitada no existe.","relation_not_delete":"El recurso no puede ser eliminado, contiene información asociada.","validation_failed":"La información dada no pasó la validación.","syntax_error":"la sintaxis de la entidad de solicitud no es correcta.","method_allow":"El método especificado no existe.","unexpected_failure":"Error inesperado, inténtalo de nuevo en un momento.","conflict":"La solicitud no se pudo procesar debido a un conflicto.","service_unavailable":"El servicio no está disponible, vuelve a intentarlo en un momento.","token_mismatch":"El token no coincide con el solicitud, por favor intenta recargar la página.","max_attempts":"{1} Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minuto.|[2,*] Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minutos.","connection_refused":":db ha rechazado la conexión."},"attributes":{"name":"nombre","username":"usuario","email":"correo electrónico","first_name":"nombre","last_name":"apellido","password":"contraseña","password_confirmation":"confirmación de la contraseña","city":"ciudad","country":"país","address":"dirección","phone":"teléfono","mobile":"móvil","age":"edad","sex":"sexo","gender":"género","year":"año","month":"mes","day":"día","hour":"hora","minute":"minuto","second":"segundo","title":"título","content":"contenido","body":"contenido","description":"descripción","excerpt":"extracto","date":"fecha","time":"hora","subject":"asunto","message":"mensaje","per_page":"por página","order_by":"ordenado por","direction":"dirección","canceled":"cancelado","active":"vigente","modified":"modificado","remember_me":"recordame"}};
+module.exports = {"accepted":"El campo :attribute debe ser aceptado.","active_url":"El campo :attribute no es una URL válida.","after":"El campo :attribute debe ser una fecha posterior a :date.","after_or_equal":"El campo :attribute debe ser una fecha posterior o igual a :date.","alpha":"El campo :attribute sólo debe contener letras.","alpha_dash":"El campo :attribute sólo debe contener letras, números y guiones.","alpha_num":"El campo :attribute sólo debe contener letras y números.","array":"El campo :attribute debe ser un conjunto.","before":"El campo :attribute debe ser una fecha anterior a :date.","before_or_equal":"El campo :attribute debe ser una fecha anterior o igual a :date.","between":{"numeric":"El campo :attribute tiene que estar entre :min - :max.","file":"El campo :attribute debe pesar entre :min - :max kilobytes.","string":"El campo :attribute tiene que tener entre :min - :max caracteres.","array":"El campo :attribute tiene que tener entre :min - :max ítems."},"boolean":"El campo :attribute debe tener un valor verdadero o falso.","confirmed":"La confirmación de :attribute no coincide.","date":"El campo :attribute no es una fecha válida.","date_format":"El campo :attribute no corresponde al formato :format.","different":"El campo :attribute y :other deben ser diferentes.","digits":"El campo :attribute debe tener :digits dígitos.","digits_between":"El campo :attribute debe tener entre :min y :max dígitos.","dimensions":"Las dimensiones de la imagen :attribute no son válidas.","distinct":"El campo :attribute contiene un valor duplicado.","email":"El campo :attribute no es un correo válido","exists":"El campo :attribute es inválido.","file":"El campo :attribute debe ser un archivo.","filled":"El campo :attribute es obligatorio.","gt":{"numeric":"El campo :attribute debe ser mayor que :value.","file":"El campo :attribute debe tener más de :value kilobytes.","string":"El campo :attribute debe tener más de :value caracteres.","array":"El campo :attribute debe tener más de :value elementos."},"gte":{"numeric":"El campo :attribute debe ser como mínimo :value.","file":"El campo :attribute debe tener como mínimo :value kilobytes.","string":"El campo :attribute debe tener como mínimo :value caracteres.","array":"El campo :attribute debe tener como mínimo :value elementos."},"image":"El campo :attribute debe ser una imagen.","in":"El campo :attribute es inválido.","in_array":"El campo :attribute no existe en :other.","integer":"El campo :attribute debe ser un número entero.","ip":"El campo :attribute debe ser una dirección IP válida.","ipv4":"El campo :attribute debe ser un dirección IPv4 válida","ipv6":"El campo :attribute debe ser un dirección IPv6 válida.","json":"El campo :attribute debe tener una cadena JSON válida.","lt":{"numeric":"El campo :attribute debe ser menor que :value.","file":"El campo :attribute debe tener menos de :value kilobytes.","string":"El campo :attribute debe tener menos de :value caracteres.","array":"El campo :attribute debe tener menos de :value elementos."},"lte":{"numeric":"El campo :attribute debe ser como máximo :value.","file":"El campo :attribute debe tener como máximo :value kilobytes.","string":"El campo :attribute debe tener como máximo :value caracteres.","array":"El campo :attribute debe tener como máximo :value elementos."},"max":{"numeric":"El campo :attribute no debe ser mayor a :max.","file":"El campo :attribute no debe ser mayor que :max kilobytes.","string":"El campo :attribute no debe ser mayor que :max caracteres.","array":"El campo :attribute no debe tener más de :max elementos."},"mimes":"El campo :attribute debe ser un archivo con formato: :values.","mimetypes":"El campo :attribute debe ser un archivo con formato: :values.","min":{"numeric":"El tamaño de :attribute debe ser de al menos :min.","file":"El tamaño de :attribute debe ser de al menos :min kilobytes.","string":"El campo :attribute debe contener al menos :min caracteres.","array":"El campo :attribute debe tener al menos :min elementos."},"not_in":"El campo :attribute es inválido.","not_regex":"El formato del campo :attribute no es válido.","numeric":"El campo :attribute debe ser numérico.","order_by":"El campo :attribute sólo puede contener los valores \"asc\" o \"desc\"","present":"El campo :attribute debe estar presente.","regex":"El formato de :attribute es inválido.","required":"El campo :attribute es obligatorio.","required_if":"El campo :attribute es obligatorio cuando :other es :value.","required_unless":"El campo :attribute es obligatorio a menos que :other esté en :values.","required_with":"El campo :attribute es obligatorio cuando :values está presente.","required_with_all":"El campo :attribute es obligatorio cuando :values está presente.","required_without":"El campo :attribute es obligatorio cuando :values no está presente.","required_without_all":"El campo :attribute es obligatorio cuando ninguno de :values estén presentes.","same":"El campo :attribute y :other deben coincidir.","size":{"numeric":"El tamaño de :attribute debe ser :size.","file":"El tamaño de :attribute debe ser :size kilobytes.","string":"El campo :attribute debe contener :size caracteres.","array":"El campo :attribute debe contener :size elementos."},"string":"El campo :attribute debe ser una cadena de caracteres.","timezone":"El :attribute debe ser una zona válida.","unique":"El campo :attribute ya ha sido registrado.","uploaded":"Subir :attribute ha fallado.","url":"El formato :attribute es inválido.","custom":{"password":{"min":"La :attribute debe contener más de :min caracteres"},"email":{"unique":"El :attribute ya ha sido registrado."}},"handler":{"resource_not_found":"No existe ninguna instacia para el valor especificado.","resource_not_found_url":"La URL solicitada no existe.","unauthenticated":"No estás autenticado para esta solicitud.","unauthorized":"No estás autorizado para esta solicitud.","relation_not_found":"La relación solicitada no existe.","column_not_found":"La columna solicitada no existe.","relation_not_delete":"El recurso no puede ser eliminado, contiene información asociada.","validation_failed":"La información dada no pasó la validación.","syntax_error":"la sintaxis de la entidad de solicitud no es correcta.","method_allow":"El método especificado no existe.","unexpected_failure":"Error inesperado, inténtalo de nuevo en un momento.","conflict":"La solicitud no se pudo procesar debido a un conflicto.","service_unavailable":"El servicio no está disponible, vuelve a intentarlo en un momento.","token_mismatch":"El token no coincide con el solicitud, por favor intenta recargar la página.","max_attempts":"{1} Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minuto.|[2,*] Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minutos.","connection_refused":":db ha rechazado la conexión."},"attributes":{"name":"nombre","username":"usuario","email":"correo electrónico","first_name":"nombre","last_name":"apellido","password":"contraseña","password_confirmation":"confirmación de la contraseña","city":"ciudad","country":"país","address":"dirección","phone":"teléfono","mobile":"móvil","age":"edad","sex":"sexo","gender":"género","year":"año","month":"mes","day":"día","hour":"hora","minute":"minuto","second":"segundo","title":"título","content":"contenido","body":"contenido","description":"descripción","excerpt":"extracto","date":"fecha","time":"hora","subject":"asunto","message":"mensaje","per_page":"por página","order_by":"ordenado por","direction":"dirección","canceled":"cancelado","active":"vigente","modified":"modificado","remember_me":"recordame","nit":"nit","code":"código","stock":"existencia","price":"precio","expired_at":"fecha de expiración","created_at":"fecha de creación","updated_at":"fecha de actualización","deleted_at":"fecha de eliminación","module_id":"módulo","company_id":"compañía"}};
 
 /***/ }),
 /* 70 */
@@ -44272,7 +44395,7 @@ module.exports = {"failed":"These credentials do not match our records.","thrott
 /* 77 */
 /***/ (function(module, exports) {
 
-module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"modules":{"title":"{0} :prefix Módulo|{2} Módulos"},"submodules":{"title":"{0} :prefix Submódulo|{2} Submódulos"},"buttons":{"sign_in":"Iniciar Sesión","log_out":"Cerrar Sesión","create":"Crear","update":"Actualizar","edit":"Modificar","delete":"Eliminar","restore":"Restaurar","save":"Guardar","cancel":"Cancelar","add":"Añadir","add_file":"Añadir Archivo","zoom_in":"Ampliar","zoom_out":"Alejar","rotate":"Girar","new":"Nuevo","print":"Imprimir","copy":"Copiar","excel":"Excel","csv":"CSV","pdf":"PDF","export_tools":"Herramientas de Exportación"},"messages":{"success":"¡Bien Hecho!","warning":"Advertencia","error":"Error","info":"Información","question":"Pregunta","comfirm_delete":"{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?"},"responses":{"created":"Se han almacenado los datos satisfactoriamente.","created_fail":"No se han almacenado los datos intenta de nuevo.","updated":"Se han actualizado los datos satisfactoriamente.","updated_fail":"No se han actualizado los datos intenta de nuevo.","deleted":"Se han eliminado los datos satisfactoriamente.","deleted_fail":"No se han eliminado los datos intenta de nuevo."}};
+module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"users":{"title":"{0} :prefix Usuario|{2} Usuarios"},"modules":{"title":"{0} :prefix Módulo|{2} Módulos"},"submodules":{"title":"{0} :prefix Submódulo|{2} Submódulos"},"company":{"title":"{0} :prefix Compañía|{2} Compañías"},"product":{"title":"{0} :prefix Producto|{2} Productos"},"buttons":{"sign_in":"Iniciar Sesión","log_out":"Cerrar Sesión","create":"Crear","select":"Seleccionar","update":"Actualizar","edit":"Modificar","delete":"Eliminar","restore":"Restaurar","save":"Guardar","cancel":"Cancelar","add":"Añadir","add_file":"Añadir Archivo","zoom_in":"Ampliar","zoom_out":"Alejar","rotate":"Girar","new":"Nuevo","print":"Imprimir","copy":"Copiar","excel":"Excel","csv":"CSV","pdf":"PDF","export_tools":"Herramientas de Exportación"},"messages":{"success":"¡Bien Hecho!","warning":"Advertencia","error":"Error","info":"Información","question":"Pregunta","comfirm_delete":"{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?"},"responses":{"created":"Se han almacenado los datos satisfactoriamente.","created_fail":"No se han almacenado los datos intenta de nuevo.","updated":"Se han actualizado los datos satisfactoriamente.","updated_fail":"No se han actualizado los datos intenta de nuevo.","deleted":"Se han eliminado los datos satisfactoriamente.","deleted_fail":"No se han eliminado los datos intenta de nuevo."}};
 
 /***/ }),
 /* 78 */
@@ -44286,38 +44409,44 @@ module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"mod
 var GlobalComponents = {
     install: function install(Vue) {
         Vue.component('login', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 89));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 94));
+        });
+        Vue.component('portlet-select', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 95));
+        });
+        Vue.component('portlet-submit', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 96));
         });
         Vue.component('login-layout', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 17));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 18));
         });
         Vue.component('dashboard-layout', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 90));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 97));
         });
         Vue.component('quick-sidebar', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 91));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 98));
         });
         Vue.component('scroll-top', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 92));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 99));
         });
         Vue.component('layout-tolltips', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 93));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 100));
         });
         Vue.component('loader-base', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 94));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 101));
         });
 
         Vue.component('top-navbar-user', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 95));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 102));
         });
         Vue.component('top-bar-search', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 96));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 103));
         });
         Vue.component('top-bar-notifications', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 97));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 104));
         });
         Vue.component('top-bar-quick-actions', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 98));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 105));
         });
         Vue.component('top-bar-languages', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 20));
@@ -44326,77 +44455,77 @@ var GlobalComponents = {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 20));
         });
         Vue.component('top-bar', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 99));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 106));
         });
         Vue.component('brand', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 100));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 107));
         });
 
         Vue.component('header-base', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 101));
-        });
-        Vue.component('hor-menu', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 102));
-        });
-        Vue.component('sub-header', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 103));
-        });
-
-        Vue.component('menu-left', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 104));
-        });
-        Vue.component('aside-left', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 105));
-        });
-        Vue.component('aside-section', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 106));
-        });
-        Vue.component('aside-menu', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 107));
-        });
-        Vue.component('aside-menu-sub-menu', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 108));
         });
-        Vue.component('aside-menu-item', function () {
+        Vue.component('hor-menu', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 109));
         });
-        Vue.component('aside-menu-badge', function () {
+        Vue.component('sub-header', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 110));
         });
 
-        Vue.component('vue-footer', function () {
+        Vue.component('menu-left', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 111));
         });
-        Vue.component('draggable-row', function () {
+        Vue.component('aside-left', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 112));
+        });
+        Vue.component('aside-section', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 113));
+        });
+        Vue.component('aside-menu', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 114));
+        });
+        Vue.component('aside-menu-sub-menu', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 115));
+        });
+        Vue.component('aside-menu-item', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 116));
+        });
+        Vue.component('aside-menu-badge', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 117));
+        });
+
+        Vue.component('vue-footer', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 118));
+        });
+        Vue.component('draggable-row', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 119));
         });
 
         Vue.component('portlet', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 113));
-        });
-        Vue.component('empty-portlet', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 114));
-        });
-        Vue.component('action-item', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 115));
-        });
-        Vue.component('portlet-tool', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 116));
-        });
-        Vue.component('portlet-form', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 117));
-        });
-        Vue.component('portlet-input', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 118));
-        });
-        Vue.component('data-table', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 119));
-        });
-        Vue.component('portlet-dropdown-actions', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 120));
         });
-        Vue.component('feedback', function () {
+        Vue.component('empty-portlet', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 121));
+        });
+        Vue.component('action-item', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 122));
+        });
+        Vue.component('portlet-tool', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 123));
+        });
+        Vue.component('portlet-form', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 124));
+        });
+        Vue.component('portlet-input', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 125));
+        });
+        Vue.component('data-table', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 126));
+        });
+        Vue.component('portlet-dropdown-actions', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 127));
+        });
+        Vue.component('feedback', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 128));
         });
     }
 };

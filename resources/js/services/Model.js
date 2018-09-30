@@ -3,8 +3,8 @@ import {Form} from "./Form";
 
 export class Model extends Form {
 
-    constructor( url, data ) {
-        super(data);
+    constructor( url, data, options = {} ) {
+        super(data, options);
         this.url = url;
     }
 

@@ -5,6 +5,8 @@
 const GlobalComponents = {
     install(Vue) {
         Vue.component('login', () => import(/* webpackChunkName: "global" */ './views/auth/Login.vue'));
+        Vue.component('portlet-select', () => import(/* webpackChunkName: "global" */ './components/sections/PortletSelect'));
+        Vue.component('portlet-submit', () => import(/* webpackChunkName: "global" */ './components/sections/SubmitButton'));
         Vue.component('login-layout', () => import(/* webpackChunkName: "global" */'./components/sections/LoginLayout'));
         Vue.component('dashboard-layout', () => import(/* webpackChunkName: "global" */'./components/sections/DashboardLayout'));
         Vue.component('quick-sidebar', () => import(/* webpackChunkName: "global" */'./components/sections/QuickSideBar'));

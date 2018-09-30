@@ -26,9 +26,12 @@ class ProductsOrder extends Model implements Auditable
     protected $fillable = [
         'quantity',
         'price',
-        'received',
         'purchase_order_id',
         'product_id',
+    ];
+
+    protected $guarded = [
+        'received'
     ];
 
     /**

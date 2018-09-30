@@ -31,6 +31,38 @@ export default new Router({
                 //bodyClass: common
             }
         },
+        /**
+         * ------------------------------
+         * Security
+         * ------------------------------
+         */
+        {
+            path: '/users',
+            name: 'users',
+            component: () => import(/* webpackChunkName: "users" */ './../views/security/users/Users'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/users/create',
+            name: 'users.create',
+            component: () => import(/* webpackChunkName: "users" */ './../views/security/users/CreateUser'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/users/create',
+            name: 'users.create',
+            component: () => import(/* webpackChunkName: "users" */ './../views/security/users/CreateUser'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
         {
             path: '/modules',
             name: 'modules',
@@ -62,6 +94,56 @@ export default new Router({
             path: '/submodules',
             name: 'submodules',
             component: () => import(/* webpackChunkName: "submodules" */ './../views/security/submodules/Submodules'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/submodules/create',
+            name: 'submodules.create',
+            component: () => import(/* webpackChunkName: "submodules" */ './../views/security/submodules/CreateSubmodule'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        /**
+         * ------------------------------
+         * Customers
+         * ------------------------------
+         */
+        {
+            path: '/companies',
+            name: 'companies',
+            component: () => import(/* webpackChunkName: "companies" */ './../views/customers/Company'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/companies/create',
+            name: 'companies.create',
+            component: () => import(/* webpackChunkName: "companies" */ './../views/customers/CreateCompany'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/companies/:id/edit',
+            name: 'companies.edit',
+            component: () => import(/* webpackChunkName: "companies" */ './../views/customers/EditCompany'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/products',
+            name: 'products',
+            component: () => import(/* webpackChunkName: "products" */ './../views/products/Products'),
             meta: {
                 requiresAuth: true,
                 //bodyClass: common

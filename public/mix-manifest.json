@@ -1,9 +1,12 @@
 {
     "/js/global.bundle.js": "/js/global.bundle.js",
     "/js/modules.bundle.js": "/js/modules.bundle.js",
-    "/js/login.bundle.js": "/js/login.bundle.js",
+    "/js/companies.bundle.js": "/js/companies.bundle.js",
     "/js/submodules.bundle.js": "/js/submodules.bundle.js",
+    "/js/products.bundle.js": "/js/products.bundle.js",
+    "/js/login.bundle.js": "/js/login.bundle.js",
     "/js/dashboard.bundle.js": "/js/dashboard.bundle.js",
     "/js/app.js": "/js/app.js",
-    "/css/fonts.bundle.css": "/css/fonts.bundle.css"
+    "/css/fonts.bundle.css": "/css/fonts.bundle.css",
+    "/js/users.bundle.js": "/js/users.bundle.js"
 }

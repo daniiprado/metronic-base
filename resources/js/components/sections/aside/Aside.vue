@@ -13,7 +13,7 @@
                 </template>
             </aside-menu>
 
-            <aside-section>Locations</aside-section>
+            <aside-section>Security</aside-section>
 
             <aside-menu-sub-menu route="countries">
                 Security
@@ -23,6 +23,23 @@
                     </aside-menu-item>
                     <aside-menu-item :href="{ name: 'submodules' }">
                         Submodules
+                    </aside-menu-item>
+                    <aside-menu-item :href="{ name: 'users' }">
+                        Users
+                    </aside-menu-item>
+                </template>
+            </aside-menu-sub-menu>
+
+            <aside-section>Customers</aside-section>
+
+            <aside-menu-sub-menu route="countries">
+                Customers
+                <template slot="item">
+                    <aside-menu-item :href="{ name: 'companies' }">
+                        Companies
+                    </aside-menu-item>
+                    <aside-menu-item :href="{ name: 'products' }">
+                        Products
                     </aside-menu-item>
                 </template>
             </aside-menu-sub-menu>

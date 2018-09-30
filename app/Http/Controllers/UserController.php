@@ -27,15 +27,18 @@ class UserController extends ApiController
      *
      * @param StoreUserRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreUserRequest $request)
     {
         $user = new User();
-        $user->save( $request->all() );
-        return $this->singleResponse(
-            new UserResource( $user ),
-            201
-        );
+        $user->fill( $request->all() );
+        $user->saveOrFail();
+        return $this->api_success([
+            'data'      =>  new UserResource( $user ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -62,10 +65,11 @@ class UserController extends ApiController
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update( $request->all() );
-        return $this->singleResponse(
-            new UserResource( $user ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new UserResource( $user ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -78,9 +82,26 @@ class UserController extends ApiController
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->singleResponse(
-            new UserResource( $user ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new UserResource( $user ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( User::query() )
+                            ->addColumn('company', function (User $user) {
+                                return isset( $user->company->name )
+                                        ? $user->company->name
+                                        : null;
+                            })
+                            ->toJson();
     }
 }
