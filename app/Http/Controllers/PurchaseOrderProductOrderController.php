@@ -15,7 +15,8 @@ class PurchaseOrderProductOrderController extends Controller
      */
     public function index(PurchaseOrder $purchaseOrder)
     {
-        return response()->json( $purchaseOrder->with('products_order')->get() );
+
+        return response()->json( $purchaseOrder->products_order()->get() );
     }
 
     /**
