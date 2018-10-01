@@ -38,8 +38,22 @@
                     <aside-menu-item :href="{ name: 'companies' }">
                         Companies
                     </aside-menu-item>
+                    <aside-menu-item :href="{ name: 'business.unity' }">
+                        Business Unities
+                    </aside-menu-item>
                     <aside-menu-item :href="{ name: 'products' }">
                         Products
+                    </aside-menu-item>
+                </template>
+            </aside-menu-sub-menu>
+
+            <aside-section>Purchases</aside-section>
+
+            <aside-menu-sub-menu route="countries">
+                Purchases
+                <template slot="item">
+                    <aside-menu-item :href="{ name: 'purchase.orders' }">
+                        Purchase Order
                     </aside-menu-item>
                 </template>
             </aside-menu-sub-menu>

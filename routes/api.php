@@ -24,13 +24,21 @@ Route::prefix('api')->group( function () {
     /**
      * Application Routes
      */
-    Route::get('company/datatable', 'CompanyController@datatable');
-    Route::resource('company', 'CompanyController', [
+    Route::resource('companies.products', 'CompanyProductController', [
+        'only' => ['index']
+    ]);
+    Route::get('companies/datatable', 'CompanyController@datatable');
+    Route::resource('companies', 'CompanyController', [
         'except' => ['create', 'edit']
     ]);
 
-    Route::get('product/datatable', 'ProductController@datatable');
-    Route::resource('product', 'ProductController', [
+    Route::get('business-unity/datatable', 'BusinessUnityController@datatable');
+    Route::resource('business-unity', 'BusinessUnityController', [
+        'except' => ['create', 'edit']
+    ]);
+
+    Route::get('products/datatable', 'ProductController@datatable');
+    Route::resource('products', 'ProductController', [
         'except' => ['create', 'edit']
     ]);
 
@@ -39,11 +47,16 @@ Route::prefix('api')->group( function () {
         'except' => ['create', 'edit']
     ]);
 
+    Route::patch('purchase-order/status', 'PurchaseOrderController@status');
+    Route::get('purchase-order/datatable', 'PurchaseOrderController@datatable');
+    Route::resource('purchase-order.products-order', 'PurchaseOrderProductOrderController', [
+        'only' => ['index']
+    ]);
     Route::resource('purchase-order', 'PurchaseOrderController', [
         'except' => ['create', 'edit']
     ]);
 
-    Route::resource('issue', 'IssueController', [
+    Route::resource('issues', 'IssueController', [
         'except' => ['create', 'edit']
     ]);
 
@@ -55,12 +68,12 @@ Route::prefix('api')->group( function () {
      * Administrative Routes
      */
     Route::get('module/datatable', 'ModuleController@datatable');
-    Route::resource('module', 'ModuleController', [
+    Route::resource('modules', 'ModuleController', [
         'except' => ['create', 'edit']
     ]);
 
     Route::get('submodule/datatable', 'SubmoduleController@datatable');
-    Route::resource('submodule', 'SubmoduleController', [
+    Route::resource('submodules', 'SubmoduleController', [
         'except' => ['create', 'edit']
     ]);
 
@@ -72,11 +85,11 @@ Route::prefix('api')->group( function () {
      * Roles and Permissions routes
      */
 
-    Route::resource('permission', 'PermissionController', [
+    Route::resource('permissions', 'PermissionController', [
         'except' => ['create', 'edit']
     ]);
 
-    Route::resource('role', 'RoleController', [
+    Route::resource('roles', 'RoleController', [
         'except' => ['create', 'edit']
     ]);
 
@@ -85,11 +98,11 @@ Route::prefix('api')->group( function () {
         'except' => ['create', 'edit']
     ]);
 
-    Route::resource('user.role', 'UserRoleController', [
+    Route::resource('users.roles', 'UserRoleController', [
         'except' => ['create', 'edit']
     ]);
 
-    Route::resource('role.permission', 'RolePermissionController', [
+    Route::resource('roles.permissions', 'RolePermissionController', [
         'except' => ['create', 'edit', 'show']
     ]);
 

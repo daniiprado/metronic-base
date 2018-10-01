@@ -89,6 +89,7 @@ class ProductsOrderController extends ApiController
      * Update product status
      *
      * @param UpdateProductsOrderStatusRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function status(UpdateProductsOrderStatusRequest $request )
     {

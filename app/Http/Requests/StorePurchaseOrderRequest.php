@@ -27,13 +27,13 @@ class StorePurchaseOrderRequest extends FormRequest
             'delivery_address'  => 'required|string|max:191',
             'delivery_at'       => 'required|date|after_or_equal:requested_at',
             'requested_at'      => 'required|date|after_or_equal:now',
-            'status_id'         => 'required|numeric|exists:status,id',
+            //'status_id'         => 'required|numeric|exists:status,id',
             'user_id'           => 'required|numeric|exists:users,id',
             'products'          =>  'required|array',
             'products.*.quantity'          =>  'required|numeric|min:1',
-            'products.*.price'             =>  'required|numeric|min:50',
-            'products.*.received'          =>  'required|boolean',
-            'products.*.purchase_order_id' =>  'required|numeric|exists:purchases_orders,id',
+            //'products.*.price'             =>  'required|numeric|min:50',
+            //'products.*.received'          =>  'required|boolean',
+            //'products.*.purchase_order_id' =>  'required|numeric|exists:purchases_orders,id',
             'products.*.product_id'        =>  'required|numeric|exists:products,id',
         ];
     }

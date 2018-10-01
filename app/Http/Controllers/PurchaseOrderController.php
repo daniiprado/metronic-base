@@ -90,4 +90,42 @@ class PurchaseOrderController extends ApiController
             200
         );
     }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( PurchaseOrder::withCount('products_order') )
+                            ->addColumn('status', function (PurchaseOrder $purchaseOrder) {
+                                return isset( $purchaseOrder->status->name )
+                                        ? $purchaseOrder->status->name
+                                        : null;
+                            })
+                            ->addColumn('user', function (PurchaseOrder $purchaseOrder) {
+                                return isset( $purchaseOrder->user->name )
+                                        ? $purchaseOrder->user->name
+                                        : null;
+                            })
+                            ->toJson();
+    }
+
+    /**
+     * Update purchase status
+     *
+     * @param UpdatePurchaseOrderRequest $request
+     * @param PurchaseOrder $purchaseOrder
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function status(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
+    {
+        $purchaseOrder->status_id = $request->get('status_id');
+        return $this->api_success([
+            'message'   =>  "Se ha actualizado el estado de de la órden",
+            'code'      =>  200
+        ], 200);
+    }
+
 }

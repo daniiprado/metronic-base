@@ -28,8 +28,14 @@ return [
     'company' => [
         'title' =>  '{0} :prefix Compañía|{2} Compañías',
     ],
+    'business_unity' => [
+        'title' =>  '{0} :prefix Unidad de Negocio|{2} Unidates de Negocio',
+    ],
     'product' => [
         'title' =>  '{0} :prefix Producto|{2} Productos',
+    ],
+    'purchase_order' => [
+        'title' =>  '{0} :prefix Órden de Compra|{2} Órdenes de compra',
     ],
 
     'buttons' => [

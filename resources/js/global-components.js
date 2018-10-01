@@ -1,10 +1,9 @@
-/*
- * Copyright (c) 2017 - 2018. Daniel Prado. All Rights Reserved. All material on this project, including design, text, images, logos, code and sounds, are owned by Daniel Prado, either through copyright or trademark, unless otherwise indicated. Content may not be copied, reproduced, transmitted, distributed, downloaded or transferred in any form or by any means without Daniel Prado's prior written consent, and with express attribution to Daniel Prado. The only exception is that one temporary copy may be downloaded into a single computer's memory and one unaltered permanent copy may be used by the viewer for personal and non-commercial use only, with an attached copy of Daniel Prado's Disclaimer Notice. No part of the downloaded copy may be subsequently reproduced, disseminated or transferred. Copyright infringement is a violation of federal law subject to criminal and civil penalties. (For permission to reprint, please contact Daniel Prado at (+571) 318-603-7095 or via email at danii.prado@outlook.com.ar)
- */
-
 const GlobalComponents = {
     install(Vue) {
         Vue.component('login', () => import(/* webpackChunkName: "global" */ './views/auth/Login.vue'));
+        Vue.component('portlet-wizard-step', () => import(/* webpackChunkName: "global" */ './components/sections/WizardStep'));
+        Vue.component('portlet-wizard', () => import(/* webpackChunkName: "global" */ './components/sections/PortletWizard'));
+        Vue.component('portlet-date-time', () => import(/* webpackChunkName: "global" */ './components/sections/DateTimePicker'));
         Vue.component('portlet-select', () => import(/* webpackChunkName: "global" */ './components/sections/PortletSelect'));
         Vue.component('portlet-submit', () => import(/* webpackChunkName: "global" */ './components/sections/SubmitButton'));
         Vue.component('login-layout', () => import(/* webpackChunkName: "global" */'./components/sections/LoginLayout'));

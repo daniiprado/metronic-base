@@ -31,7 +31,7 @@ class ProductsOrder extends Model implements Auditable
     ];
 
     protected $guarded = [
-        'received'
+        'received', 'transit'
     ];
 
     /**
@@ -43,6 +43,7 @@ class ProductsOrder extends Model implements Auditable
         'quantity'          =>  'integer',
         'price'             =>  'double',
         'received'          =>  'boolean',
+        'transit'           =>  'boolean',
         'purchase_order_id' =>  'integer',
         'product_id'        =>  'integer',
     ];
@@ -62,6 +63,7 @@ class ProductsOrder extends Model implements Auditable
         'quantity',
         'price',
         'received',
+        'transit',
         'purchase_order_id',
         'product_id',
     ];

@@ -1,33 +1,30 @@
 <template>
     <div class="form-group m-form__group" :class="{'has-danger': ( errors.has( name ) || hasErrors.has( name ) ) }">
         <label :for="name"> {{ inputName | capitalize }} </label>
-        <input :type="type" :id="name"
+        <input type="text" :id="name"
                v-bind="inputAttrs"
                autocomplete="off"
                :name="name"
                :value="value"
-               @input="$emit('input', $event.target.value)"
                v-validate="validation"
                :data-vv-as="inputName"
-               class="form-control m-input m_maxlength"
+               class="form-control"
+               :ref="name"
                :placeholder="inputName.capitalize()">
+        <slot></slot>
         <feedback :show="errors.has( name ) || hasErrors.has( name )">
             {{ errors.first( name ) || hasErrors.first( name ) }}
         </feedback>
-        <slot></slot>
     </div>
 </template>
 
 <script>
     import {Errors} from "../../services/Errors";
 
+
     export default {
-        name: "PortletInput",
+        name: "DateTimePicker",
         props: {
-            type: {
-                type: String,
-                default: 'text'
-            },
             inputAttrs: {
                 type: [Array, Object]
             },
@@ -44,10 +41,6 @@
             },
             hasErrors: {
                 default: new Errors()
-            },
-            col: {
-                type: String,
-                default: '12'
             }
         },
         data: () => {
@@ -56,14 +49,17 @@
             }
         },
         mounted: function () {
-            if ( this.type === 'text' ) {
-                $('.m_maxlength').maxlength({
-                    threshold: 5,
-                    alwaysShow: true,
-                    warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide",
-                    limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide",
-                });
-            }
+            let that = this;
+            $(`#${this.name}`).datetimepicker({
+                clearBtn: true,
+                language: 'es',
+                todayBtn: true,
+                todayHighlight: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd hh:ii:ss'
+            }).on('changeDate', function(e) {
+                that.$emit('input', this.value)
+            });
         },
         computed: {
             inputName: function () {

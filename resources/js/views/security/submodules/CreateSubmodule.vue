@@ -21,9 +21,9 @@
 
                     <portlet-input :value="form.name" v-model="form.name"
                                    :has-errors="form.errors"
-                                   validation="required|alpha_spaces|min:3|max:60"
+                                   validation="required|alpha_spaces|min:3|max:15"
                                    name="name"
-                                   :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
+                                   :input-attrs="{'minlength': 3, 'maxlength': 15, 'required': true, 'autocomplete': 'off' }">
                     </portlet-input>
 
                 </div>
@@ -57,6 +57,9 @@
                 }),
                 options: [],
                 select: {
+                    placeholder: lang.get('pages.buttons.select'),
+                    allowClear: true,
+                    dir: mUtil.isRTL() ? "rtl" : null,
                     ajax: {
                         url: API.END_POINTS.SECURITY.MODULES.ROOT,
                         data: function (params) {

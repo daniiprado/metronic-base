@@ -8,6 +8,7 @@
                 v-validate="validation"
                 :id="name"
                 :name="name">
+            <option disabled="disabled" selected="selected">{{ lang.get('pages.buttons.select') }}</option>
             <slot></slot>
 
         </select>
@@ -20,12 +21,18 @@
 
 <script>
     import {Errors} from "../../services/Errors";
+    import {mixinSelect2} from "../../mixins/mixin-select2";
 
     export default {
         name: "PortletSelect",
+        mixins: [ mixinSelect2 ],
         props: {
             options: {
                 type: [Array, Object]
+            },
+            data: {
+                type: [ Array, Object ],
+                default: []
             },
             inputAttrs: {
                 type: [Array, Object]
@@ -52,18 +59,20 @@
         },
         created: function () {
             let that = this;
-            this.options.placeholder = this.lang.get('pages.buttons.select');
-            this.options.allowClear = true;
-            this.options.ajax.delay = 250;
-            this.options.ajax.dataType = 'json';
-            this.options.ajax.beforeSend = function (request) {
-                request.setRequestHeader("Authorization", `${that.$store.getters.getToken}`);
-                request.setRequestHeader("Accept", 'application/json');
-                request.setRequestHeader("Content-Type", 'application/json');
-            };
-            this.options.minimumInputLength = 1;
-            this.options.cache = false;
-            this.options.dir = mUtil.isRTL() ? "rtl" : null;
+            if ( this.data.length > 0 ) {
+                this.options.data = this.data;
+            }
+            if ( this.options.ajax ) {
+                this.options.ajax.delay = 250;
+                this.options.ajax.dataType = 'json';
+                this.options.ajax.beforeSend = function (request) {
+                    request.setRequestHeader("Authorization", `${that.$store.getters.getToken}`);
+                    request.setRequestHeader("Accept", 'application/json');
+                    request.setRequestHeader("Content-Type", 'application/json');
+                };
+                this.options.minimumInputLength = 1;
+                this.options.cache = false;
+            }
         },
         mounted: function () {
             let that = this;
@@ -85,7 +94,16 @@
         watch: {
             value: function (value) {
                 // update value
-                $(this.$refs.select2Input).select2().val(value).trigger('change')
+                $(this.$refs.select2Input).select2( this.options ).val(value).trigger('change')
+            },
+            data: function (data) {
+                // update options
+                if ( this.data.length > 0 ) {
+                    this.options.data = data;
+                    $(this.$refs.select2Input).select2('destroy');
+                    $(this.$refs.select2Input).empty();
+                    $(this.$refs.select2Input).select2( this.options ).val(null).trigger('change');
+                }
             }
         },
     }

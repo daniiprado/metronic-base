@@ -64,7 +64,7 @@ class ApiController extends Controller
      */
     protected function getPerPageAttribute()
     {
-        return ( request()->has('per_page') ) ? (int) request()->get('per_page') : 2;
+        return ( request()->has('per_page') ) ? (int) request()->get('per_page') : 15;
     }
 
     /**

@@ -25,11 +25,23 @@ class PurchaseOrder extends Model implements Auditable
      */
     protected $fillable = [
         'delivery_address',
+        'business_unity_id',
         'delivery_at',
         'requested_at',
-        'status_id',
-        'user_id'
+        'user_id',
+        'provider_id'
     ];
+
+    protected $guarded = [
+        'status_id',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [ 'requested_at', 'delivery_at' ];
 
     /**
      * The attributes that should be cast to native types.
@@ -42,6 +54,8 @@ class PurchaseOrder extends Model implements Auditable
         'requested_at'      =>  'datetime',
         'status_id'         =>  'integer',
         'user_id'           =>  'integer',
+        'business_unity_id' =>  'integer',
+        'provider_id'       =>  'integer'
     ];
 
     /*
@@ -57,10 +71,12 @@ class PurchaseOrder extends Model implements Auditable
      */
     protected $auditInclude = [
         'delivery_address',
+        'business_unity_id',
         'delivery_at',
         'requested_at',
-        'status_id',
         'user_id',
+        'provider_id',
+        'status_id',
     ];
 
     /**
@@ -110,5 +126,16 @@ class PurchaseOrder extends Model implements Auditable
     public function user()
     {
         return $this->belongsTo( User::class );
+    }
+
+    /**
+     * Purchase order has one provider
+     *
+     * @Relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function provider()
+    {
+        return $this->hasOne( Company::class, 'provider_id' );
     }
 }

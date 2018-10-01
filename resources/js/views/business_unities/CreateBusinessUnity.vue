@@ -18,20 +18,6 @@
                                        :input-attrs="{'minlength': 3, 'maxlength': 60, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>
 
-                        <portlet-input :value="form.nit" v-model="form.nit"
-                                       :has-errors="form.errors"
-                                       validation="required|min:3|max:12"
-                                       name="nit"
-                                       :input-attrs="{'minlength': 3, 'maxlength': 12, 'required': true, 'autocomplete': 'off' }">
-                        </portlet-input>
-
-                        <portlet-input :value="form.phone" v-model="form.phone"
-                                       :has-errors="form.errors"
-                                       validation="required|min:7|max:12"
-                                       name="phone"
-                                       :input-attrs="{'minlength': 7, 'maxlength': 12, 'required': true, 'autocomplete': 'off' }">
-                        </portlet-input>
-
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">
@@ -47,20 +33,17 @@
 </template>
 
 <script>
+    import {BusinessUnity} from "../../services/models/BusinessUnity";
     import swal from 'sweetalert2'
-    import {Company} from "../../services/models/Company";
-
     export default {
-        name: "CreateModule",
+        name: "CreateBusinessUnity",
         data: () => {
             return {
                 lang: lang,
                 loading: false,
                 portlet_form: null,
-                form: new Company({
-                    name: null,
-                    nit: null,
-                    phone: null
+                form: new BusinessUnity({
+                    name: null
                 })
             }
         },
@@ -86,7 +69,7 @@
             onRemoveForm: function () {
                 let that = this;
                 this.portlet_form.on('beforeRemove', function (portlet) {
-                    that.$router.push({ name: 'companies'  })
+                    that.$router.push({ name: 'business.unity'  })
                 });
             },
             onSubmit: function () {

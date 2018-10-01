@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditor;
 
-class Product extends Model implements Auditable
+class BusinessUnity extends Model implements Auditable
 {
     use SoftDeletes, Auditor;
 
@@ -17,10 +17,7 @@ class Product extends Model implements Auditable
      * @var array
      */
     protected $fillable = [
-        'code',
         'name',
-        'price',
-        'company_id',
     ];
 
     /**
@@ -29,11 +26,9 @@ class Product extends Model implements Auditable
      * @var array
      */
     protected $casts = [
-        'code'          =>  'string',
-        'name'          =>  'string',
-        'price'         =>  'double',
-        'company_id'    =>  'integer',
+        'name' => 'string',
     ];
+
 
     /*
      * ---------------------------------------------------------
@@ -47,10 +42,7 @@ class Product extends Model implements Auditable
      * @var array
      */
     protected $auditInclude = [
-        'code',
         'name',
-        'price',
-        'company_id',
     ];
 
     /**
@@ -58,9 +50,9 @@ class Product extends Model implements Auditable
      *
      * @return array
      */
-    public function generateTags() : array
+    public function generateTags(): array
     {
-        return ['product'];
+        return ['business_unity'];
     }
 
     /*
@@ -70,24 +62,13 @@ class Product extends Model implements Auditable
      */
 
     /**
-     * Products belongs to one company
+     * Business Unity Belongs to many purchases
      *
      * @Relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function company()
+    public function purchase_order()
     {
-        return $this->belongsTo( Company::class );
-    }
-
-    /**
-     * Order product has many issues
-     *
-     * @Relation
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function products_order()
-    {
-        return $this->hasMany( ProductsOrder::class );
+        return $this->belongsTo(PurchaseOrder::class);
     }
 }

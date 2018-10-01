@@ -55,15 +55,6 @@ export default new Router({
             }
         },
         {
-            path: '/users/create',
-            name: 'users.create',
-            component: () => import(/* webpackChunkName: "users" */ './../views/security/users/CreateUser'),
-            meta: {
-                requiresAuth: true,
-                //bodyClass: common
-            }
-        },
-        {
             path: '/users/:id/edit',
             name: 'users.edit',
             component: () => import(/* webpackChunkName: "users" */ './../views/security/users/EditUser'),
@@ -153,6 +144,47 @@ export default new Router({
             path: '/products',
             name: 'products',
             component: () => import(/* webpackChunkName: "products" */ './../views/products/Products'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/business-unity',
+            name: 'business.unity',
+            component: () => import(/* webpackChunkName: "companies" */ './../views/business_unities/BusinessUnity'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/business-unity/create',
+            name: 'business.unity.create',
+            component: () => import(/* webpackChunkName: "companies" */ './../views/business_unities/CreateBusinessUnity'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        /**
+         * ------------------------------
+         * Purchases
+         * ------------------------------
+         */
+        {
+            path: '/purchase-order',
+            name: 'purchase.orders',
+            component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrder'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/purchase-order/create',
+            name: 'purchase.orders.create',
+            component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrderCreate'),
             meta: {
                 requiresAuth: true,
                 //bodyClass: common
