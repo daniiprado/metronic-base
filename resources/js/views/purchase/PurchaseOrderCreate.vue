@@ -232,7 +232,11 @@
                     })
             }
         },
-
+        watch: {
+            form: function (form) {
+                console.log(form);
+            }
+        }
     }
 </script>
 
