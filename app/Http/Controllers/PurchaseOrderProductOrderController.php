@@ -3,20 +3,22 @@
 namespace Logistic\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Logistic\Http\Resources\PurchaseOrderResource;
 use Logistic\PurchaseOrder;
 
-class PurchaseOrderProductOrderController extends Controller
+class PurchaseOrderProductOrderController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @param PurchaseOrder $purchaseOrder
-     * @return \Illuminate\Http\Response
+     * @param PurchaseOrder $purchase_order
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(PurchaseOrder $purchaseOrder)
+    public function index($purchase_order)
     {
+        $purchase = PurchaseOrder::with('products_order')->find( $purchase_order );
 
-        return response()->json( $purchaseOrder->products_order()->get() );
+        return response()->json( $purchase, 200 );
     }
 
     /**
