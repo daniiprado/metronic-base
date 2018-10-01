@@ -27,6 +27,12 @@
                     <aside-menu-item :href="{ name: 'users' }">
                         Users
                     </aside-menu-item>
+                    <aside-menu-item :href="{ name: 'roles' }">
+                        Roles
+                    </aside-menu-item>
+                    <aside-menu-item :href="{ name: 'permissions' }">
+                        Permissions
+                    </aside-menu-item>
                 </template>
             </aside-menu-sub-menu>
 

@@ -27,7 +27,7 @@ class StorePermissionRequest extends FormRequest
             'name'          =>  'required|string|max:60|unique:permissions,name',
             'display_name'  =>  'required|string|max:60',
             'description'   =>  'required|string|max:191',
-            'submodule_action_id' => 'required|numeric|exists:submodules_actions,id'
+            //'submodule_action_id' => 'required|numeric|exists:submodules_actions,id'
         ];
     }
 }

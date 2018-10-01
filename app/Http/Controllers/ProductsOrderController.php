@@ -107,4 +107,27 @@ class ProductsOrderController extends ApiController
             ], 200);
         }
     }
+
+    /**
+     * Update product status
+     *
+     * @param UpdateProductsOrderStatusRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function transit(UpdateProductsOrderStatusRequest $request )
+    {
+        $i = 0;
+        if ( $request->has('data') ) {
+            foreach ( $request->get('data') as $purchase ) {
+                $product = ProductsOrder::find( $purchase['id'] );
+                $product->transit = $purchase['transit'];
+                $product->save();
+                $i++;
+            }
+            return $this->api_success([
+                'message'   =>  "Se ha actualizado el estado en tránsito de {$i} productos",
+                'code'      =>  200
+            ], 200);
+        }
+    }
 }

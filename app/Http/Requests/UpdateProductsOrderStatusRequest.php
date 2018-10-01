@@ -26,7 +26,7 @@ class UpdateProductsOrderStatusRequest extends FormRequest
         return [
             'data'              => 'required|array',
             'data.*.id'         => 'required|exists:products_order,id',
-            'data.*.status'     => 'required|boolean',
+            'data.*.transit'    => 'required|boolean',
         ];
     }
 }

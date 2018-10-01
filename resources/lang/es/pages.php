@@ -19,6 +19,12 @@ return [
     'users' => [
         'title' =>  '{0} :prefix Usuario|{2} Usuarios',
     ],
+    'roles' => [
+        'title' =>  '{0} :prefix Role|{2} Permiso',
+    ],
+    'permissions' => [
+        'title' =>  '{0} :prefix Permiso|{2} Permisos',
+    ],
     'modules' => [
         'title' =>  '{0} :prefix Módulo|{2} Módulos',
     ],
@@ -35,7 +41,7 @@ return [
         'title' =>  '{0} :prefix Producto|{2} Productos',
     ],
     'purchase_order' => [
-        'title' =>  '{0} :prefix Órden de Compra|{2} Órdenes de compra',
+        'title' =>  '{0} :prefix Orden de Compra|{2} Ordenes de compra',
     ],
 
     'buttons' => [

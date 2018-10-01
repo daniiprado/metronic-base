@@ -17,8 +17,6 @@ $factory->define(Logistic\Product::class, function (Faker $faker) {
     return [
         'code'          => $faker->numerify('########'),
         'name'          => $faker->sentence,
-        'stock'         => $faker->numberBetween(10, 900),
         'price'         => $faker->numberBetween(1000, 15000),
-        'expired_at'    => $faker->dateTimeBetween('+ 1 year', '+ 2 years'),
     ];
 });

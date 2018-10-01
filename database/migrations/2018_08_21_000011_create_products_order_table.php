@@ -18,6 +18,7 @@ class CreateProductsOrderTable extends Migration
             $table->unsignedInteger('quantity');
             $table->double('price', 8, 2);
             $table->boolean('received');
+            $table->boolean('transit');
             $table->unsignedInteger('purchase_order_id');
             $table->unsignedInteger('product_id');
             $table->timestamps();

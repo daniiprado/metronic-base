@@ -1,4 +1,4 @@
-webpackJsonp([7],{
+webpackJsonp([9],{
 
 /***/ 19:
 /***/ (function(module, exports, __webpack_require__) {
@@ -6,13 +6,13 @@ webpackJsonp([7],{
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(267)
+  __webpack_require__(275)
 }
 var normalizeComponent = __webpack_require__(15)
 /* script */
-var __vue_script__ = __webpack_require__(269)
+var __vue_script__ = __webpack_require__(277)
 /* template */
-var __vue_template__ = __webpack_require__(272)
+var __vue_template__ = __webpack_require__(280)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,13 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 267:
+/***/ 275:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(268);
+var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 268:
+/***/ 276:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(13)(false);
@@ -94,7 +94,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 269:
+/***/ 277:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -160,29 +160,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             brand: __WEBPACK_IMPORTED_MODULE_0__services_Api__["a" /* API */].APP_NAME,
-            logo: __webpack_require__(270),
-            bg: __webpack_require__(271)
+            logo: __webpack_require__(278),
+            bg: __webpack_require__(279)
         };
     }
 });
 
 /***/ }),
 
-/***/ 270:
+/***/ 278:
 /***/ (function(module, exports) {
 
 module.exports = "/images/logo-2.png?2a5aacb08ca2b53000cce3132109490c";
 
 /***/ }),
 
-/***/ 271:
+/***/ 279:
 /***/ (function(module, exports) {
 
 module.exports = "/images/bg-3.jpg?6ecf79dbb9a59248510d64773993254e";
 
 /***/ }),
 
-/***/ 272:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

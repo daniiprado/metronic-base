@@ -43,6 +43,7 @@ Route::prefix('api')->group( function () {
     ]);
 
     Route::patch('products-order/status', 'ProductsOrderController@status');
+    Route::patch('products-order/transit', 'ProductsOrderController@transit');
     Route::resource('products-order', 'ProductsOrderController', [
         'except' => ['create', 'edit']
     ]);
@@ -85,10 +86,12 @@ Route::prefix('api')->group( function () {
      * Roles and Permissions routes
      */
 
+    Route::get('permissions/datatable', 'PermissionController@datatable');
     Route::resource('permissions', 'PermissionController', [
         'except' => ['create', 'edit']
     ]);
 
+    Route::get('roles/datatable', 'RoleController@datatable');
     Route::resource('roles', 'RoleController', [
         'except' => ['create', 'edit']
     ]);

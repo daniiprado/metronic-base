@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		9: 0
+/******/ 		11: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/" + ({"0":"global","1":"users","2":"modules","3":"companies","4":"purchase","5":"submodules","6":"products","7":"login","8":"dashboard"}[chunkId]||chunkId) + ".bundle.js";
+/******/ 		script.src = __webpack_require__.p + "js/" + ({"0":"global","1":"companies","2":"users","3":"modules","4":"purchase","5":"submodules","6":"roles","7":"permissions","8":"products","9":"login","10":"dashboard"}[chunkId]||chunkId) + ".bundle.js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -493,8 +493,8 @@ var API = {
     APP_NAME: 'Logistimatic',
     COOKIE: 'logistimatic',
     PATH: '/api/',
-    CLIENT_ID: 2,
-    CLIENT_SECRET: 'b6T5HoJmA6IJ7t7YCtaS0dXszae8ysxdgySdX2sf',
+    CLIENT_ID: 10,
+    CLIENT_SECRET: 'CrgtOULIcfGz3v0BQQKXHrKcuRClZHfJPNsEDPe4',
     GRANT_TYPE: 'password',
     END_POINTS: {
         SECURITY: {
@@ -507,10 +507,12 @@ var API = {
                 DATATABLE: '/api/submodule/datatable'
             },
             PERMISSIONS: {
-                ROOT: '/api/permissions'
+                ROOT: '/api/permissions',
+                DATATABLE: '/api/permissions/datatable'
             },
             ROLES: {
-                ROOT: '/api/roles'
+                ROOT: '/api/roles',
+                DATATABLE: '/api/roles/datatable'
             },
             USERS: {
                 ROOT: '/api/users',
@@ -31602,7 +31604,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/login',
         name: 'login',
         component: function component() {
-            return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 19));
+            return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 19));
         },
         meta: {
             forVisitors: true
@@ -31612,7 +31614,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/home',
         name: 'home',
         component: function component() {
-            return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 84));
+            return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 84));
         },
         meta: {
             requiresAuth: true
@@ -31628,7 +31630,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/users',
         name: 'users',
         component: function component() {
-            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 85));
+            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 85));
         },
         meta: {
             requiresAuth: true
@@ -31638,7 +31640,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/users/create',
         name: 'users.create',
         component: function component() {
-            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 86));
+            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 86));
         },
         meta: {
             requiresAuth: true
@@ -31648,7 +31650,47 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/users/:id/edit',
         name: 'users.edit',
         component: function component() {
-            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 87));
+            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 87));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/roles',
+        name: 'roles',
+        component: function component() {
+            return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 88));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/roles/create',
+        name: 'roles.create',
+        component: function component() {
+            return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 89));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/permissions',
+        name: 'permissions',
+        component: function component() {
+            return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 90));
+        },
+        meta: {
+            requiresAuth: true
+            //bodyClass: common
+        }
+    }, {
+        path: '/permissions/create',
+        name: 'permissions.create',
+        component: function component() {
+            return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 91));
         },
         meta: {
             requiresAuth: true
@@ -31658,7 +31700,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/modules',
         name: 'modules',
         component: function component() {
-            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 88));
+            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 92));
         },
         meta: {
             requiresAuth: true
@@ -31668,7 +31710,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/modules/create',
         name: 'modules.create',
         component: function component() {
-            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 89));
+            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 93));
         },
         meta: {
             requiresAuth: true
@@ -31678,7 +31720,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/modules/:id/edit',
         name: 'modules.edit',
         component: function component() {
-            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 90));
+            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 94));
         },
         meta: {
             requiresAuth: true
@@ -31688,7 +31730,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/submodules',
         name: 'submodules',
         component: function component() {
-            return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 91));
+            return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 95));
         },
         meta: {
             requiresAuth: true
@@ -31698,7 +31740,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/submodules/create',
         name: 'submodules.create',
         component: function component() {
-            return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 92));
+            return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 96));
         },
         meta: {
             requiresAuth: true
@@ -31714,7 +31756,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/companies',
         name: 'companies',
         component: function component() {
-            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 93));
+            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 97));
         },
         meta: {
             requiresAuth: true
@@ -31724,7 +31766,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/companies/create',
         name: 'companies.create',
         component: function component() {
-            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 94));
+            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 98));
         },
         meta: {
             requiresAuth: true
@@ -31734,7 +31776,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/companies/:id/edit',
         name: 'companies.edit',
         component: function component() {
-            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 95));
+            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 99));
         },
         meta: {
             requiresAuth: true
@@ -31744,7 +31786,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/products',
         name: 'products',
         component: function component() {
-            return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 96));
+            return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 100));
         },
         meta: {
             requiresAuth: true
@@ -31754,7 +31796,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/business-unity',
         name: 'business.unity',
         component: function component() {
-            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 552));
+            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 101));
         },
         meta: {
             requiresAuth: true
@@ -31764,7 +31806,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/business-unity/create',
         name: 'business.unity.create',
         component: function component() {
-            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 557));
+            return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 102));
         },
         meta: {
             requiresAuth: true
@@ -31780,7 +31822,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/purchase-order',
         name: 'purchase.orders',
         component: function component() {
-            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 97));
+            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 103));
         },
         meta: {
             requiresAuth: true
@@ -31790,7 +31832,7 @@ var common = "m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enab
         path: '/purchase-order/create',
         name: 'purchase.orders.create',
         component: function component() {
-            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 98));
+            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 104));
         },
         meta: {
             requiresAuth: true
@@ -44419,7 +44461,7 @@ module.exports = {"accepted":"The :attribute must be accepted.","active_url":"Th
 /* 69 */
 /***/ (function(module, exports) {
 
-module.exports = {"accepted":"El campo :attribute debe ser aceptado.","active_url":"El campo :attribute no es una URL válida.","after":"El campo :attribute debe ser una fecha posterior a :date.","after_or_equal":"El campo :attribute debe ser una fecha posterior o igual a :date.","alpha":"El campo :attribute sólo debe contener letras.","alpha_dash":"El campo :attribute sólo debe contener letras, números y guiones.","alpha_num":"El campo :attribute sólo debe contener letras y números.","array":"El campo :attribute debe ser un conjunto.","before":"El campo :attribute debe ser una fecha anterior a :date.","before_or_equal":"El campo :attribute debe ser una fecha anterior o igual a :date.","between":{"numeric":"El campo :attribute tiene que estar entre :min - :max.","file":"El campo :attribute debe pesar entre :min - :max kilobytes.","string":"El campo :attribute tiene que tener entre :min - :max caracteres.","array":"El campo :attribute tiene que tener entre :min - :max ítems."},"boolean":"El campo :attribute debe tener un valor verdadero o falso.","confirmed":"La confirmación de :attribute no coincide.","date":"El campo :attribute no es una fecha válida.","date_format":"El campo :attribute no corresponde al formato :format.","different":"El campo :attribute y :other deben ser diferentes.","digits":"El campo :attribute debe tener :digits dígitos.","digits_between":"El campo :attribute debe tener entre :min y :max dígitos.","dimensions":"Las dimensiones de la imagen :attribute no son válidas.","distinct":"El campo :attribute contiene un valor duplicado.","email":"El campo :attribute no es un correo válido","exists":"El campo :attribute es inválido.","file":"El campo :attribute debe ser un archivo.","filled":"El campo :attribute es obligatorio.","gt":{"numeric":"El campo :attribute debe ser mayor que :value.","file":"El campo :attribute debe tener más de :value kilobytes.","string":"El campo :attribute debe tener más de :value caracteres.","array":"El campo :attribute debe tener más de :value elementos."},"gte":{"numeric":"El campo :attribute debe ser como mínimo :value.","file":"El campo :attribute debe tener como mínimo :value kilobytes.","string":"El campo :attribute debe tener como mínimo :value caracteres.","array":"El campo :attribute debe tener como mínimo :value elementos."},"image":"El campo :attribute debe ser una imagen.","in":"El campo :attribute es inválido.","in_array":"El campo :attribute no existe en :other.","integer":"El campo :attribute debe ser un número entero.","ip":"El campo :attribute debe ser una dirección IP válida.","ipv4":"El campo :attribute debe ser un dirección IPv4 válida","ipv6":"El campo :attribute debe ser un dirección IPv6 válida.","json":"El campo :attribute debe tener una cadena JSON válida.","lt":{"numeric":"El campo :attribute debe ser menor que :value.","file":"El campo :attribute debe tener menos de :value kilobytes.","string":"El campo :attribute debe tener menos de :value caracteres.","array":"El campo :attribute debe tener menos de :value elementos."},"lte":{"numeric":"El campo :attribute debe ser como máximo :value.","file":"El campo :attribute debe tener como máximo :value kilobytes.","string":"El campo :attribute debe tener como máximo :value caracteres.","array":"El campo :attribute debe tener como máximo :value elementos."},"max":{"numeric":"El campo :attribute no debe ser mayor a :max.","file":"El campo :attribute no debe ser mayor que :max kilobytes.","string":"El campo :attribute no debe ser mayor que :max caracteres.","array":"El campo :attribute no debe tener más de :max elementos."},"mimes":"El campo :attribute debe ser un archivo con formato: :values.","mimetypes":"El campo :attribute debe ser un archivo con formato: :values.","min":{"numeric":"El tamaño de :attribute debe ser de al menos :min.","file":"El tamaño de :attribute debe ser de al menos :min kilobytes.","string":"El campo :attribute debe contener al menos :min caracteres.","array":"El campo :attribute debe tener al menos :min elementos."},"not_in":"El campo :attribute es inválido.","not_regex":"El formato del campo :attribute no es válido.","numeric":"El campo :attribute debe ser numérico.","order_by":"El campo :attribute sólo puede contener los valores \"asc\" o \"desc\"","present":"El campo :attribute debe estar presente.","regex":"El formato de :attribute es inválido.","required":"El campo :attribute es obligatorio.","required_if":"El campo :attribute es obligatorio cuando :other es :value.","required_unless":"El campo :attribute es obligatorio a menos que :other esté en :values.","required_with":"El campo :attribute es obligatorio cuando :values está presente.","required_with_all":"El campo :attribute es obligatorio cuando :values está presente.","required_without":"El campo :attribute es obligatorio cuando :values no está presente.","required_without_all":"El campo :attribute es obligatorio cuando ninguno de :values estén presentes.","same":"El campo :attribute y :other deben coincidir.","size":{"numeric":"El tamaño de :attribute debe ser :size.","file":"El tamaño de :attribute debe ser :size kilobytes.","string":"El campo :attribute debe contener :size caracteres.","array":"El campo :attribute debe contener :size elementos."},"string":"El campo :attribute debe ser una cadena de caracteres.","timezone":"El :attribute debe ser una zona válida.","unique":"El campo :attribute ya ha sido registrado.","uploaded":"Subir :attribute ha fallado.","url":"El formato :attribute es inválido.","custom":{"password":{"min":"La :attribute debe contener más de :min caracteres"},"email":{"unique":"El :attribute ya ha sido registrado."}},"handler":{"resource_not_found":"No existe ninguna instacia para el valor especificado.","resource_not_found_url":"La URL solicitada no existe.","unauthenticated":"No estás autenticado para esta solicitud.","unauthorized":"No estás autorizado para esta solicitud.","relation_not_found":"La relación solicitada no existe.","column_not_found":"La columna solicitada no existe.","relation_not_delete":"El recurso no puede ser eliminado, contiene información asociada.","validation_failed":"La información dada no pasó la validación.","syntax_error":"la sintaxis de la entidad de solicitud no es correcta.","method_allow":"El método especificado no existe.","unexpected_failure":"Error inesperado, inténtalo de nuevo en un momento.","conflict":"La solicitud no se pudo procesar debido a un conflicto.","service_unavailable":"El servicio no está disponible, vuelve a intentarlo en un momento.","token_mismatch":"El token no coincide con el solicitud, por favor intenta recargar la página.","max_attempts":"{1} Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minuto.|[2,*] Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minutos.","connection_refused":":db ha rechazado la conexión."},"attributes":{"name":"nombre","username":"usuario","email":"correo electrónico","first_name":"nombre","last_name":"apellido","password":"contraseña","password_confirmation":"confirmación de la contraseña","city":"ciudad","country":"país","address":"dirección","phone":"teléfono","mobile":"móvil","age":"edad","sex":"sexo","gender":"género","year":"año","month":"mes","day":"día","hour":"hora","minute":"minuto","second":"segundo","title":"título","content":"contenido","body":"contenido","description":"descripción","excerpt":"extracto","date":"fecha","time":"hora","subject":"asunto","message":"mensaje","per_page":"por página","order_by":"ordenado por","direction":"dirección","canceled":"cancelado","active":"vigente","modified":"modificado","remember_me":"recordame","nit":"nit","code":"código","stock":"existencia","price":"precio","expired_at":"fecha de expiración","created_at":"fecha de creación","updated_at":"fecha de actualización","deleted_at":"fecha de eliminación","delivery_at":"fecha de entrega","requested_at":"fecha de solicitud","module_id":"módulo","company_id":"compañía","user_id":"usuario","user":"usuario","status_id":"estado","status":"estado","delivery_address":"dirección de entrega","products_order_count":"cantidad de productos","business_unity_id":"unidad de negocio","provider_id":"proveedor"}};
+module.exports = {"accepted":"El campo :attribute debe ser aceptado.","active_url":"El campo :attribute no es una URL válida.","after":"El campo :attribute debe ser una fecha posterior a :date.","after_or_equal":"El campo :attribute debe ser una fecha posterior o igual a :date.","alpha":"El campo :attribute sólo debe contener letras.","alpha_dash":"El campo :attribute sólo debe contener letras, números y guiones.","alpha_num":"El campo :attribute sólo debe contener letras y números.","array":"El campo :attribute debe ser un conjunto.","before":"El campo :attribute debe ser una fecha anterior a :date.","before_or_equal":"El campo :attribute debe ser una fecha anterior o igual a :date.","between":{"numeric":"El campo :attribute tiene que estar entre :min - :max.","file":"El campo :attribute debe pesar entre :min - :max kilobytes.","string":"El campo :attribute tiene que tener entre :min - :max caracteres.","array":"El campo :attribute tiene que tener entre :min - :max ítems."},"boolean":"El campo :attribute debe tener un valor verdadero o falso.","confirmed":"La confirmación de :attribute no coincide.","date":"El campo :attribute no es una fecha válida.","date_format":"El campo :attribute no corresponde al formato :format.","different":"El campo :attribute y :other deben ser diferentes.","digits":"El campo :attribute debe tener :digits dígitos.","digits_between":"El campo :attribute debe tener entre :min y :max dígitos.","dimensions":"Las dimensiones de la imagen :attribute no son válidas.","distinct":"El campo :attribute contiene un valor duplicado.","email":"El campo :attribute no es un correo válido","exists":"El campo :attribute es inválido.","file":"El campo :attribute debe ser un archivo.","filled":"El campo :attribute es obligatorio.","gt":{"numeric":"El campo :attribute debe ser mayor que :value.","file":"El campo :attribute debe tener más de :value kilobytes.","string":"El campo :attribute debe tener más de :value caracteres.","array":"El campo :attribute debe tener más de :value elementos."},"gte":{"numeric":"El campo :attribute debe ser como mínimo :value.","file":"El campo :attribute debe tener como mínimo :value kilobytes.","string":"El campo :attribute debe tener como mínimo :value caracteres.","array":"El campo :attribute debe tener como mínimo :value elementos."},"image":"El campo :attribute debe ser una imagen.","in":"El campo :attribute es inválido.","in_array":"El campo :attribute no existe en :other.","integer":"El campo :attribute debe ser un número entero.","ip":"El campo :attribute debe ser una dirección IP válida.","ipv4":"El campo :attribute debe ser un dirección IPv4 válida","ipv6":"El campo :attribute debe ser un dirección IPv6 válida.","json":"El campo :attribute debe tener una cadena JSON válida.","lt":{"numeric":"El campo :attribute debe ser menor que :value.","file":"El campo :attribute debe tener menos de :value kilobytes.","string":"El campo :attribute debe tener menos de :value caracteres.","array":"El campo :attribute debe tener menos de :value elementos."},"lte":{"numeric":"El campo :attribute debe ser como máximo :value.","file":"El campo :attribute debe tener como máximo :value kilobytes.","string":"El campo :attribute debe tener como máximo :value caracteres.","array":"El campo :attribute debe tener como máximo :value elementos."},"max":{"numeric":"El campo :attribute no debe ser mayor a :max.","file":"El campo :attribute no debe ser mayor que :max kilobytes.","string":"El campo :attribute no debe ser mayor que :max caracteres.","array":"El campo :attribute no debe tener más de :max elementos."},"mimes":"El campo :attribute debe ser un archivo con formato: :values.","mimetypes":"El campo :attribute debe ser un archivo con formato: :values.","min":{"numeric":"El tamaño de :attribute debe ser de al menos :min.","file":"El tamaño de :attribute debe ser de al menos :min kilobytes.","string":"El campo :attribute debe contener al menos :min caracteres.","array":"El campo :attribute debe tener al menos :min elementos."},"not_in":"El campo :attribute es inválido.","not_regex":"El formato del campo :attribute no es válido.","numeric":"El campo :attribute debe ser numérico.","order_by":"El campo :attribute sólo puede contener los valores \"asc\" o \"desc\"","present":"El campo :attribute debe estar presente.","regex":"El formato de :attribute es inválido.","required":"El campo :attribute es obligatorio.","required_if":"El campo :attribute es obligatorio cuando :other es :value.","required_unless":"El campo :attribute es obligatorio a menos que :other esté en :values.","required_with":"El campo :attribute es obligatorio cuando :values está presente.","required_with_all":"El campo :attribute es obligatorio cuando :values está presente.","required_without":"El campo :attribute es obligatorio cuando :values no está presente.","required_without_all":"El campo :attribute es obligatorio cuando ninguno de :values estén presentes.","same":"El campo :attribute y :other deben coincidir.","size":{"numeric":"El tamaño de :attribute debe ser :size.","file":"El tamaño de :attribute debe ser :size kilobytes.","string":"El campo :attribute debe contener :size caracteres.","array":"El campo :attribute debe contener :size elementos."},"string":"El campo :attribute debe ser una cadena de caracteres.","timezone":"El :attribute debe ser una zona válida.","unique":"El campo :attribute ya ha sido registrado.","uploaded":"Subir :attribute ha fallado.","url":"El formato :attribute es inválido.","custom":{"password":{"min":"La :attribute debe contener más de :min caracteres"},"email":{"unique":"El :attribute ya ha sido registrado."}},"handler":{"resource_not_found":"No existe ninguna instacia para el valor especificado.","resource_not_found_url":"La URL solicitada no existe.","unauthenticated":"No estás autenticado para esta solicitud.","unauthorized":"No estás autorizado para esta solicitud.","relation_not_found":"La relación solicitada no existe.","column_not_found":"La columna solicitada no existe.","relation_not_delete":"El recurso no puede ser eliminado, contiene información asociada.","validation_failed":"La información dada no pasó la validación.","syntax_error":"la sintaxis de la entidad de solicitud no es correcta.","method_allow":"El método especificado no existe.","unexpected_failure":"Error inesperado, inténtalo de nuevo en un momento.","conflict":"La solicitud no se pudo procesar debido a un conflicto.","service_unavailable":"El servicio no está disponible, vuelve a intentarlo en un momento.","token_mismatch":"El token no coincide con el solicitud, por favor intenta recargar la página.","max_attempts":"{1} Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minuto.|[2,*] Demasiados intentos, por favor ralentice la solicitud e intente de nuevo en :min minutos.","connection_refused":":db ha rechazado la conexión."},"attributes":{"name":"nombre","username":"usuario","email":"correo electrónico","first_name":"nombre","last_name":"apellido","password":"contraseña","password_confirmation":"confirmación de la contraseña","city":"ciudad","country":"país","address":"dirección","phone":"teléfono","mobile":"móvil","age":"edad","sex":"sexo","gender":"género","year":"año","month":"mes","day":"día","hour":"hora","minute":"minuto","second":"segundo","title":"título","content":"contenido","body":"contenido","description":"descripción","excerpt":"extracto","date":"fecha","time":"hora","subject":"asunto","message":"mensaje","per_page":"por página","order_by":"ordenado por","direction":"dirección","canceled":"cancelado","active":"vigente","modified":"modificado","remember_me":"recordame","nit":"nit","code":"código","stock":"existencia","price":"precio","expired_at":"fecha de expiración","created_at":"fecha de creación","updated_at":"fecha de actualización","deleted_at":"fecha de eliminación","delivery_at":"fecha de entrega","requested_at":"fecha de solicitud","module_id":"módulo","company_id":"compañía","user_id":"usuario","user":"usuario","status_id":"estado","status":"estado","delivery_address":"dirección de entrega","products_order_count":"cantidad de productos","business_unity_id":"unidad de negocio","provider_id":"proveedor","display_name":"nombre para mostar"}};
 
 /***/ }),
 /* 70 */
@@ -44467,7 +44509,7 @@ module.exports = {"failed":"These credentials do not match our records.","thrott
 /* 77 */
 /***/ (function(module, exports) {
 
-module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"users":{"title":"{0} :prefix Usuario|{2} Usuarios"},"modules":{"title":"{0} :prefix Módulo|{2} Módulos"},"submodules":{"title":"{0} :prefix Submódulo|{2} Submódulos"},"company":{"title":"{0} :prefix Compañía|{2} Compañías"},"business_unity":{"title":"{0} :prefix Unidad de Negocio|{2} Unidates de Negocio"},"product":{"title":"{0} :prefix Producto|{2} Productos"},"purchase_order":{"title":"{0} :prefix Órden de Compra|{2} Órdenes de compra"},"buttons":{"sign_in":"Iniciar Sesión","log_out":"Cerrar Sesión","create":"Crear","select":"Seleccionar","update":"Actualizar","edit":"Modificar","delete":"Eliminar","restore":"Restaurar","save":"Guardar","cancel":"Cancelar","add":"Añadir","add_file":"Añadir Archivo","zoom_in":"Ampliar","zoom_out":"Alejar","rotate":"Girar","new":"Nuevo","print":"Imprimir","copy":"Copiar","excel":"Excel","csv":"CSV","pdf":"PDF","export_tools":"Herramientas de Exportación"},"messages":{"success":"¡Bien Hecho!","warning":"Advertencia","error":"Error","info":"Información","question":"Pregunta","comfirm_delete":"{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?"},"responses":{"created":"Se han almacenado los datos satisfactoriamente.","created_fail":"No se han almacenado los datos intenta de nuevo.","updated":"Se han actualizado los datos satisfactoriamente.","updated_fail":"No se han actualizado los datos intenta de nuevo.","deleted":"Se han eliminado los datos satisfactoriamente.","deleted_fail":"No se han eliminado los datos intenta de nuevo."}};
+module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"users":{"title":"{0} :prefix Usuario|{2} Usuarios"},"roles":{"title":"{0} :prefix Role|{2} Permiso"},"permissions":{"title":"{0} :prefix Permiso|{2} Permisos"},"modules":{"title":"{0} :prefix Módulo|{2} Módulos"},"submodules":{"title":"{0} :prefix Submódulo|{2} Submódulos"},"company":{"title":"{0} :prefix Compañía|{2} Compañías"},"business_unity":{"title":"{0} :prefix Unidad de Negocio|{2} Unidates de Negocio"},"product":{"title":"{0} :prefix Producto|{2} Productos"},"purchase_order":{"title":"{0} :prefix Orden de Compra|{2} Ordenes de compra"},"buttons":{"sign_in":"Iniciar Sesión","log_out":"Cerrar Sesión","create":"Crear","select":"Seleccionar","update":"Actualizar","edit":"Modificar","delete":"Eliminar","restore":"Restaurar","save":"Guardar","cancel":"Cancelar","add":"Añadir","add_file":"Añadir Archivo","zoom_in":"Ampliar","zoom_out":"Alejar","rotate":"Girar","new":"Nuevo","print":"Imprimir","copy":"Copiar","excel":"Excel","csv":"CSV","pdf":"PDF","export_tools":"Herramientas de Exportación"},"messages":{"success":"¡Bien Hecho!","warning":"Advertencia","error":"Error","info":"Información","question":"Pregunta","comfirm_delete":"{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?"},"responses":{"created":"Se han almacenado los datos satisfactoriamente.","created_fail":"No se han almacenado los datos intenta de nuevo.","updated":"Se han actualizado los datos satisfactoriamente.","updated_fail":"No se han actualizado los datos intenta de nuevo.","deleted":"Se han eliminado los datos satisfactoriamente.","deleted_fail":"No se han eliminado los datos intenta de nuevo."}};
 
 /***/ }),
 /* 78 */
@@ -44477,53 +44519,53 @@ module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"use
 var GlobalComponents = {
     install: function install(Vue) {
         Vue.component('login', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 99));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 105));
         });
         Vue.component('portlet-wizard-step', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 100));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 106));
         });
         Vue.component('portlet-wizard', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 101));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 107));
         });
         Vue.component('portlet-date-time', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 102));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 108));
         });
         Vue.component('portlet-select', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 103));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 109));
         });
         Vue.component('portlet-submit', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 104));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 110));
         });
         Vue.component('login-layout', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 19));
         });
         Vue.component('dashboard-layout', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 105));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 111));
         });
         Vue.component('quick-sidebar', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 106));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 112));
         });
         Vue.component('scroll-top', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 107));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 113));
         });
         Vue.component('layout-tolltips', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 108));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 114));
         });
         Vue.component('loader-base', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 109));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 115));
         });
 
         Vue.component('top-navbar-user', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 110));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 116));
         });
         Vue.component('top-bar-search', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 111));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 117));
         });
         Vue.component('top-bar-notifications', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 112));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 118));
         });
         Vue.component('top-bar-quick-actions', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 113));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 119));
         });
         Vue.component('top-bar-languages', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 20));
@@ -44532,77 +44574,77 @@ var GlobalComponents = {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 20));
         });
         Vue.component('top-bar', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 114));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 120));
         });
         Vue.component('brand', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 115));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 121));
         });
 
         Vue.component('header-base', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 116));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 122));
         });
         Vue.component('hor-menu', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 117));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 123));
         });
         Vue.component('sub-header', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 118));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 124));
         });
 
         Vue.component('menu-left', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 119));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 125));
         });
         Vue.component('aside-left', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 120));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 126));
         });
         Vue.component('aside-section', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 121));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 127));
         });
         Vue.component('aside-menu', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 122));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 128));
         });
         Vue.component('aside-menu-sub-menu', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 123));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 129));
         });
         Vue.component('aside-menu-item', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 124));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 130));
         });
         Vue.component('aside-menu-badge', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 125));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 131));
         });
 
         Vue.component('vue-footer', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 126));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 132));
         });
         Vue.component('draggable-row', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 127));
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 133));
         });
 
         Vue.component('portlet', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 128));
-        });
-        Vue.component('empty-portlet', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 129));
-        });
-        Vue.component('action-item', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 130));
-        });
-        Vue.component('portlet-tool', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 131));
-        });
-        Vue.component('portlet-form', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 132));
-        });
-        Vue.component('portlet-input', function () {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 133));
-        });
-        Vue.component('data-table', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 134));
         });
-        Vue.component('portlet-dropdown-actions', function () {
+        Vue.component('empty-portlet', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 135));
         });
-        Vue.component('feedback', function () {
+        Vue.component('action-item', function () {
             return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 136));
+        });
+        Vue.component('portlet-tool', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 137));
+        });
+        Vue.component('portlet-form', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 138));
+        });
+        Vue.component('portlet-input', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 139));
+        });
+        Vue.component('data-table', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 140));
+        });
+        Vue.component('portlet-dropdown-actions', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 141));
+        });
+        Vue.component('feedback', function () {
+            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 142));
         });
     }
 };

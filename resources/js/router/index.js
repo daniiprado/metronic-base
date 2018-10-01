@@ -64,6 +64,42 @@ export default new Router({
             }
         },
         {
+            path: '/roles',
+            name: 'roles',
+            component: () => import(/* webpackChunkName: "roles" */ './../views/security/roles/Roles'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/roles/create',
+            name: 'roles.create',
+            component: () => import(/* webpackChunkName: "roles" */ './../views/security/roles/CreateRole'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/permissions',
+            name: 'permissions',
+            component: () => import(/* webpackChunkName: "permissions" */ './../views/security/permissions/Permission'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
+            path: '/permissions/create',
+            name: 'permissions.create',
+            component: () => import(/* webpackChunkName: "permissions" */ './../views/security/permissions/CreatePermission'),
+            meta: {
+                requiresAuth: true,
+                //bodyClass: common
+            }
+        },
+        {
             path: '/modules',
             name: 'modules',
             component: () => import(/* webpackChunkName: "modules" */ './../views/security/modules/Modules'),

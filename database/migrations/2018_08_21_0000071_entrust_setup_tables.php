@@ -43,8 +43,6 @@ class EntrustSetupTables extends Migration
             $table->unsignedInteger('submodule_action_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('submodule_action_id')->references('id')->on('submodules_actions')
-                ->onUpdate('cascade')->onDelete('cascade');
         });
 
         // Create table for associating permissions to roles (Many-to-Many)

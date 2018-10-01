@@ -18,5 +18,6 @@ $factory->define(Logistic\ProductsOrder::class, function (Faker $faker) {
         'quantity' => $faker->numberBetween(1, 15),
         'price'    => $faker->numberBetween(1000, 15000),
         'received' => $faker->boolean,
+        'transit'  => $faker->boolean,
     ];
 });

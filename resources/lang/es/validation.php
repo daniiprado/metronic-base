@@ -231,5 +231,6 @@ return [
         'products_order_count'  => 'cantidad de productos',
         'business_unity_id'     => 'unidad de negocio',
         'provider_id'           => 'proveedor',
+        'display_name'          => 'nombre para mostar',
     ],
 ];

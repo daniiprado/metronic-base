@@ -27,15 +27,18 @@ class PermissionController extends ApiController
      *
      * @param StorePermissionRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StorePermissionRequest $request)
     {
         $permission = new Permission;
-        $permission->save( $request->all() );
-        return $this->singleResponse(
-            new PermissionResource( $permission ),
-            201
-        );
+        $permission->fill( $request->all() );
+        $permission->saveOrFail( $request->all() );
+        return $this->api_success([
+            'data'      =>  new PermissionResource( $permission ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -62,10 +65,11 @@ class PermissionController extends ApiController
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
         $permission->update( $request->all() );
-        return $this->singleResponse(
-            new PermissionResource( $permission ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new PermissionResource( $permission ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -78,9 +82,20 @@ class PermissionController extends ApiController
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return $this->singleResponse(
-            new PermissionResource( $permission ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new PermissionResource( $permission ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( Permission::query() )->toJson();
     }
 }

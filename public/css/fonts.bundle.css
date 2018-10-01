@@ -690,7 +690,7 @@
        url(/fonts/line-awesome.woff2?452a5b42cb4819f09d35bcf6cbdb24c1) format("woff2"),
        url(/fonts/line-awesome.woff?8b1290595e57e1d49d95ff3fa1129ecc) format("woff"),
        url(/fonts/line-awesome.ttf?4d42f5f0c62a8f51e876c14575354a6e) format("truetype"),
-       url(/fonts/line-awesome.svg?5207295c5bccd6e7442cfb261446c1f7#fa) format("svg");
+       url(/fonts/line-awesome.svg?131b7f1e91a652791f08f5ccfe702645#fa) format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -698,7 +698,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: "LineAwesome";
-    src: url(/fonts/line-awesome.svg?5207295c5bccd6e7442cfb261446c1f7#fa) format("svg");
+    src: url(/fonts/line-awesome.svg?131b7f1e91a652791f08f5ccfe702645#fa) format("svg");
   }
 }
 
@@ -1806,7 +1806,7 @@
        url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.woff2?d751a5f71030efec99def8070dad7a81) format("woff2"),
        url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.woff?b9c91f8037ec3d998566b33feb1f4a83) format("woff"),
        url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.ttf?f69ee90505162eb58ad8bf12da674b66) format("truetype"),
-       url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.svg?6b6feb61813dddd403e663c2c307b51c#Metronic) format("svg");
+       url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.svg?32abe9451aabd991dad2feed02033e78#Metronic) format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -1814,7 +1814,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: "Metronic";
-    src: url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.svg?6b6feb61813dddd403e663c2c307b51c#Metronic) format("svg");
+    src: url(/fonts/Metronic_fda1334c35d0f5fe2afb3afebbb6774a.svg?32abe9451aabd991dad2feed02033e78#Metronic) format("svg");
   }
 }
 

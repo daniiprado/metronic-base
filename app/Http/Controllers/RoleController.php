@@ -27,15 +27,18 @@ class RoleController extends ApiController
      *
      * @param StoreRoleRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreRoleRequest $request)
     {
         $role = new Role();
-        $role->save( $request->all() );
-        return $this->singleResponse(
-            new RoleResource( $role ),
-            201
-        );
+        $role->fill( $request->all() );
+        $role->saveOrFail( $request->all() );
+        return $this->api_success([
+            'data'      =>  new RoleResource( $role ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -62,10 +65,11 @@ class RoleController extends ApiController
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update( $request->all() );
-        return $this->singleResponse(
-            new RoleResource( $role ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new RoleResource( $role ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -78,9 +82,20 @@ class RoleController extends ApiController
     public function destroy(Role $role)
     {
         $role->delete();
-        return $this->singleResponse(
-            new RoleResource( $role ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new RoleResource( $role ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
+    }
+
+    /**
+     * Display a listing of the resource in datatable format.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatable()
+    {
+        return datatables()->eloquent( Role::query() )->toJson();
     }
 }
