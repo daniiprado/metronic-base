@@ -29,7 +29,8 @@ class PurchaseOrder extends Model implements Auditable
         'delivery_at',
         'requested_at',
         'user_id',
-        'provider_id'
+        'provider_id',
+        'status_id'
     ];
 
     protected $guarded = [
