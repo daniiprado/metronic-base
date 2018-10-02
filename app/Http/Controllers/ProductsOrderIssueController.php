@@ -6,7 +6,7 @@ namespace Logistic\Http\Controllers;
 use Logistic\Http\Requests\StoreProductsOrderIssueRequest;
 use Logistic\ProductsOrder;
 
-class ProductsOrderIssueController extends Controller
+class ProductsOrderIssueController extends ApiController
 {
 
 
