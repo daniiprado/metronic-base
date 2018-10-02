@@ -4,6 +4,7 @@ namespace Logistic\Http\Controllers;
 
 use Logistic\Http\Requests\StorePurchaseOrderRequest;
 use Logistic\Http\Requests\UpdatePurchaseOrderRequest;
+use Logistic\Http\Requests\UpdatePurchaseOrderStatusRequest;
 use Logistic\Http\Resources\PurchaseOrderResource;
 use Logistic\PurchaseOrder;
 
@@ -115,11 +116,11 @@ class PurchaseOrderController extends ApiController
     /**
      * Update purchase status
      *
-     * @param UpdatePurchaseOrderRequest $request
+     * @param UpdatePurchaseOrderStatusRequest $request
      * @param PurchaseOrder $purchaseOrder
      * @return \Illuminate\Http\JsonResponse
      */
-    public function status(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
+    public function status(UpdatePurchaseOrderStatusRequest $request, PurchaseOrder $purchaseOrder)
     {
         $purchaseOrder->status_id = $request->get('status_id');
         return $this->api_success([
