@@ -13,7 +13,7 @@
 
                         <portlet-input :value="form.name" v-model.trim="form.name"
                                        :has-errors="form.errors"
-                                       validation="required|alpha|min:3|max:30"
+                                       validation="required|alpha_dash|min:3|max:30"
                                        name="name"
                                        :input-attrs="{'minlength': 3, 'maxlength': 30, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>

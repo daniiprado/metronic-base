@@ -18,7 +18,10 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
 Route::prefix('api')->group( function () {
 
     Route::middleware('auth:api')->get('user', function (Request $request) {
-        return $request->user();
+        return response()->json(
+            auth('api')->user(),
+            200
+        );
     });
 
     /**
@@ -55,6 +58,10 @@ Route::prefix('api')->group( function () {
     ]);
     Route::resource('purchase-order', 'PurchaseOrderController', [
         'except' => ['create', 'edit']
+    ]);
+
+    Route::resource('products-order.issues', 'ProductsOrderIssueController', [
+        'only' => ['store']
     ]);
 
     Route::resource('issues', 'IssueController', [

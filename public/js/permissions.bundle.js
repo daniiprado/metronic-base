@@ -4797,7 +4797,7 @@ var render = function() {
                       attrs: {
                         value: _vm.form.name,
                         "has-errors": _vm.form.errors,
-                        validation: "required|alpha|min:3|max:30",
+                        validation: "required|alpha_dash|min:3|max:30",
                         name: "name",
                         "input-attrs": {
                           minlength: 3,

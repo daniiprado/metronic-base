@@ -28,15 +28,18 @@ class ProductsOrderController extends ApiController
      *
      * @param StoreProductsOrderRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreProductsOrderRequest $request)
     {
-        $products_order = new ProductsOrder();
-        $products_order->save( $request->all() );
-        return $this->singleResponse(
-            new ProductsOrderResource( $products_order ),
-            201
-        );
+        $products_order = new ProductsOrder;
+        $products_order->fill( $request->all() );
+        $products_order->saveOrFail();
+        return $this->api_success([
+            'data'      =>  new ProductsOrderResource( $products_order ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -63,10 +66,11 @@ class ProductsOrderController extends ApiController
     public function update(UpdateProductsOrderRequest $request, ProductsOrder $products_order)
     {
         $products_order->update( $request->all() );
-        return $this->singleResponse(
-            new ProductsOrderResource( $products_order ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ProductsOrderResource( $products_order ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -79,10 +83,11 @@ class ProductsOrderController extends ApiController
     public function destroy(ProductsOrder $products_order)
     {
         $products_order->delete();
-        return $this->singleResponse(
-            new ProductsOrderResource( $products_order ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new ProductsOrderResource( $products_order ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
     }
 
     /**

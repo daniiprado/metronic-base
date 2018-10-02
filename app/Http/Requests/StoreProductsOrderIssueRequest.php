@@ -4,7 +4,7 @@ namespace Logistic\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductsOrderRequest extends FormRequest
+class StoreProductsOrderIssueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreProductsOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,10 +24,8 @@ class StoreProductsOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'quantity'          =>  'required|numeric|min:1',
-            'price'             =>  'required|numeric|min:50',
-            'purchase_order_id' =>  'required|numeric|exists:purchases_orders,id',
-            'product_id'        =>  'required|numeric|exists:products,id',
+            'issues'            =>  'required|array',
+            'issues.*.issue'    =>  'required|string|max:3000'
         ];
     }
 }

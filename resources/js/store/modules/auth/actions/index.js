@@ -26,6 +26,20 @@ const actions = {
 
     logout: ({commit}) => {
         commit('LOGOUT')
+    },
+
+    auth_user: ({commit}, user) => {
+        return new Promise((resolve, reject) => {
+            axios.get('/user')
+                .then((response) => {
+                    console.log()
+                    commit('USER', response.data);
+                    if (response.data.permissions) {
+                        commit('PERMISSIONS', response.data.permissions)
+                    }
+                    resolve(response.data)
+                })
+        })
     }
 };
 

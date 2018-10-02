@@ -493,8 +493,8 @@ var API = {
     APP_NAME: 'Logistimatic',
     COOKIE: 'logistimatic',
     PATH: '/api/',
-    CLIENT_ID: 10,
-    CLIENT_SECRET: 'CrgtOULIcfGz3v0BQQKXHrKcuRClZHfJPNsEDPe4',
+    CLIENT_ID: 6,
+    CLIENT_SECRET: 'wm9GeXvGaEwuty58TqvQHEOzugr1v4g6piHTBkOm',
     GRANT_TYPE: 'password',
     END_POINTS: {
         SECURITY: {
@@ -35549,7 +35549,12 @@ function t(t,n,r){return void 0===(t=(n.split?n.split("."):n).reduce(function(t,
 var state = {
     access_token: null,
     refresh_token: null,
-    expires_in: null
+    expires_in: null,
+    user_id: null,
+    user_name: null,
+    email: null,
+    company: null,
+    permissions: []
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -35595,6 +35600,21 @@ var actions = {
         var commit = _ref2.commit;
 
         commit('LOGOUT');
+    },
+
+    auth_user: function auth_user(_ref3, user) {
+        var commit = _ref3.commit;
+
+        return new Promise(function (resolve, reject) {
+            axios.get('/user').then(function (response) {
+                console.log();
+                commit('USER', response.data);
+                if (response.data.permissions) {
+                    commit('PERMISSIONS', response.data.permissions);
+                }
+                resolve(response.data);
+            });
+        });
     }
 };
 
@@ -35615,6 +35635,15 @@ var mutations = {
         state.access_token = null;
         state.refresh_token = null;
         state.expires_in = null;
+    },
+    USER: function USER(state, response) {
+        state.user_id = response.id;
+        state.user_name = response.name;
+        state.email = response.email;
+        state.company = response.company.name;
+    },
+    PERMISSIONS: function PERMISSIONS(state, response) {
+        state.permissios = response.permissions;
     }
 };
 
@@ -44509,7 +44538,7 @@ module.exports = {"failed":"These credentials do not match our records.","thrott
 /* 77 */
 /***/ (function(module, exports) {
 
-module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"users":{"title":"{0} :prefix Usuario|{2} Usuarios"},"roles":{"title":"{0} :prefix Role|{2} Permiso"},"permissions":{"title":"{0} :prefix Permiso|{2} Permisos"},"modules":{"title":"{0} :prefix Módulo|{2} Módulos"},"submodules":{"title":"{0} :prefix Submódulo|{2} Submódulos"},"company":{"title":"{0} :prefix Compañía|{2} Compañías"},"business_unity":{"title":"{0} :prefix Unidad de Negocio|{2} Unidates de Negocio"},"product":{"title":"{0} :prefix Producto|{2} Productos"},"purchase_order":{"title":"{0} :prefix Orden de Compra|{2} Ordenes de compra"},"buttons":{"sign_in":"Iniciar Sesión","log_out":"Cerrar Sesión","create":"Crear","select":"Seleccionar","update":"Actualizar","edit":"Modificar","delete":"Eliminar","restore":"Restaurar","save":"Guardar","cancel":"Cancelar","add":"Añadir","add_file":"Añadir Archivo","zoom_in":"Ampliar","zoom_out":"Alejar","rotate":"Girar","new":"Nuevo","print":"Imprimir","copy":"Copiar","excel":"Excel","csv":"CSV","pdf":"PDF","export_tools":"Herramientas de Exportación"},"messages":{"success":"¡Bien Hecho!","warning":"Advertencia","error":"Error","info":"Información","question":"Pregunta","comfirm_delete":"{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?"},"responses":{"created":"Se han almacenado los datos satisfactoriamente.","created_fail":"No se han almacenado los datos intenta de nuevo.","updated":"Se han actualizado los datos satisfactoriamente.","updated_fail":"No se han actualizado los datos intenta de nuevo.","deleted":"Se han eliminado los datos satisfactoriamente.","deleted_fail":"No se han eliminado los datos intenta de nuevo."}};
+module.exports = {"login":{"forget_password":"¿Olvidaste tu contraseña?"},"users":{"title":"{0} :prefix Usuario|{2} Usuarios"},"roles":{"title":"{0} :prefix Rol|{2} Roles"},"permissions":{"title":"{0} :prefix Permiso|{2} Permisos"},"modules":{"title":"{0} :prefix Módulo|{2} Módulos"},"submodules":{"title":"{0} :prefix Submódulo|{2} Submódulos"},"company":{"title":"{0} :prefix Compañía|{2} Compañías"},"business_unity":{"title":"{0} :prefix Unidad de Negocio|{2} Unidates de Negocio"},"product":{"title":"{0} :prefix Producto|{2} Productos"},"purchase_order":{"title":"{0} :prefix Orden de Compra|{2} Ordenes de compra"},"buttons":{"sign_in":"Iniciar Sesión","log_out":"Cerrar Sesión","create":"Crear","select":"Seleccionar","update":"Actualizar","edit":"Modificar","delete":"Eliminar","restore":"Restaurar","save":"Guardar","cancel":"Cancelar","add":"Añadir","add_file":"Añadir Archivo","zoom_in":"Ampliar","zoom_out":"Alejar","rotate":"Girar","new":"Nuevo","print":"Imprimir","copy":"Copiar","excel":"Excel","csv":"CSV","pdf":"PDF","export_tools":"Herramientas de Exportación"},"messages":{"success":"¡Bien Hecho!","warning":"Advertencia","error":"Error","info":"Información","question":"Pregunta","comfirm_delete":"{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?"},"responses":{"created":"Se han almacenado los datos satisfactoriamente.","created_fail":"No se han almacenado los datos intenta de nuevo.","updated":"Se han actualizado los datos satisfactoriamente.","updated_fail":"No se han actualizado los datos intenta de nuevo.","deleted":"Se han eliminado los datos satisfactoriamente.","deleted_fail":"No se han eliminado los datos intenta de nuevo."}};
 
 /***/ }),
 /* 78 */

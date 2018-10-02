@@ -12,7 +12,7 @@ class Permission extends EntrustPermission
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name', 'description', 'submodule_action_id'
+        'name', 'display_name', 'description'
     ];
 
     /**
@@ -24,7 +24,6 @@ class Permission extends EntrustPermission
         'name'          =>  'string',
         'display_name'  =>  'string',
         'description'   =>  'string',
-        'submodule_action_id'   => 'integer'
     ];
 
     /*

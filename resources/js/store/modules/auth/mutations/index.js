@@ -9,6 +9,17 @@ const mutations = {
         state.access_token = null;
         state.refresh_token = null;
         state.expires_in = null;
+    },
+
+    USER (state, response) {
+        state.user_id = response.id;
+        state.user_name = response.name;
+        state.email = response.email;
+        state.company = response.company.name;
+    },
+
+    PERMISSIONS(state, response) {
+        state.permissios = response.permissions;
     }
 };
 

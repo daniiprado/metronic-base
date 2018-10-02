@@ -20,7 +20,7 @@ return [
         'title' =>  '{0} :prefix Usuario|{2} Usuarios',
     ],
     'roles' => [
-        'title' =>  '{0} :prefix Role|{2} Permiso',
+        'title' =>  '{0} :prefix Rol|{2} Roles',
     ],
     'permissions' => [
         'title' =>  '{0} :prefix Permiso|{2} Permisos',
