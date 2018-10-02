@@ -28,15 +28,18 @@ class IssueController extends ApiController
      *
      * @param StoreIssueRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StoreIssueRequest $request)
     {
         $issue = new Issue;
-        $issue->save( $request->all() );
-        return $this->singleResponse(
-            new IssueResource( $issue ),
-            201
-        );
+        $issue->fill( $request->all() );
+        $issue->saveOrFail();
+        return $this->api_success([
+            'data'      =>  new IssueResource( $issue ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -63,10 +66,11 @@ class IssueController extends ApiController
     public function update(UpdateIssueRequest $request, Issue $issue)
     {
         $issue->update( $request->all() );
-        return $this->singleResponse(
-            new IssueResource( $issue ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new IssueResource( $issue ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -79,9 +83,10 @@ class IssueController extends ApiController
     public function destroy(Issue $issue)
     {
         $issue->delete();
-        return $this->singleResponse(
-            new IssueResource( $issue ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new IssueResource( $issue ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
     }
 }

@@ -17,7 +17,7 @@ class Issue extends Model implements Auditable
      * @var array
      */
     protected $fillable = [
-        'issue', 'attachment', 'order_product_id'
+        'issue', 'attachment', 'products_order_id'
     ];
 
     /**
@@ -28,7 +28,7 @@ class Issue extends Model implements Auditable
     protected $casts = [
         'issue'             =>  'string',
         'attachment'        =>  'string',
-        'order_product_id'  =>  'integer',
+        'products_order_id'  =>  'integer',
     ];
 
     /*
