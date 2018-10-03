@@ -124,7 +124,7 @@ class PurchaseOrderController extends ApiController
     public function status(UpdatePurchaseOrderStatusRequest $request, PurchaseOrder $purchase_order)
     {
         $purchase_order->status_id = $request->get('status_id');
-
+        $purchase_order->saveOrFail();
         return $this->api_success([
             'message'   =>  "Se ha actualizado el estado de de la órden",
             'code'      =>  200
