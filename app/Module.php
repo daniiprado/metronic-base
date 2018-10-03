@@ -52,6 +52,11 @@ class Module extends Model implements Auditable
         return ['module'];
     }
 
+    public function getNameAttribute($name)
+    {
+        return ucfirst( __("validation.attributes.{$name}") );
+    }
+
     /*
      * ---------------------------------------------------------
      * Eloquent Relationship

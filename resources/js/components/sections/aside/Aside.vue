@@ -71,7 +71,13 @@
 
 <script>
     export default {
-        name: "Aside"
+        name: "Aside",
+        data: () => {
+            return {
+                menu: []
+            }
+        },
+        created
     }
 </script>
 

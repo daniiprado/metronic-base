@@ -15,7 +15,7 @@ class Permission extends EntrustPermission
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name', 'description', 'module_id'
+        'name', 'display_name', 'description', 'module_id', 'submodule_id'
     ];
 
     /**
@@ -28,6 +28,7 @@ class Permission extends EntrustPermission
         'display_name'  =>  'string',
         'description'   =>  'string',
         'module_id'     =>  'integer',
+        'submodule_id'  =>  'integer',
     ];
 
     /*
@@ -37,12 +38,22 @@ class Permission extends EntrustPermission
      */
 
     /**
-     * Permission has one submodule action
+     * Permission belongs to module
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function module()
     {
         return $this->belongsTo( Module::class );
+    }
+
+    /**
+     * Permission belongs to submodule
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function submodule()
+    {
+        return $this->belongsTo( Submodule::class );
     }
 }

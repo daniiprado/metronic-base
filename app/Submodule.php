@@ -54,6 +54,11 @@ class Submodule extends Model implements Auditable
         return ['submodule'];
     }
 
+    public function getNameAttribute($name)
+    {
+        return ucfirst( __("validation.attributes.{$name}") );
+    }
+
     /*
      * ---------------------------------------------------------
      * Eloquent Relationship
@@ -75,10 +80,10 @@ class Submodule extends Model implements Auditable
      * Submodules has many actions
      *
      * @Relation
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function actions()
+    public function permission()
     {
-        return $this->hasMany( SubmoduleAction::class );
+        return $this->hasOne( Permission::class, 'submodule_id', 'id' );
     }
 }

@@ -17,7 +17,14 @@ class ModuleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ModuleResource::collection( Module::all()->load('permissions') ),
+            ModuleResource::collection( Module::all()->load([
+                'permissions'   => function ($query) {
+                    return $query->select(['id', 'name', 'module_id'])->whereNull('submodule_id');
+                },
+                'submodules'    =>  function ($query) {
+                    return $query->with('permission:id,name,submodule_id');
+                }
+            ]) ),
             200
         );
     }

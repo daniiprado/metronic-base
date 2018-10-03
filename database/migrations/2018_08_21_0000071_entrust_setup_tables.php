@@ -41,6 +41,7 @@ class EntrustSetupTables extends Migration
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->unsignedInteger('module_id')->nullable();
+            $table->unsignedInteger('submodule_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('module_id')->references('id')->on('modules');

@@ -83,31 +83,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-module',
                     'display_name'  =>  'Visualizar Módulo',
                     'description'   =>  'Permite visualizar los módulos de la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_module->id,
                 ],
                 [
                     'name'          =>  'create-module',
                     'display_name'  =>  'Crear Módulo',
                     'description'   =>  'Permite crear módulos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_module->id,
                 ],
                 [
                     'name'          =>  'edit-module',
                     'display_name'  =>  'Editar Módulo',
                     'description'   =>  'Permite editar módulos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_module->id,
                 ],
                 [
                     'name'          =>  'delete-module',
                     'display_name'  =>  'Eliminar Módulo',
                     'description'   =>  'Permite eliminar módulos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_module->id,
                 ],
                 [
                     'name'          =>  'restore-module',
                     'display_name'  =>  'Restaurar Módulo',
                     'description'   =>  'Permite restaurar módulos eliminados en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_module->id,
                 ],
             ],
             'submodules'   =>  [
@@ -115,31 +120,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-submodule',
                     'display_name'  =>  'Visualizar Submódulo',
                     'description'   =>  'Permite visualizar los submódulos de la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_submodules->id
                 ],
                 [
                     'name'          =>  'create-submodule',
                     'display_name'  =>  'Crear Submódulo',
                     'description'   =>  'Permite crear submódulos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_submodules->id
                 ],
                 [
                     'name'          =>  'edit-submodule',
                     'display_name'  =>  'Editar Submódulo',
                     'description'   =>  'Permite editar submódulos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_submodules->id
                 ],
                 [
                     'name'          =>  'delete-submodule',
                     'display_name'  =>  'Eliminar Submódulo',
                     'description'   =>  'Permite eliminar submódulos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_submodules->id
                 ],
                 [
                     'name'          =>  'restore-submodule',
                     'display_name'  =>  'Restaurar Submódulo',
                     'description'   =>  'Permite restaurar submódulos eliminados en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_submodules->id
                 ],
             ],
             'users'   =>  [
@@ -147,31 +157,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-users',
                     'display_name'  =>  'Visualizar Usuarios',
                     'description'   =>  'Permite visualizar los usuarios de la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_users->id
                 ],
                 [
                     'name'          =>  'create-users',
                     'display_name'  =>  'Crear Usuarios',
                     'description'   =>  'Permite crear usuarios en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_users->id
                 ],
                 [
                     'name'          =>  'edit-users',
                     'display_name'  =>  'Editar Usuarios',
                     'description'   =>  'Permite editar usuarios en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_users->id
                 ],
                 [
                     'name'          =>  'delete-users',
                     'display_name'  =>  'Eliminar Usuarios',
                     'description'   =>  'Permite eliminar usuarios en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_users->id
                 ],
                 [
                     'name'          =>  'restore-users',
                     'display_name'  =>  'Restaurar Usuarios',
                     'description'   =>  'Permite restaurar usuarios eliminados en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_users->id
                 ],
             ],
             'roles'   =>  [
@@ -179,31 +194,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-roles',
                     'display_name'  =>  'Visualizar Roles',
                     'description'   =>  'Permite visualizar los roles de la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_roles->id
                 ],
                 [
                     'name'          =>  'create-roles',
                     'display_name'  =>  'Crear Roles',
                     'description'   =>  'Permite crear roles en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_roles->id
                 ],
                 [
                     'name'          =>  'edit-roles',
                     'display_name'  =>  'Editar Roles',
                     'description'   =>  'Permite editar roles en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_roles->id
                 ],
                 [
                     'name'          =>  'delete-roles',
                     'display_name'  =>  'Eliminar Roles',
                     'description'   =>  'Permite eliminar roles en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_roles->id
                 ],
                 [
                     'name'          =>  'restore-roles',
                     'display_name'  =>  'Restaurar Roles',
                     'description'   =>  'Permite restaurar roles eliminados en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_roles->id
                 ],
             ],
             'permissions'   =>  [
@@ -211,31 +231,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-permissions',
                     'display_name'  =>  'Visualizar Permisos',
                     'description'   =>  'Permite visualizar los permisos de la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_permissions->id
                 ],
                 [
                     'name'          =>  'create-permissions',
                     'display_name'  =>  'Crear Permisos',
                     'description'   =>  'Permite crear permisos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_permissions->id
                 ],
                 [
                     'name'          =>  'edit-permissions',
                     'display_name'  =>  'Editar Permisos',
                     'description'   =>  'Permite editar permisos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_permissions->id
                 ],
                 [
                     'name'          =>  'delete-permissions',
                     'display_name'  =>  'Eliminar Permisos',
                     'description'   =>  'Permite eliminar permisos en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_permissions->id
                 ],
                 [
                     'name'          =>  'restore-permissions',
                     'display_name'  =>  'Restaurar Permisos',
                     'description'   =>  'Permite restaurar permisos eliminados en la aplicación.',
-                    'module_id'     =>  $security_module->id
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_permissions->id
                 ],
             ],
 
@@ -244,31 +269,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-companies',
                     'display_name'  =>  'Visualizar Compañías',
                     'description'   =>  'Permite visualizar las compañías de la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_companies->id
                 ],
                 [
                     'name'          =>  'create-companies',
                     'display_name'  =>  'Crear Compañías',
                     'description'   =>  'Permite crear compañías en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_companies->id
                 ],
                 [
                     'name'          =>  'edit-companies',
                     'display_name'  =>  'Editar Compañías',
                     'description'   =>  'Permite editar compañías en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_companies->id
                 ],
                 [
                     'name'          =>  'delete-companies',
                     'display_name'  =>  'Eliminar Compañías',
                     'description'   =>  'Permite eliminar compañías en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_companies->id
                 ],
                 [
                     'name'          =>  'restore-companies',
                     'display_name'  =>  'Restaurar Compañías',
                     'description'   =>  'Permite restaurar compañías eliminados en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_companies->id
                 ],
             ],
             'business-unities'   =>  [
@@ -276,31 +306,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-business-unities',
                     'display_name'  =>  'Visualizar Unidades de Negocio',
                     'description'   =>  'Permite visualizar las unidades de negocio de la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_business_unities->id,
                 ],
                 [
                     'name'          =>  'create-business-unities',
                     'display_name'  =>  'Crear Unidades de Negocio',
                     'description'   =>  'Permite crear unidades de negocio en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_business_unities->id,
                 ],
                 [
                     'name'          =>  'edit-business-unities',
                     'display_name'  =>  'Editar Unidades de Negocio',
                     'description'   =>  'Permite editar unidades de negocio en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_business_unities->id,
                 ],
                 [
                     'name'          =>  'delete-business-unities',
                     'display_name'  =>  'Eliminar Unidades de Negocio',
                     'description'   =>  'Permite eliminar unidades de negocio en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_business_unities->id,
                 ],
                 [
                     'name'          =>  'restore-business-unities',
                     'display_name'  =>  'Restaurar Unidades de Negocio',
                     'description'   =>  'Permite restaurar unidades de negocio eliminados en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'     =>  $submodule_business_unities->id,
                 ],
             ],
             'products'   =>  [
@@ -308,31 +343,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-products',
                     'display_name'  =>  'Visualizar Productos',
                     'description'   =>  'Permite visualizar los productos de la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_products->id
                 ],
                 [
                     'name'          =>  'create-products',
                     'display_name'  =>  'Crear Productos',
                     'description'   =>  'Permite crear productos en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_products->id
                 ],
                 [
                     'name'          =>  'edit-products',
                     'display_name'  =>  'Editar Productos',
                     'description'   =>  'Permite editar productos en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_products->id
                 ],
                 [
                     'name'          =>  'delete-products',
                     'display_name'  =>  'Eliminar Productos',
                     'description'   =>  'Permite eliminar productos en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_products->id
                 ],
                 [
                     'name'          =>  'restore-products',
                     'display_name'  =>  'Restaurar Productos',
                     'description'   =>  'Permite restaurar productos eliminados en la aplicación.',
-                    'module_id'     =>  $cutomers_module->id
+                    'module_id'     =>  $cutomers_module->id,
+                    'submodule_id'  =>  $submodule_products->id
                 ],
             ],
 
@@ -341,31 +381,36 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'view-purchase-order',
                     'display_name'  =>  'Visualizar Ordenes de Compra',
                     'description'   =>  'Permite visualizar las ordenes de compra de la aplicación.',
-                    'module_id'     =>  $purchase_module->id
+                    'module_id'     =>  $purchase_module->id,
+                    'submodule_id'  =>  $submodule_purchase_order->id
                 ],
                 [
                     'name'          =>  'create-purchase-order',
                     'display_name'  =>  'Crear Ordenes de Compra',
                     'description'   =>  'Permite crear ordenes de compra en la aplicación.',
-                    'module_id'     =>  $purchase_module->id
+                    'module_id'     =>  $purchase_module->id,
+                    'submodule_id'  =>  $submodule_purchase_order->id
                 ],
                 [
                     'name'          =>  'edit-purchase-order',
                     'display_name'  =>  'Editar Ordenes de Compra',
                     'description'   =>  'Permite editar ordenes de compra en la aplicación.',
-                    'module_id'     =>  $purchase_module->id
+                    'module_id'     =>  $purchase_module->id,
+                    'submodule_id'  =>  $submodule_purchase_order->id
                 ],
                 [
                     'name'          =>  'delete-purchase-order',
                     'display_name'  =>  'Eliminar Ordenes de Compra',
                     'description'   =>  'Permite eliminar ordenes de compra en la aplicación.',
-                    'module_id'     =>  $purchase_module->id
+                    'module_id'     =>  $purchase_module->id,
+                    'submodule_id'  =>  $submodule_purchase_order->id
                 ],
                 [
                     'name'          =>  'restore-purchase-order',
                     'display_name'  =>  'Restaurar Ordenes de Compra',
                     'description'   =>  'Permite restaurar ordenes de compra eliminados en la aplicación.',
-                    'module_id'     =>  $purchase_module->id
+                    'module_id'     =>  $purchase_module->id,
+                    'submodule_id'  =>  $submodule_purchase_order->id
                 ],
             ],
         ];
