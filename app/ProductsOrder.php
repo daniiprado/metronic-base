@@ -25,6 +25,8 @@ class ProductsOrder extends Model implements Auditable
      */
     protected $fillable = [
         'quantity',
+        'picked',
+        'packed',
         'price',
         'purchase_order_id',
         'product_id',
@@ -41,6 +43,8 @@ class ProductsOrder extends Model implements Auditable
      */
     protected $casts = [
         'quantity'          =>  'integer',
+        'picked'            =>  'integer',
+        'packed'            =>  'integer',
         'price'             =>  'double',
         'received'          =>  'boolean',
         'transit'           =>  'boolean',
@@ -61,6 +65,8 @@ class ProductsOrder extends Model implements Auditable
      */
     protected $auditInclude = [
         'quantity',
+        'picked',
+        'packed',
         'price',
         'received',
         'transit',
