@@ -3,7 +3,15 @@
         <div class="col-lg-12">
             <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.roles.title', 2)">
                 <template slot="actions">
-                    <action-item v-if="selected.length === 1">
+                    <action-item >
+                        <a href="javascript:;"
+                           @click.prevent="onAttach"
+                           data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="la la-pencil"></i>
+                        </a>
+                    </action-item>
+                    <action-item v-if="selected.length === 1 && $auth.can('edit-roles')">
                         <a href="javascript:;"
                            @click.prevent="onEdit"
                            data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
@@ -11,7 +19,7 @@
                             <i class="la la-pencil"></i>
                         </a>
                     </action-item>
-                    <action-item v-if="selected.length > 0" >
+                    <action-item v-if="selected.length > 0 && $auth.can('delete-roles')" >
                         <a href="javascript:;"
                            data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.delete')"
                            @click.prevent="onDelete"
@@ -22,19 +30,19 @@
                     <portlet-dropdown-actions>
                         {{ lang.get('pages.buttons.export_tools') }}
                         <template slot="items">
-                            <li class="m-nav__item">
+                            <li v-if="$auth.can('create-roles')" class="m-nav__item">
                                 <router-link class="m-nav__link" :to="{ name: 'roles.create' }">
                                     <i class="m-nav__link-icon la la-plus-circle"></i>
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.add')">Create</span>
                                 </router-link>
                             </li>
-                            <li v-if="selected.length === 1" class="m-nav__item">
+                            <li v-if="selected.length === 1 && $auth.can('edit-roles')" class="m-nav__item">
                                 <a href="#" class="m-nav__link">
                                     <i class="m-nav__link-icon la la-pencil"></i>
                                     <span class="m-nav__link-text" @click.prevent="onEdit" v-text="lang.get('pages.buttons.edit')">Edit</span>
                                 </a>
                             </li>
-                            <li v-if="selected.length > 0"  @click.prevent="onDelete" class="m-nav__item">
+                            <li v-if="selected.length > 0 && $auth.can('delete-roles')"  @click.prevent="onDelete" class="m-nav__item">
                                 <a href="#" class="m-nav__link">
                                     <i class="m-nav__link-icon la la-trash"></i>
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.delete')">Delete</span>
@@ -245,6 +253,9 @@
             },
             onEdit: function () {
                 // this.$router.push({ name: 'roles.edit', params: { id: this.selected[0].id } })
+            },
+            onAttach: function () {
+                this.$router.push({ name: 'roles.permissions', params: { id: this.selected[0].id } })
             }
         },
         beforeDestroy: function () {

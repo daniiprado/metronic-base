@@ -1,5 +1,6 @@
 import {API} from "../../../../services/Api";
 import {Form} from "../../../../services/Form";
+import store from "../../../index";
 
 const actions = {
 
@@ -28,17 +29,23 @@ const actions = {
         commit('LOGOUT')
     },
 
-    auth_user: ({commit}, user) => {
+    auth_user: ({commit}) => {
         return new Promise((resolve, reject) => {
-            axios.get('/user')
+            axios.defaults.headers.common['Authorization'] = store.getters.getToken;
+            axios.get('/api/user')
                 .then((response) => {
-                    console.log()
+                    console.log(response)
                     commit('USER', response.data);
-                    if (response.data.permissions) {
-                        commit('PERMISSIONS', response.data.permissions)
+                    if (response.data.roles) {
+                        commit('PERMISSIONS', response);
+                        commit('ROLES', response);
                     }
                     resolve(response.data)
                 })
+                .catch((error) => {
+                    commit('LOGOUT');
+                    reject(error)
+                });
         })
     }
 };

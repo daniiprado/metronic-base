@@ -17,9 +17,14 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
 
 Route::prefix('api')->group( function () {
 
-    Route::middleware('auth:api')->get('user', function (Request $request) {
+    Route::get('user', function (Request $request) {
         return response()->json(
-            auth('api')->user(),
+            \Logistic\User::with([
+                'company:id,name',
+                'roles' =>  function ($query){
+                    return $query->select(['id', 'name'])->with('perms:id,name');
+                }
+            ])->find( auth('api')->user()->id ),
             200
         );
     });
@@ -75,12 +80,12 @@ Route::prefix('api')->group( function () {
     /**
      * Administrative Routes
      */
-    Route::get('module/datatable', 'ModuleController@datatable');
+    Route::get('modules/datatable', 'ModuleController@datatable');
     Route::resource('modules', 'ModuleController', [
         'except' => ['create', 'edit']
     ]);
 
-    Route::get('submodule/datatable', 'SubmoduleController@datatable');
+    Route::get('submodules/datatable', 'SubmoduleController@datatable');
     Route::resource('submodules', 'SubmoduleController', [
         'except' => ['create', 'edit']
     ]);

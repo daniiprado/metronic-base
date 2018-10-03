@@ -40,8 +40,10 @@ class EntrustSetupTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->unsignedInteger('module_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('module_id')->references('id')->on('modules');
         });
 
         // Create table for associating permissions to roles (Many-to-Many)

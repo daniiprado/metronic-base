@@ -68,4 +68,15 @@ class Module extends Model implements Auditable
     {
         return $this->hasMany( Submodule::class );
     }
+
+    /**
+     * Modules has many submodules
+     *
+     * @Relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function permissions()
+    {
+        return $this->hasMany( Permission::class );
+    }
 }

@@ -19,7 +19,7 @@ class RolePermissionController extends ApiController
     public function index(Role $role)
     {
         return $this->singleResponse(
-            new RoleResource( $role->with('permissions')->get() ),
+            new RoleResource( $role->load('perms') ),
             200
         );
     }
@@ -36,7 +36,7 @@ class RolePermissionController extends ApiController
     {
         $role->attachPermissions( $request->get('permissions') );
         return $this->singleResponse(
-            new RoleResource( $role->with('permissions')->get() ),
+            new RoleResource( $role->load('perms') ),
             201
         );
     }

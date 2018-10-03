@@ -10,7 +10,8 @@ const state = {
     user_name: null,
     email: null,
     company: null,
-    permissions: []
+    permissions: [],
+    roles: [],
 };
 
 export default {

@@ -17,7 +17,7 @@ class ModuleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ModuleResource::collection( $this->getModel( new Module ) ),
+            ModuleResource::collection( Module::all()->load('permissions') ),
             200
         );
     }

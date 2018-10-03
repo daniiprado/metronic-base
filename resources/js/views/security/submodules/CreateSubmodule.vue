@@ -21,9 +21,9 @@
 
                     <portlet-input :value="form.name" v-model="form.name"
                                    :has-errors="form.errors"
-                                   validation="required|alpha_spaces|min:3|max:15"
+                                   validation="required|alpha_spaces|min:3|max:20"
                                    name="name"
-                                   :input-attrs="{'minlength': 3, 'maxlength': 15, 'required': true, 'autocomplete': 'off' }">
+                                   :input-attrs="{'minlength': 3, 'maxlength': 20, 'required': true, 'autocomplete': 'off' }">
                     </portlet-input>
 
                 </div>

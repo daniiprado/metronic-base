@@ -7,7 +7,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(354)
 }
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(16)
 /* script */
 var __vue_script__ = __webpack_require__(356)
 /* template */
@@ -4602,7 +4602,7 @@ module.exports = Component.exports
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)(module)))
 
 /***/ }),
 /* 144 */
@@ -8364,7 +8364,7 @@ if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Model; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__(17);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21260,7 +21260,7 @@ var content = __webpack_require__(355);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("4f3b3570", content, false, {});
+var update = __webpack_require__(15)("4f3b3570", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -21279,7 +21279,7 @@ if(false) {
 /* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)(false);
+exports = module.exports = __webpack_require__(14)(false);
 // imports
 
 
@@ -21644,7 +21644,7 @@ var render = function() {
               "template",
               { slot: "actions" },
               [
-                _vm.selected.length === 1
+                _vm.selected.length === 1 && _vm.$auth.can("edit-products")
                   ? _c("action-item", [
                       _c(
                         "a",
@@ -21673,7 +21673,7 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.selected.length > 0
+                _vm.selected.length > 0 && _vm.$auth.can("delete-products")
                   ? _c("action-item", [
                       _c(
                         "a",
@@ -21711,41 +21711,44 @@ var render = function() {
                         "\n                    "
                     ),
                     _c("template", { slot: "items" }, [
-                      _c(
-                        "li",
-                        { staticClass: "m-nav__item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "m-nav__link",
-                              attrs: { to: { name: "companies.create" } }
-                            },
+                      _vm.$auth.can("create-products")
+                        ? _c(
+                            "li",
+                            { staticClass: "m-nav__item" },
                             [
-                              _c("i", {
-                                staticClass:
-                                  "m-nav__link-icon la la-plus-circle"
-                              }),
-                              _vm._v(" "),
                               _c(
-                                "span",
+                                "router-link",
                                 {
-                                  staticClass: "m-nav__link-text",
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      _vm.lang.get("pages.buttons.add")
-                                    )
-                                  }
+                                  staticClass: "m-nav__link",
+                                  attrs: { to: { name: "companies.create" } }
                                 },
-                                [_vm._v("Create")]
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "m-nav__link-icon la la-plus-circle"
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "m-nav__link-text",
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          _vm.lang.get("pages.buttons.add")
+                                        )
+                                      }
+                                    },
+                                    [_vm._v("Create")]
+                                  )
+                                ]
                               )
-                            ]
+                            ],
+                            1
                           )
-                        ],
-                        1
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
-                      _vm.selected.length === 1
+                      _vm.selected.length === 1 &&
+                      _vm.$auth.can("edit-products")
                         ? _c("li", { staticClass: "m-nav__item" }, [
                             _c(
                               "a",
@@ -21781,7 +21784,8 @@ var render = function() {
                           ])
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm.selected.length > 0
+                      _vm.selected.length > 0 &&
+                      _vm.$auth.can("delete-products")
                         ? _c(
                             "li",
                             {

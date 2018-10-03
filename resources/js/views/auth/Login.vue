@@ -88,7 +88,10 @@
                         this.loading = true;
                         this.$store.dispatch('login', this.form.data())
                             .then(() => {
-                                window.location.reload();
+                                this.$store.dispatch('auth_user')
+                                    .then(() => {
+                                        window.location.reload();
+                                    })
                             })
                             .catch((error) => {
                                 this.alert = this.lang.get('auth.failed');

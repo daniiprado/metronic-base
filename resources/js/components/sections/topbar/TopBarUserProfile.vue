@@ -6,9 +6,9 @@
     <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
         <a href="javascript:;" class="m-nav__link m-dropdown__toggle">
             <span class="m-topbar__userpic">
-                <avatar class="m--img-rounded m--marginless" :size="41" :alt="user.username" :username="user.username"></avatar>
+                <avatar class="m--img-rounded m--marginless" :size="41" :alt="user.name" :username="user.name"></avatar>
             </span>
-            <span class="m-topbar__username m--hide" v-text="user.username"></span>
+            <span class="m-topbar__username m--hide" v-text="user.name"></span>
         </a>
         <div class="m-dropdown__wrapper">
             <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
@@ -16,11 +16,11 @@
                 <div class="m-dropdown__header m--align-center" :style="bg">
                     <div class="m-card-user m-card-user--skin-dark">
                         <div class="m-card-user__pic">
-                            <avatar class="m--img-rounded m--marginless" :alt="user.username" :username="user.username"></avatar>
+                            <avatar class="m--img-rounded m--marginless" :alt="user.name" :username="user.name"></avatar>
                         </div>
                         <div class="m-card-user__details">
                         <span class="m-card-user__name m--font-weight-500">
-                            {{ user.username }}
+                            {{ user.name }}
                         </span>
                             <a href="" class="m-card-user__email m--font-weight-300 m-link">
                                 {{ user.email }}
@@ -71,11 +71,14 @@
         data: () => {
             return {
                 user: {
-                    username: API.APP_NAME,
+                    name: API.APP_NAME,
                     email: 'root@app.com',
                 },
                 bg: 'background: url('+ require('./../../../assets/img/misc/user_profile_bg.jpg') +'); background-size: cover;'
             }
+        },
+        created: function () {
+            this.user = this.$store.getters.authUser;
         },
         methods: {
             onLogout: function () {

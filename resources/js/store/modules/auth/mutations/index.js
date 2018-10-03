@@ -19,7 +19,21 @@ const mutations = {
     },
 
     PERMISSIONS(state, response) {
-        state.permissios = response.permissions;
+        state.permissions = response.data.roles.map((role) => {
+            if ( role.perms ) {
+                return role.perms.map((perm) => {
+                    return perm.name;
+                })
+            } else {
+                return [];
+            }
+        });
+    },
+
+    ROLES(state, response) {
+        state.roles = response.data.roles.map((role) => {
+            return role.name
+        });
     }
 };
 

@@ -25,6 +25,9 @@ return [
     'permissions' => [
         'title' =>  '{0} :prefix Permiso|{2} Permisos',
     ],
+    'attach' => [
+        'title' =>  'Asignar permisos para :role',
+    ],
     'modules' => [
         'title' =>  '{0} :prefix Módulo|{2} Módulos',
     ],

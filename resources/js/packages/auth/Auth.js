@@ -14,7 +14,14 @@ export default function (Vue) {
             return true
         },
         destroyCookie: () => Cookies.remove( API.COOKIE ),
-        isAuthenticated () { return this.hasToken() }
+        isAuthenticated () { return this.hasToken() },
+        hasRole: function (role) { return store.getters.userRoles.indexOf(role) !== -1; },
+        can: function (permission) {
+            let perm = store.getters.userPermissions.map( (perm) => {
+                return perm.indexOf(permission) !== -1
+            });
+            return perm.indexOf( true ) !== -1;
+        },
     };
     Object.defineProperties(Vue.prototype, {
         $auth: {

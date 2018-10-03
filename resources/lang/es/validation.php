@@ -232,5 +232,6 @@ return [
         'business_unity_id'     => 'unidad de negocio',
         'provider_id'           => 'proveedor',
         'display_name'          => 'nombre para mostar',
+        'done'                  => 'finalizado',
     ],
 ];

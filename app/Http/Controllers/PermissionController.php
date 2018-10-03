@@ -17,7 +17,7 @@ class PermissionController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            PermissionResource::collection( $this->getModel( new Permission )),
+            PermissionResource::collection( Permission::all() ),
             200
         );
     }

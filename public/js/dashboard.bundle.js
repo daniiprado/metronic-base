@@ -10,7 +10,7 @@ var content = __webpack_require__(291);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("2bb21559", content, false, {});
+var update = __webpack_require__(15)("2bb21559", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -30,12 +30,12 @@ if(false) {
 /***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13)(false);
+exports = module.exports = __webpack_require__(14)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60,7 +60,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "Dashboard"
+    name: "Dashboard",
+    mounted: function mounted() {
+        console.log(this.$store.getters.authUser);
+        console.log(this.$store.getters.userPermissions);
+        console.log(this.$store.getters.userRoles);
+        console.log('Role', this.$auth.hasRole('root'));
+        console.log('Permissions', this.$auth.can("edit-module"));
+    }
 });
 
 /***/ }),
@@ -107,7 +114,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(290)
 }
-var normalizeComponent = __webpack_require__(15)
+var normalizeComponent = __webpack_require__(16)
 /* script */
 var __vue_script__ = __webpack_require__(292)
 /* template */

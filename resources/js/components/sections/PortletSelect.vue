@@ -32,7 +32,7 @@
             },
             data: {
                 type: [ Array, Object ],
-                default: []
+                default: () => { return [] }
             },
             inputAttrs: {
                 type: [Array, Object]

@@ -12,6 +12,16 @@ const getters = {
         }
     },
     getExpiresIn: (state) => (state.expires_in) ? state.expires_in : 0,
+    authUser: (state)   =>  {
+        return {
+            id: state.user_id,
+            name: state.user_name,
+            email: state.email ,
+            company: state.company,
+        }
+    },
+    userPermissions: (state) => state.permissions,
+    userRoles: (state) => state.roles,
 };
 
 export default getters;

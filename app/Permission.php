@@ -2,17 +2,20 @@
 
 namespace Logistic;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Zizaco\Entrust\EntrustPermission;
 
 class Permission extends EntrustPermission
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name', 'description'
+        'name', 'display_name', 'description', 'module_id'
     ];
 
     /**
@@ -24,6 +27,7 @@ class Permission extends EntrustPermission
         'name'          =>  'string',
         'display_name'  =>  'string',
         'description'   =>  'string',
+        'module_id'     =>  'integer',
     ];
 
     /*
@@ -35,10 +39,10 @@ class Permission extends EntrustPermission
     /**
      * Permission has one submodule action
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function action()
+    public function module()
     {
-        return $this->hasOne( SubmoduleAction::class );
+        return $this->belongsTo( Module::class );
     }
 }

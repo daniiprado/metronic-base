@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.permissions.title', 2)">
                 <template slot="actions">
-                    <action-item v-if="selected.length === 1">
+                    <action-item v-if="selected.length === 1 && $auth.can('edit-permissions')">
                         <a href="javascript:;"
                            @click.prevent="onEdit"
                            data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
@@ -11,7 +11,7 @@
                             <i class="la la-pencil"></i>
                         </a>
                     </action-item>
-                    <action-item v-if="selected.length > 0" >
+                    <action-item v-if="selected.length > 0 && $auth.can('delete-permissions')" >
                         <a href="javascript:;"
                            data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.delete')"
                            @click.prevent="onDelete"
@@ -22,7 +22,7 @@
                     <portlet-dropdown-actions>
                         {{ lang.get('pages.buttons.export_tools') }}
                         <template slot="items">
-                            <li class="m-nav__item">
+                            <li v-if="$auth.can('create-permissions')" class="m-nav__item">
                                 <router-link class="m-nav__link" :to="{ name: 'permissions.create' }">
                                     <i class="m-nav__link-icon la la-plus-circle"></i>
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.add')">Create</span>

@@ -20,251 +20,387 @@ class RolePermissionSeeder extends Seeder
         $root->description  = 'Visualiza todos los módulos de la plataforma.';
         $root->save();
 
+        $security_module = new \Logistic\Module;
+        $security_module->name = 'security';
+        $security_module->save();
+        $cutomers_module = new \Logistic\Module;
+        $cutomers_module->name = 'customers';
+        $cutomers_module->save();
+        $purchase_module = new \Logistic\Module;
+        $purchase_module->name = 'purchases';
+        $purchase_module->save();
+
+        $submodule_module = new \Logistic\Submodule;
+        $submodule_module->name = 'modules';
+        $submodule_module->module_id = $security_module->id;
+        $submodule_module->save();
+
+        $submodule_submodules = new \Logistic\Submodule;
+        $submodule_submodules->name = 'submodules';
+        $submodule_submodules->module_id = $security_module->id;
+        $submodule_submodules->save();
+
+        $submodule_users = new \Logistic\Submodule;
+        $submodule_users->name = 'users';
+        $submodule_users->module_id = $security_module->id;
+        $submodule_users->save();
+
+        $submodule_roles = new \Logistic\Submodule;
+        $submodule_roles->name = 'roles';
+        $submodule_roles->module_id = $security_module->id;
+        $submodule_roles->save();
+
+        $submodule_permissions = new \Logistic\Submodule;
+        $submodule_permissions->name = 'permissions';
+        $submodule_permissions->module_id = $security_module->id;
+        $submodule_permissions->save();
+
+        $submodule_companies = new \Logistic\Submodule;
+        $submodule_companies->name = 'companies';
+        $submodule_companies->module_id = $cutomers_module->id;
+        $submodule_companies->save();
+
+        $submodule_business_unities = new \Logistic\Submodule;
+        $submodule_business_unities->name = 'business_unities';
+        $submodule_business_unities->module_id = $cutomers_module->id;
+        $submodule_business_unities->save();
+
+        $submodule_products = new \Logistic\Submodule;
+        $submodule_products->name = 'products';
+        $submodule_products->module_id = $cutomers_module->id;
+        $submodule_products->save();
+
+        $submodule_purchase_order = new \Logistic\Submodule;
+        $submodule_purchase_order->name = 'purchase_order';
+        $submodule_purchase_order->module_id = $purchase_module->id;
+        $submodule_purchase_order->save();
+
+
         $permissions = [
+
             'modules'   =>  [
                 [
                     'name'          =>  'view-module',
                     'display_name'  =>  'Visualizar Módulo',
-                    'description'   =>  'Permite visualizar los módulos de la aplicación.'
+                    'description'   =>  'Permite visualizar los módulos de la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'create-module',
                     'display_name'  =>  'Crear Módulo',
-                    'description'   =>  'Permite crear módulos en la aplicación.'
+                    'description'   =>  'Permite crear módulos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'edit-module',
                     'display_name'  =>  'Editar Módulo',
-                    'description'   =>  'Permite editar módulos en la aplicación.'
+                    'description'   =>  'Permite editar módulos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'delete-module',
                     'display_name'  =>  'Eliminar Módulo',
-                    'description'   =>  'Permite eliminar módulos en la aplicación.'
+                    'description'   =>  'Permite eliminar módulos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'restore-module',
                     'display_name'  =>  'Restaurar Módulo',
-                    'description'   =>  'Permite restaurar módulos eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar módulos eliminados en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
             ],
             'submodules'   =>  [
                 [
                     'name'          =>  'view-submodule',
                     'display_name'  =>  'Visualizar Submódulo',
-                    'description'   =>  'Permite visualizar los submódulos de la aplicación.'
+                    'description'   =>  'Permite visualizar los submódulos de la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'create-submodule',
                     'display_name'  =>  'Crear Submódulo',
-                    'description'   =>  'Permite crear submódulos en la aplicación.'
+                    'description'   =>  'Permite crear submódulos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'edit-submodule',
                     'display_name'  =>  'Editar Submódulo',
-                    'description'   =>  'Permite editar submódulos en la aplicación.'
+                    'description'   =>  'Permite editar submódulos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'delete-submodule',
                     'display_name'  =>  'Eliminar Submódulo',
-                    'description'   =>  'Permite eliminar submódulos en la aplicación.'
+                    'description'   =>  'Permite eliminar submódulos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'restore-submodule',
                     'display_name'  =>  'Restaurar Submódulo',
-                    'description'   =>  'Permite restaurar submódulos eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar submódulos eliminados en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
             ],
             'users'   =>  [
                 [
                     'name'          =>  'view-users',
                     'display_name'  =>  'Visualizar Usuarios',
-                    'description'   =>  'Permite visualizar los usuarios de la aplicación.'
+                    'description'   =>  'Permite visualizar los usuarios de la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'create-users',
                     'display_name'  =>  'Crear Usuarios',
-                    'description'   =>  'Permite crear usuarios en la aplicación.'
+                    'description'   =>  'Permite crear usuarios en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'edit-users',
                     'display_name'  =>  'Editar Usuarios',
-                    'description'   =>  'Permite editar usuarios en la aplicación.'
+                    'description'   =>  'Permite editar usuarios en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'delete-users',
                     'display_name'  =>  'Eliminar Usuarios',
-                    'description'   =>  'Permite eliminar usuarios en la aplicación.'
+                    'description'   =>  'Permite eliminar usuarios en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'restore-users',
                     'display_name'  =>  'Restaurar Usuarios',
-                    'description'   =>  'Permite restaurar usuarios eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar usuarios eliminados en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
             ],
             'roles'   =>  [
                 [
                     'name'          =>  'view-roles',
                     'display_name'  =>  'Visualizar Roles',
-                    'description'   =>  'Permite visualizar los roles de la aplicación.'
+                    'description'   =>  'Permite visualizar los roles de la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'create-roles',
                     'display_name'  =>  'Crear Roles',
-                    'description'   =>  'Permite crear roles en la aplicación.'
+                    'description'   =>  'Permite crear roles en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'edit-roles',
                     'display_name'  =>  'Editar Roles',
-                    'description'   =>  'Permite editar roles en la aplicación.'
+                    'description'   =>  'Permite editar roles en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'delete-roles',
                     'display_name'  =>  'Eliminar Roles',
-                    'description'   =>  'Permite eliminar roles en la aplicación.'
+                    'description'   =>  'Permite eliminar roles en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'restore-roles',
                     'display_name'  =>  'Restaurar Roles',
-                    'description'   =>  'Permite restaurar roles eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar roles eliminados en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
             ],
             'permissions'   =>  [
                 [
                     'name'          =>  'view-permissions',
                     'display_name'  =>  'Visualizar Permisos',
-                    'description'   =>  'Permite visualizar los permisos de la aplicación.'
+                    'description'   =>  'Permite visualizar los permisos de la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'create-permissions',
                     'display_name'  =>  'Crear Permisos',
-                    'description'   =>  'Permite crear permisos en la aplicación.'
+                    'description'   =>  'Permite crear permisos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'edit-permissions',
                     'display_name'  =>  'Editar Permisos',
-                    'description'   =>  'Permite editar permisos en la aplicación.'
+                    'description'   =>  'Permite editar permisos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'delete-permissions',
                     'display_name'  =>  'Eliminar Permisos',
-                    'description'   =>  'Permite eliminar permisos en la aplicación.'
+                    'description'   =>  'Permite eliminar permisos en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
                 [
                     'name'          =>  'restore-permissions',
                     'display_name'  =>  'Restaurar Permisos',
-                    'description'   =>  'Permite restaurar permisos eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar permisos eliminados en la aplicación.',
+                    'module_id'     =>  $security_module->id
                 ],
             ],
+
             'companies'   =>  [
                 [
                     'name'          =>  'view-companies',
                     'display_name'  =>  'Visualizar Compañías',
-                    'description'   =>  'Permite visualizar las compañías de la aplicación.'
+                    'description'   =>  'Permite visualizar las compañías de la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'create-companies',
                     'display_name'  =>  'Crear Compañías',
-                    'description'   =>  'Permite crear compañías en la aplicación.'
+                    'description'   =>  'Permite crear compañías en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'edit-companies',
                     'display_name'  =>  'Editar Compañías',
-                    'description'   =>  'Permite editar compañías en la aplicación.'
+                    'description'   =>  'Permite editar compañías en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'delete-companies',
                     'display_name'  =>  'Eliminar Compañías',
-                    'description'   =>  'Permite eliminar compañías en la aplicación.'
+                    'description'   =>  'Permite eliminar compañías en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'restore-companies',
                     'display_name'  =>  'Restaurar Compañías',
-                    'description'   =>  'Permite restaurar compañías eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar compañías eliminados en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
             ],
             'business-unities'   =>  [
                 [
                     'name'          =>  'view-business-unities',
                     'display_name'  =>  'Visualizar Unidades de Negocio',
-                    'description'   =>  'Permite visualizar las unidades de negocio de la aplicación.'
+                    'description'   =>  'Permite visualizar las unidades de negocio de la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'create-business-unities',
                     'display_name'  =>  'Crear Unidades de Negocio',
-                    'description'   =>  'Permite crear unidades de negocio en la aplicación.'
+                    'description'   =>  'Permite crear unidades de negocio en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'edit-business-unities',
                     'display_name'  =>  'Editar Unidades de Negocio',
-                    'description'   =>  'Permite editar unidades de negocio en la aplicación.'
+                    'description'   =>  'Permite editar unidades de negocio en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'delete-business-unities',
                     'display_name'  =>  'Eliminar Unidades de Negocio',
-                    'description'   =>  'Permite eliminar unidades de negocio en la aplicación.'
+                    'description'   =>  'Permite eliminar unidades de negocio en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'restore-business-unities',
                     'display_name'  =>  'Restaurar Unidades de Negocio',
-                    'description'   =>  'Permite restaurar unidades de negocio eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar unidades de negocio eliminados en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
             ],
             'products'   =>  [
                 [
                     'name'          =>  'view-products',
                     'display_name'  =>  'Visualizar Productos',
-                    'description'   =>  'Permite visualizar los productos de la aplicación.'
+                    'description'   =>  'Permite visualizar los productos de la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'create-products',
                     'display_name'  =>  'Crear Productos',
-                    'description'   =>  'Permite crear productos en la aplicación.'
+                    'description'   =>  'Permite crear productos en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'edit-products',
                     'display_name'  =>  'Editar Productos',
-                    'description'   =>  'Permite editar productos en la aplicación.'
+                    'description'   =>  'Permite editar productos en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'delete-products',
                     'display_name'  =>  'Eliminar Productos',
-                    'description'   =>  'Permite eliminar productos en la aplicación.'
+                    'description'   =>  'Permite eliminar productos en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
                 [
                     'name'          =>  'restore-products',
                     'display_name'  =>  'Restaurar Productos',
-                    'description'   =>  'Permite restaurar productos eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar productos eliminados en la aplicación.',
+                    'module_id'     =>  $cutomers_module->id
                 ],
             ],
+
             'purchase-order'   =>  [
                 [
                     'name'          =>  'view-purchase-order',
                     'display_name'  =>  'Visualizar Ordenes de Compra',
-                    'description'   =>  'Permite visualizar las ordenes de compra de la aplicación.'
+                    'description'   =>  'Permite visualizar las ordenes de compra de la aplicación.',
+                    'module_id'     =>  $purchase_module->id
                 ],
                 [
                     'name'          =>  'create-purchase-order',
                     'display_name'  =>  'Crear Ordenes de Compra',
-                    'description'   =>  'Permite crear ordenes de compra en la aplicación.'
+                    'description'   =>  'Permite crear ordenes de compra en la aplicación.',
+                    'module_id'     =>  $purchase_module->id
                 ],
                 [
                     'name'          =>  'edit-purchase-order',
                     'display_name'  =>  'Editar Ordenes de Compra',
-                    'description'   =>  'Permite editar ordenes de compra en la aplicación.'
+                    'description'   =>  'Permite editar ordenes de compra en la aplicación.',
+                    'module_id'     =>  $purchase_module->id
                 ],
                 [
                     'name'          =>  'delete-purchase-order',
                     'display_name'  =>  'Eliminar Ordenes de Compra',
-                    'description'   =>  'Permite eliminar ordenes de compra en la aplicación.'
+                    'description'   =>  'Permite eliminar ordenes de compra en la aplicación.',
+                    'module_id'     =>  $purchase_module->id
                 ],
                 [
                     'name'          =>  'restore-purchase-order',
                     'display_name'  =>  'Restaurar Ordenes de Compra',
-                    'description'   =>  'Permite restaurar ordenes de compra eliminados en la aplicación.'
+                    'description'   =>  'Permite restaurar ordenes de compra eliminados en la aplicación.',
+                    'module_id'     =>  $purchase_module->id
                 ],
             ],
         ];
+        $modules = [
+            [
+                'name'          =>  'view-security-module',
+                'display_name'  =>  'Módulo de seguridad',
+                'description'   =>  'Visualizar el módulo de seguridad',
+                'module_id'     =>  $security_module->id
+            ],
+            [
+                'name'          =>  'view-customers-module',
+                'display_name'  =>  'Módulo de clientes',
+                'description'   =>  'Visualizar el módulo de clientes',
+                'module_id'     =>  $cutomers_module->id
+            ],
+            [
+                'name'          =>  'view-purchase-module',
+                'display_name'  =>  'Módulo de compras',
+                'description'   =>  'Visualizar el módulo de compras',
+                'module_id'     =>  $purchase_module->id
+            ],
+        ];
+
+        $security = new Permission;
+        $security->fill( $modules[0] );
+        $security->save();
+
+        $customers = new Permission;
+        $customers->fill( $modules[1] );
+        $customers->save();
+
+        $purchase = new Permission;
+        $purchase->fill( $modules[2] );
+        $purchase->save();
 
         $modules_view = new Permission;
         $modules_view->fill($permissions['modules'][0]);
@@ -411,6 +547,11 @@ class RolePermissionSeeder extends Seeder
         $purchase_order_restore->save();
 
         $root_permissions = [
+            //Modules
+            $security,
+            $customers,
+            $purchase,
+            //Submodules
             $modules_view,
             $modules_create,
             $modules_edit,

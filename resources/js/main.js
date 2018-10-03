@@ -50,14 +50,18 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.forVisitors)) {
         if (Vue.auth.isAuthenticated()) {
             next({name: 'home'})
-        } else {
+        } else if ( to.matched.some((record) => record.meta.can) ) {
             next()
+        } else {
+            next({name: 'home'})
         }
     } else if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!Vue.auth.isAuthenticated()) {
             next({name: 'login'})
-        } else {
+        } else if ( to.matched.some((record) => record.meta.can) ) {
             next()
+        } else {
+            next({name: 'home'})
         }
     } else {
         next()
