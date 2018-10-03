@@ -37,9 +37,9 @@ class PurchaseOrderProductOrderController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PurchaseOrder $purchase_order)
     {
-        //
+        $purchase_order->products_order()
     }
 
     /**
