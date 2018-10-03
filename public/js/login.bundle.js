@@ -6,13 +6,13 @@ webpackJsonp([9],{
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(275)
+  __webpack_require__(277)
 }
 var normalizeComponent = __webpack_require__(16)
 /* script */
-var __vue_script__ = __webpack_require__(277)
+var __vue_script__ = __webpack_require__(279)
 /* template */
-var __vue_template__ = __webpack_require__(280)
+var __vue_template__ = __webpack_require__(282)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52,13 +52,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 275:
+/***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(276);
+var content = __webpack_require__(278);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -79,7 +79,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 276:
+/***/ 278:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -94,7 +94,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 277:
+/***/ 279:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -160,29 +160,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             brand: __WEBPACK_IMPORTED_MODULE_0__services_Api__["a" /* API */].APP_NAME,
-            logo: __webpack_require__(278),
-            bg: __webpack_require__(279)
+            logo: __webpack_require__(280),
+            bg: __webpack_require__(281)
         };
     }
 });
 
 /***/ }),
 
-/***/ 278:
+/***/ 280:
 /***/ (function(module, exports) {
 
 module.exports = "/images/logo-2.png?2a5aacb08ca2b53000cce3132109490c";
 
 /***/ }),
 
-/***/ 279:
+/***/ 281:
 /***/ (function(module, exports) {
 
 module.exports = "/images/bg-3.jpg?6ecf79dbb9a59248510d64773993254e";
 
 /***/ }),
 
-/***/ 280:
+/***/ 282:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

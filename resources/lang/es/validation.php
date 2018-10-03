@@ -233,5 +233,7 @@ return [
         'provider_id'           => 'proveedor',
         'display_name'          => 'nombre para mostar',
         'done'                  => 'finalizado',
+        'picked'                => 'escogido',
+        'packed'                => 'empacado',
     ],
 ];

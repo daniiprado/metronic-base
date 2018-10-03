@@ -5,6 +5,7 @@ namespace Logistic\Http\Controllers;
 use Logistic\Http\Requests\StoreProductsOrderRequest;
 use Logistic\Http\Requests\UpdateProductsOrderStatusRequest;
 use Logistic\Http\Requests\UpdateProductsOrderRequest;
+use Logistic\Http\Requests\UpdateProductsOrderTransitRequest;
 use Logistic\Http\Resources\ProductsOrderResource;
 use Logistic\ProductsOrder;
 
@@ -103,6 +104,7 @@ class ProductsOrderController extends ApiController
             foreach ( $request->get('data') as $purchase ) {
                 $product = ProductsOrder::find( $purchase['id'] );
                 $product->received = $purchase['status'];
+                $product->picked = $purchase['picked'];
                 $product->save();
                 $i++;
             }
@@ -116,16 +118,17 @@ class ProductsOrderController extends ApiController
     /**
      * Update product status
      *
-     * @param UpdateProductsOrderStatusRequest $request
+     * @param UpdateProductsOrderTransitRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function transit(UpdateProductsOrderStatusRequest $request )
+    public function transit(UpdateProductsOrderTransitRequest $request )
     {
         $i = 0;
         if ( $request->has('data') ) {
             foreach ( $request->get('data') as $purchase ) {
                 $product = ProductsOrder::find( $purchase['id'] );
                 $product->transit = $purchase['transit'];
+                $product->packed = $purchase['packed'];
                 $product->save();
                 $i++;
             }
