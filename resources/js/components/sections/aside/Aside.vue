@@ -70,14 +70,14 @@
 </template>
 
 <script>
+    import {Module} from "../../../services/models/Module";
     export default {
         name: "Aside",
         data: () => {
             return {
-                menu: []
+                modules: new Module({})
             }
         },
-        created
     }
 </script>
 

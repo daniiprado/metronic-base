@@ -80,8 +80,8 @@ class Module extends Model implements Auditable
      * @Relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function permissions()
+    public function permission()
     {
-        return $this->hasMany( Permission::class );
+        return $this->hasOne( Permission::class );
     }
 }

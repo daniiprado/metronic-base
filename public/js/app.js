@@ -12184,7 +12184,8 @@ module.exports = Cancel;
                 return perm.indexOf(permission) !== -1;
             });
             return perm.indexOf(true) !== -1;
-        }
+        },
+        ability: function ability(permissions) {}
     };
     Object.defineProperties(Vue.prototype, {
         $auth: {

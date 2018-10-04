@@ -27,7 +27,7 @@ class UpdateProductsOrderTransitRequest extends FormRequest
             'data'              => 'required|array',
             'data.*.id'         => 'required|exists:products_order,id',
             'data.*.transit'    => 'required|boolean',
-            'data.*.picked'     => 'required|numeric',
+            'data.*.packed'     => 'required|numeric',
         ];
     }
 }

@@ -22,6 +22,9 @@ export default function (Vue) {
             });
             return perm.indexOf( true ) !== -1;
         },
+        ability: function (permissions) {
+            
+        }
     };
     Object.defineProperties(Vue.prototype, {
         $auth: {

@@ -105,7 +105,7 @@ class ProductsOrderController extends ApiController
                 $product = ProductsOrder::find( $purchase['id'] );
                 $product->received = $purchase['status'];
                 $product->picked = $purchase['picked'];
-                $product->save();
+                $product->saveOrFail();
                 $i++;
             }
             return $this->api_success([
@@ -129,7 +129,7 @@ class ProductsOrderController extends ApiController
                 $product = ProductsOrder::find( $purchase['id'] );
                 $product->transit = $purchase['transit'];
                 $product->packed = $purchase['packed'];
-                $product->save();
+                $product->saveOrFail();
                 $i++;
             }
             return $this->api_success([
