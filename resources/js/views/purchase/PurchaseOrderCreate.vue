@@ -10,13 +10,55 @@
 
                 <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed">
                     <div class="m-portlet__body">
-                        <div class="col-lg-6 offset-lg-3">
-                            <portlet-input :value="form.delivery_address" v-model="form.delivery_address"
-                                           :has-errors="form.errors"
-                                           validation="required|min:3|max:70"
-                                           name="delivery_address"
-                                           :input-attrs="{'minlength': 3, 'maxlength': 70, 'required': true, 'autocomplete': 'off' }">
-                            </portlet-input>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <portlet-input :value="form.delivery_address" v-model="form.delivery_address"
+                                               :has-errors="form.errors"
+                                               validation="required|min:3|max:70"
+                                               name="delivery_address"
+                                               :input-attrs="{'minlength': 3, 'maxlength': 70, 'required': true, 'autocomplete': 'off' }">
+                                </portlet-input>
+                            </div>
+                            <div class="col-md-6">
+                                <portlet-select :value="form.business_unity_id" v-model.number="form.business_unity_id"
+                                                :options="unity_options"
+                                                :data="unity_options.data"
+                                                :has-errors="form.errors"
+                                                validation="required|numeric"
+                                                name="business_unity_id"
+                                                :input-attrs="{'required': true }">
+
+                                </portlet-select>
+                            </div>
+                            <div class="col-md-6">
+                                <portlet-select :value="form.provider_id" v-model.number="form.provider_id"
+                                                :options="provider_options"
+                                                :data="provider_options.data"
+                                                :has-errors="form.errors"
+                                                validation="required|numeric"
+                                                name="provider_id"
+                                                :input-attrs="{'required': true }">
+
+                                </portlet-select>
+                            </div>
+                            <div class="col-md-6">
+                                <portlet-date-time ref="delivery_at" :value="form.delivery_at" v-model="form.delivery_at"
+                                                   :has-errors="form.errors"
+                                                   validation="required|before:requested_at"
+                                                   name="delivery_at"
+                                                   :input-attrs="{'required': true, 'autocomplete': 'off' }">
+                                </portlet-date-time>
+                            </div>
+                            <div class="col-md-6">
+                                <portlet-input :value="form.requested_at" v-model="form.requested_at"
+                                               :has-errors="form.errors"
+                                               validation="required"
+                                               name="requested_at"
+                                               :input-attrs="{'minlength': 19, 'maxlength': 19, 'readonly': true, 'required': true, 'autocomplete': 'off' }">
+                                </portlet-input>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <!--
                             <portlet-select :value="form.status_id" v-model.number="form.status_id"
                                             :options="options"
@@ -28,43 +70,6 @@
 
                             </portlet-select>
                             -->
-
-                            <portlet-select :value="form.business_unity_id" v-model.number="form.business_unity_id"
-                                            :options="unity_options"
-                                            :data="unity_options.data"
-                                            :has-errors="form.errors"
-                                            validation="required|numeric"
-                                            name="business_unity_id"
-                                            :input-attrs="{'required': true }">
-
-                            </portlet-select>
-
-                            <portlet-select :value="form.provider_id" v-model.number="form.provider_id"
-                                            :options="provider_options"
-                                            :data="provider_options.data"
-                                            :has-errors="form.errors"
-                                            validation="required|numeric"
-                                            name="provider_id"
-                                            :input-attrs="{'required': true }">
-
-                            </portlet-select>
-
-                            <portlet-date-time ref="delivery_at" :value="form.delivery_at" v-model="form.delivery_at"
-                                               :has-errors="form.errors"
-                                               validation="required|before:requested_at"
-                                               name="delivery_at"
-                                               :input-attrs="{'required': true, 'autocomplete': 'off' }">
-                            </portlet-date-time>
-
-                            <portlet-input :value="form.requested_at" v-model="form.requested_at"
-                                           :has-errors="form.errors"
-                                           validation="required"
-                                           name="requested_at"
-                                           :input-attrs="{'minlength': 19, 'maxlength': 19, 'readonly': true, 'required': true, 'autocomplete': 'off' }">
-                            </portlet-input>
-
-
-
                         </div>
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">

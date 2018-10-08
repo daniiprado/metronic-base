@@ -14,8 +14,8 @@
                     <div class="m-portlet__head-tools">
                         <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--right m-tabs-line-danger" role="tablist">
                             <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_portlet_tab_1_1" role="tab">
-                                    Permisos
+                                <a class="nav-link m-tabs__link active" @click="onSubmit" data-toggle="tab" href="#m_portlet_tab_1_1" role="tab">
+                                    Asignar Permisos
                                 </a>
                             </li>
                         </ul>
@@ -39,7 +39,7 @@
                                                         <div class="col-6">
                                                         <span class="m-switch m-switch--icon">
                                                             <label>
-                                                                <input type="checkbox" :checked="checked(perm.id)" :value="perm.id" v-model="form.permissions">
+                                                                <input type="checkbox" :checked="checked(perm.id)" :value="{id: perm.id}" v-model="form.permissions">
                                                                 <span></span>
                                                             </label>
                                                         </span>
@@ -63,6 +63,7 @@
 <script>
     import {RolePermission} from "../../../services/models/RolePermission";
     import {Module} from "../../../services/models/Module";
+    import swal from 'sweetalert2';
 
     export default {
         name: "AttachPermissions",
@@ -110,7 +111,7 @@
                 this.$validator.validateAll().then( (result) => {
                     if (result) {
                         mApp.blockPage();
-                        this.form.update( this.$route.params.id )
+                        this.form.store( this.$route.params.id )
                             .then( (response) => {
                                 this.loading = true;
                                 mApp.unblockPage();
@@ -121,7 +122,7 @@
                                 })
                                     .then(() => {
                                         this.loading = false;
-                                        this.$router.push({ name: 'companies' })
+                                        this.$router.push({ name: 'roles' })
                                     })
                             })
                             .catch( (error) => {
@@ -152,7 +153,9 @@
                         this.rol_name = response.data.display_name;
                         this.description = response.data.description;
                         this.form.permissions = response.data.permissions.map((permission) => {
-                            return permission.id
+                            return {
+                                id: permission.id
+                            }
                         });
                     })
                     .catch( error => {
@@ -160,7 +163,7 @@
                     })
             },
             getPermissions: function () {
-                this.modules.index()
+                this.modules.permissions()
                     .then((response) => {
                         this.permissions = response.data.map((perm) => {
                             return {
@@ -171,10 +174,9 @@
                     })
             },
             checked: function ( val ) {
-                return this.form.permissions.indexOf(val) !== -1;
-            }
+                return (this.form.permissions) ? this.form.permissions.indexOf(val) !== -1 : null;
+            },
         },
-
     }
 </script>
 

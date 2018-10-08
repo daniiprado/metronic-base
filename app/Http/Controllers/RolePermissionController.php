@@ -34,11 +34,15 @@ class RolePermissionController extends ApiController
      */
     public function store(StoreRolePermissionRequest $request, Role $role)
     {
+        if ( $role->has('perms') ) {
+            $role->detachPermissions( $role->perms );
+        }
         $role->attachPermissions( $request->get('permissions') );
-        return $this->singleResponse(
-            new RoleResource( $role->load('perms') ),
-            201
-        );
+        return $this->api_success([
+            'data'      =>  new RoleResource( $role->load('perms') ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**

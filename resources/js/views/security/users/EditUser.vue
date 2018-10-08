@@ -11,14 +11,6 @@
                 <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right">
                     <div class="m-portlet__body">
 
-                        <portlet-select :options="select"
-                                        :value="form.company_id"
-                                        v-model.number="form.company_id"
-                                        :has-errors="form.errors"
-                                        :input-attrs="{'required': true}"
-                                        name="company_id" validation="required">
-                        </portlet-select>
-
                         <portlet-input :value="form.name" v-model="form.name"
                                        :has-errors="form.errors"
                                        validation="required|alpha_spaces|min:3|max:60"
@@ -79,7 +71,8 @@
                     email: null,
                     company_id: null
                 }),
-                loading: false
+                loading: false,
+                select: {}
             }
         },
         created: function () {

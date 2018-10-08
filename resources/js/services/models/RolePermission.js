@@ -2,7 +2,7 @@ import {Model} from "../Model";
 import {API} from "../Api";
 
 export class RolePermission extends Model {
-    constructor (id, data, options = {} ) {
-        super( API.END_POINTS.SECURITY.ROLE_PERMISSIONS(id), data, options );
+    constructor (role_id, data, perm_id = null, options = {} ) {
+        super( API.END_POINTS.SECURITY.ROLE_PERMISSIONS(role_id, perm_id), data, options );
     }
 }

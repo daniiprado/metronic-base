@@ -3,12 +3,12 @@
         <div class="col-lg-12">
             <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.roles.title', 2)">
                 <template slot="actions">
-                    <action-item >
+                    <action-item v-if="selected.length === 1 && $auth.can('attach-permissions')">
                         <a href="javascript:;"
                            @click.prevent="onAttach"
-                           data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
+                           data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.attach_perm')"
                            class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
-                            <i class="la la-pencil"></i>
+                            <i class="la la-user-secret"></i>
                         </a>
                     </action-item>
                     <action-item v-if="selected.length === 1 && $auth.can('edit-roles')">

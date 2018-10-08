@@ -23,7 +23,7 @@
                         {{ lang.get('pages.buttons.export_tools') }}
                         <template slot="items">
                             <li v-if="$auth.can('create-products')" class="m-nav__item">
-                                <router-link class="m-nav__link" :to="{ name: 'companies.create' }">
+                                <router-link class="m-nav__link" :to="{ name: 'products.create' }">
                                     <i class="m-nav__link-icon la la-plus-circle"></i>
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.add')">Create</span>
                                 </router-link>
@@ -132,14 +132,6 @@
                             width: '20%',
                         },
                         {
-                            data: 'stock',
-                            name: 'stock',
-                            title: lang.get('validation.attributes.stock').capitalize(),
-                            sortable: true,
-                            filterable: true, // disable or enable filtering
-                            width: '20%',
-                        },
-                        {
                             data: 'price',
                             name: 'price',
                             title: lang.get('validation.attributes.price').capitalize(),
@@ -154,42 +146,31 @@
                             sortable: true,
                             filterable: true, // disable or enable filtering
                             width: '20%',
-                        },
-                        {
-                            data: 'expired_at',
-                            name: 'expired_at',
-                            title: lang.get('validation.attributes.expired_at').capitalize(),
-                            sortable: true,
-                            filterable: true, // disable or enable filtering
-                            width: '20%',
-                            render: function (data, type, row) {
-                                return moment( data ).isValid() ? moment(data).format('YYYY-MM-DD') : null;
-                            }
                         }
                     ],
                     buttons: [
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: [ 1, 2, 3, 4, 5, 6 ]
+                                columns: [ 1, 2, 3, 4 ]
                             }
                         },
                         {
                             extend: 'copyHtml5',
                             exportOptions: {
-                                columns: [ 1, 2, 3, 4, 5, 6 ]
+                                columns: [ 1, 2, 3, 4 ]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             exportOptions: {
-                                columns: [ 1, 2, 3, 4, 5, 6 ]
+                                columns: [ 1, 2, 3, 4 ]
                             }
                         },
                         {
                             extend: 'csvHtml5',
                             exportOptions: {
-                                columns: [ 1, 2, 3, 4, 5, 6 ]
+                                columns: [ 1, 2, 3, 4 ]
                             }
                         },
                         {
@@ -197,7 +178,7 @@
                             orientation: 'portrait',
                             pageSize: 'LETTER',
                             exportOptions: {
-                                columns: [ 1, 2, 3, 4, 5, 6 ]
+                                columns: [ 1, 2, 3, 4 ]
                             }
                         },
                     ],

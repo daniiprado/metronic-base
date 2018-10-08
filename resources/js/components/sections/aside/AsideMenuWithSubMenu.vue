@@ -33,28 +33,12 @@
             route: {
                 type: [String, Array, Object],
                 default: 'home'
+            },
+            isActive: {
+                type: Boolean,
+                default: false
             }
-        },
-        data: () => {
-            return {
-                isActive: false,
-            }
-        },
-        mounted: function () {
-            this.isActivated();
-        },
-        methods: {
-            isActivated: function () {
-                if ( typeof this.route === "string" ) {
-                    this.isActive = (this.$route.name === this.route);
-                } else if ( typeof this.route === "object") {
-                    let obj = this.route;
-                    this.isActive = Object.keys( obj ).some(function(k) {
-                        return obj[k] === "test1";
-                    });
-                }
-            }
-        },
+        }
     }
 </script>
 

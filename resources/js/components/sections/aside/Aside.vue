@@ -13,9 +13,11 @@
                 </template>
             </aside-menu>
 
-            <aside-section v-if="$auth.can('view-security-module')">Security</aside-section>
+            <aside-section v-if="$auth.ability(['view-security-module', 'view-module', 'view-submodule', 'view-users', 'view-roles', 'view-permissions'])">Security</aside-section>
 
-            <aside-menu-sub-menu v-if="$auth.can('view-security-module')" route="countries">
+            <aside-menu-sub-menu
+                    v-if="$auth.ability(['view-security-module', 'view-module', 'view-submodule', 'view-users', 'view-roles', 'view-permissions'])"
+                    :isActive="active(['modules', 'modules.create', 'modules.edit', 'submodules', 'submodules.create', 'submodules.edit', 'users', 'users.create', 'users.edit', 'roles', 'roles.create', 'roles.edit', 'permissions', 'permissions.create', 'permissions.edit'])">
                 Security
                 <template slot="item">
                     <aside-menu-item v-if="$auth.can('view-module') && $auth.hasRole('root')" :href="{ name: 'modules' }">
@@ -36,9 +38,11 @@
                 </template>
             </aside-menu-sub-menu>
 
-            <aside-section v-if="$auth.can('view-customers-module')">Customers</aside-section>
+            <aside-section v-if="$auth.ability(['view-customers-module', 'view-companies', 'view-business-unities', 'view-products'])">Customers</aside-section>
 
-            <aside-menu-sub-menu v-if="$auth.can('view-customers-module')" route="countries">
+            <aside-menu-sub-menu
+                    v-if="$auth.ability(['view-customers-module', 'view-companies', 'view-business-unities', 'view-products'])"
+                    :isActive="active(['companies', 'companies.create', 'companies.edit', 'business.unity', 'business.unity.create', 'business.unity.edit', 'products', 'products.create', 'products.edit'])">
                 Customers
                 <template slot="item">
                     <aside-menu-item v-if="$auth.can('view-companies')" :href="{ name: 'companies' }">
@@ -53,9 +57,10 @@
                 </template>
             </aside-menu-sub-menu>
 
-            <aside-section v-if="$auth.can('view-purchase-module')">Purchases</aside-section>
+            <aside-section v-if="$auth.ability(['view-purchase-module', 'view-purchase-order'])">Purchases</aside-section>
 
-            <aside-menu-sub-menu  v-if="$auth.can('view-purchase-module')"route="countries">
+            <aside-menu-sub-menu  v-if="$auth.ability(['view-purchase-module', 'view-purchase-order'])"
+                                  :isActive="active(['purchase.orders', 'purchase.orders.create'])">
                 Purchases
                 <template slot="item">
                     <aside-menu-item v-if="$auth.can('view-purchase-order')" :href="{ name: 'purchase.orders' }">
@@ -78,6 +83,11 @@
                 modules: new Module({})
             }
         },
+        methods: {
+            active: function (routes) {
+                return routes.some((r) => r.includes( this.$route.name ))
+            }
+        }
     }
 </script>
 

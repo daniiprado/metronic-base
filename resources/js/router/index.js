@@ -71,6 +71,16 @@ export default new Router({
                         //bodyClass: common
                     }
                 },
+                {
+                    path: '/users/:id/roles',
+                    name: 'users.roles',
+                    component: () => import(/* webpackChunkName: "users" */ './../views/security/users/AttachRole'),
+                    meta: {
+                        requiresAuth: true,
+                        can: Vue.auth.can('edit-users')
+                        //bodyClass: common
+                    }
+                },
             /* ------------ Roles ----------- */
                 {
                     path: '/roles',
@@ -220,6 +230,16 @@ export default new Router({
                     meta: {
                         requiresAuth: true,
                         can: Vue.auth.can('view-products')
+                        //bodyClass: common
+                    }
+                },
+                {
+                    path: '/products/create',
+                    name: 'products.create',
+                    component: () => import(/* webpackChunkName: "products" */ './../views/products/CreateProduct'),
+                    meta: {
+                        requiresAuth: true,
+                        can: Vue.auth.can('create-products')
                         //bodyClass: common
                     }
                 },

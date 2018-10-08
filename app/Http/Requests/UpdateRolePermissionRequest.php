@@ -13,7 +13,7 @@ class UpdateRolePermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        return treu;
+        return true;
     }
 
     /**

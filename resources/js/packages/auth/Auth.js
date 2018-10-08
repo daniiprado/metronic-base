@@ -23,7 +23,12 @@ export default function (Vue) {
             return perm.indexOf( true ) !== -1;
         },
         ability: function (permissions) {
-            
+            let perm = permissions.map((permission) => {
+                return store.getters.userPermissions.map( (perm) => {
+                    return perm.indexOf(permission) !== -1
+                })
+            })
+            return perm.some( r => r.includes(true) );
         }
     };
     Object.defineProperties(Vue.prototype, {

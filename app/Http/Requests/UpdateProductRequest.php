@@ -24,12 +24,10 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'          =>  'required|string|unique:companies,code,'.$this->get('id'),
+            'code'          =>  'required|string|unique:products,code,'.$this->route('product')->id,
             'name'          =>  'required|string|max:191',
-            'stock'         =>  'required|numeric|min:1',
             'price'         =>  'required|min:50|numeric',
             'company_id'    =>  'required|numeric|exists:companies,id',
-            'expired_at'    =>  'required|date|after:now',
         ];
     }
 }

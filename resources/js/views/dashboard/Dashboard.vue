@@ -12,13 +12,6 @@
 <script>
     export default {
         name: "Dashboard",
-        mounted: function () {
-            console.log( this.$store.getters.authUser )
-            console.log( this.$store.getters.userPermissions )
-            console.log( this.$store.getters.userRoles )
-            console.log( 'Role', this.$auth.hasRole('root') );
-            console.log( 'Permissions', this.$auth.can("edit-module") );
-        }
     }
 </script>
 

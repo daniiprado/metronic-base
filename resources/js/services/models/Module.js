@@ -10,4 +10,8 @@ export class Module extends Model {
     datatable(){
         return this.get( API.END_POINTS.SECURITY.MODULES.DATATABLE )
     }
+
+    permissions(){
+        return this.get( API.END_POINTS.SECURITY.MODULES.PERMISSIONS )
+    }
 }

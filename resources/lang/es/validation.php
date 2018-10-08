@@ -236,12 +236,12 @@ return [
         'picked'                => 'escogido',
         'packed'                => 'empacado',
         'transit'               => 'en tránsito',
-
         'security'              => 'seguridad',
         'customers'             => 'clientes',
         'purchases'             => 'compras',
         'modules'               => 'módulos',
         'submodules'            => 'submódulos',
+        'submodule_id'          => 'submódulos',
         'users'                 => 'usuarios',
         'roles'                 => 'roles',
         'permissions'           => 'permisos',

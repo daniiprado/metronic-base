@@ -6,17 +6,35 @@
                     <action-item v-if="selected.length === 1 && $auth.can('edit-purchase-order')">
                         <a href="javascript:;"
                            @click.prevent="onEdit"
-                           data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
+                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
                            class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
                             <i class="la la-pencil"></i>
                         </a>
                     </action-item>
                     <action-item v-if="selected.length > 0 && $auth.can('delete-purchase-order')" >
                         <a href="javascript:;"
-                           data-skin="light" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.delete')"
+                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.delete')"
                            @click.prevent="onDelete"
                            class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
                             <i class="la la-trash"></i>
+                        </a>
+                    </action-item>
+                    <action-item v-if="selected.length > 0 && $auth.can('generate-qrcode')" >
+                        <a href="#m_modal_qr" data-toggle="modal" data-target="#m_modal_qr"
+                           @click.prevent="onQR"
+                           data-skin="dark"
+                           data-placement="top" title=""
+                           :data-original-title="lang.get('pages.buttons.qr')"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="fas fa-qrcode"></i>
+                        </a>
+                    </action-item>
+                    <action-item v-if="selected.length > 0 && $auth.can('generate-barcodes')" >
+                        <a href="#m_modal_bar" data-toggle="modal" data-target="#m_modal_bar"
+                           @click.prevent="onBarcode"
+                           data-skin="dark" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.bar')"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="fas fa-barcode"></i>
                         </a>
                     </action-item>
                     <portlet-dropdown-actions>
@@ -70,6 +88,18 @@
                                     <span class="m-nav__link-text" v-text="lang.get('pages.buttons.pdf')">PDF</span>
                                 </a>
                             </li>
+                            <li v-if="selected.length > 0 && $auth.can('generate-qrcode')" class="m-nav__item">
+                                <a href="#m_modal_qr" data-toggle="modal" data-target="#m_modal_qr" class="m-nav__link" @click.prevent="onQR" id="export_qr">
+                                    <i class="m-nav__link-icon fas fa-qrcode"></i>
+                                    <span class="m-nav__link-text" v-text="lang.get('pages.buttons.qr')">QR</span>
+                                </a>
+                            </li>
+                            <li v-if="selected.length > 0 && $auth.can('generate-barcodes')" class="m-nav__item">
+                                <a href="#m_modal_bar" data-toggle="modal" data-target="#m_modal_bar" class="m-nav__link" @click.prevent="onBarcode" id="export_bar">
+                                    <i class="m-nav__link-icon fas fa-barcode"></i>
+                                    <span class="m-nav__link-text" v-text="lang.get('pages.buttons.bar')">Barcode</span>
+                                </a>
+                            </li>
                         </template>
                     </portlet-dropdown-actions>
                 </template>
@@ -80,10 +110,66 @@
         <div class="col-lg-12">
             <empty-portlet></empty-portlet>
         </div>
+
+        <!--begin::Modal-->
+        <div v-if="$auth.can('generate-qrcode')" class="modal fade" id="m_modal_qr" tabindex="-1" role="dialog" aria-labelledby="log_content" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">QR Codes</h5>
+                        <button type="button" @click="onClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="print_that">
+                            <div class="col-md-6" v-for="qr in qr_codes">
+                                <p>Número de Orden: {{ qr.id }}</p>
+                                <qrcode :value="qr.url" :options="{ size: 300, level: 'H' }" tag="img"></qrcode>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click="onPrintImages('print_that')" class="btn btn-primary" v-text="lang.get('pages.buttons.print')">Print</button>
+                        <button type="button" data-dismiss="modal"  @click="onClose" class="btn btn-default" v-text="lang.get('pages.buttons.cancel')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal-->
+
+        <!--begin::Modal-->
+        <div v-if="$auth.can('generate-barcodes')" class="modal fade" id="m_modal_bar" tabindex="-1" role="dialog" aria-labelledby="log_content" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">QR Codes</h5>
+                        <button type="button" class="close" @click="onClose" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="print_bar">
+                            <div class="col-md-6" v-for="bar in bar_codes">
+                                <p>Número de Orden: {{ bar.id }}</p>
+                                <vue-barcode :value="bar.id"></vue-barcode>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click="onPrintImages('print_bar')" class="btn btn-primary" v-text="lang.get('pages.buttons.print')">Print</button>
+                        <button type="button" data-dismiss="modal"  @click="onClose" class="btn btn-default" v-text="lang.get('pages.buttons.cancel')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal-->
+
     </draggable-row>
 </template>
 
 <script>
+    import VueBarcode from 'vue-barcode';
     import {PurchaseOrder} from "../../services/models/PurchaseOrder";
     import {API} from "../../services/Api";
     import swal from 'sweetalert2'
@@ -91,6 +177,9 @@
 
     export default {
         name: "PurchaseOrder",
+        components: {
+            VueBarcode
+        },
         data: () => {
             return {
                 lang: lang,
@@ -215,7 +304,9 @@
                             }
                         },
                     ],
-                }
+                },
+                qr_codes: [],
+                bar_codes: [],
             }
         },
         methods: {
@@ -251,6 +342,25 @@
             },
             onPrint: function () {
                 this.datatable.button(0).trigger();
+            },
+            onQR: function () {
+                this.qr_codes = this.selected.map((qr) => {
+                    return {
+                        'id': qr.id,
+                        'url': window.location.protocol+'//'+ window.location.host + '/purchase-order/' + qr.id
+                    }
+                });
+            },
+            onBarcode: function () {
+                this.bar_codes = this.selected.map((qr) => {
+                    return {
+                        'id': qr.id,
+                        'url': window.location.protocol+'//'+ window.location.host + '/purchase-order/' + qr.id
+                    }
+                });
+            },
+            onPrintImages: function (id) {
+                this.$htmlToPaper( id );
             },
             onDelete: function () {
                 let that = this;
@@ -290,11 +400,17 @@
             },
             onEdit: function () {
                 //this.$router.push({ name: 'products.edit', params: { id: this.selected[0].id } })
+            },
+            onClose: function () {
+                this.qr_codes  = [];
+                this.bar_codes = [];
             }
         },
         beforeDestroy: function () {
             this.datatable.destroy();
-            this.selected = [];
+            this.selected  = [];
+            this.qr_codes  = [];
+            this.bar_codes = [];
             this.portlet = null;
             this.datatable = null;
         }

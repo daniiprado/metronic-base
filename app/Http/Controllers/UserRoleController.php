@@ -19,11 +19,7 @@ class UserRoleController extends ApiController
     public function index(User $user)
     {
         return $this->singleResponse(
-            new UserResource( $user->with([
-                'roles' => function ($query) {
-                    return $query->with('permissions');
-                }
-            ])->get() ),
+            new UserResource( $user->load('roles') ),
             200
         );
     }
@@ -37,13 +33,12 @@ class UserRoleController extends ApiController
      */
     public function store(StoreUserRoleRequest $request, User $user)
     {
-        $user->attachRole( $request->get('roles') );
+        if ( $user->has('roles') ) {
+            $user->detachRoles( $user->roles );
+        }
+        $user->attachRoles( $request->get('roles') );
         return $this->singleResponse(
-            new UserResource( $user->with([
-                'roles' => function ($query) {
-                    return $query->with('permissions');
-                }
-            ]) ),
+            new UserResource( $user->load('roles') ),
             201
         );
     }

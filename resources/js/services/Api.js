@@ -12,11 +12,18 @@ export const API = {
         SECURITY: {
             MODULES: {
                 ROOT: '/api/modules',
-                DATATABLE: '/api/modules/datatable'
+                DATATABLE: '/api/modules/datatable',
+                PERMISSIONS: '/api/modules/permissions'
             },
             SUBMODULES: {
                 ROOT: '/api/submodules',
                 DATATABLE: '/api/submodules/datatable'
+            },
+            /**
+             * @return {string}
+             */
+            MODULE_SUBMODULE: function (id) {
+                return `/api/modules/${id}/submodules`
             },
             PERMISSIONS: {
                 ROOT: '/api/permissions',
@@ -29,8 +36,14 @@ export const API = {
             /**
              * @return {string}
              */
-            ROLE_PERMISSIONS: function (id) {
-                return `/api/roles/${id}/permissions`
+            ROLE_PERMISSIONS: function (role_id, perm_id = null) {
+                return (!perm_id) ? `/api/roles/${role_id}/permissions` : `/api/roles/${role_id}/permissions/${perm_id}`
+            },
+            /**
+             * @return {string}
+             */
+            USER_ROLE: function (user_id, role_id = null) {
+                return (!role_id) ? `/api/users/${user_id}/roles` : `/api/users/${role_id}/roles/${role_id}`
             },
             USERS: {
                 ROOT: '/api/users',

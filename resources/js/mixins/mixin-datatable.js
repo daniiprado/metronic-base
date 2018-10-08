@@ -1,3 +1,7 @@
+import Vue from 'vue';
+import Auth from './../packages/auth/Auth'
+import store from "./../store";
+Vue.use(Auth);
 export const mixinDataTable = {
     name: 'mixin-data-table',
     data: () => {
@@ -16,6 +20,17 @@ export const mixinDataTable = {
                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 ajax: {
                     beforeSend: null,
+                    error: function (XMLHttpRequest) {
+                        if (XMLHttpRequest.status === 401) {
+                            store.dispatch('logout')
+                                .then(() => {
+                                    Vue.auth.destroyCookie()
+                                })
+                                .then(() => {
+                                    window.location.reload();
+                                })
+                        }
+                    }
                 },
                 columnDefs: [
                     {
@@ -69,7 +84,7 @@ export const mixinDataTable = {
     },
     methods: {
         settingsDataTable: function () {
-            var defaults = {
+            let defaults = {
                 sProcessing: "Procesando...",
                 sLengthMenu: "Mostrar _MENU_ registros",
                 sZeroRecords: "No se encontraron resultados",

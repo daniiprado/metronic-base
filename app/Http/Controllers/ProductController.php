@@ -98,8 +98,8 @@ class ProductController extends ApiController
     {
         return datatables()->eloquent( Product::query() )
                             ->addColumn('company', function (Product $product) {
-                                return isset( $product->comany->name )
-                                        ? $product->comany->name
+                                return isset( $product->company->name )
+                                        ? $product->company->name
                                         : null;
                             })
                             ->toJson();

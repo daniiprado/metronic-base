@@ -17,14 +17,9 @@ class ModuleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ModuleResource::collection( Module::all()->load([
-                'permission'   => function ($query) {
-                    return $query->select(['id', 'name', 'module_id'])->whereNull('submodule_id');
-                },
-                'submodules'    =>  function ($query) {
-                    return $query->with('permission:id,name,submodule_id');
-                }
-            ]) ),
+            ModuleResource::collection(
+                Module::all()
+            ),
             200
         );
     }
@@ -104,5 +99,15 @@ class ModuleController extends ApiController
     public function datatable()
     {
         return datatables()->eloquent( Module::query() )->toJson();
+    }
+
+    public function permissions()
+    {
+        return $this->collectionResponse(
+            ModuleResource::collection(
+                Module::with('permissions')->get()
+            ),
+            200
+        );
     }
 }

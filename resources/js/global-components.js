@@ -1,3 +1,4 @@
+import VueQrcode from '@xkeshi/vue-qrcode';
 const GlobalComponents = {
     install(Vue) {
         Vue.component('login', () => import(/* webpackChunkName: "global" */ './views/auth/Login.vue'));
@@ -46,6 +47,7 @@ const GlobalComponents = {
         Vue.component('data-table', () => import(/* webpackChunkName: "global" */'./components/sections/DataTable.vue'));
         Vue.component('portlet-dropdown-actions', () => import(/* webpackChunkName: "global" */'./components/sections/PortletDropdownActions.vue'));
         Vue.component('feedback', () => import(/* webpackChunkName: "global" */'./components/sections/Feedback.vue'));
+        Vue.component('qrcode', VueQrcode);
     }
 };
 

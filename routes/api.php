@@ -80,6 +80,7 @@ Route::prefix('api')->group( function () {
     /**
      * Administrative Routes
      */
+    Route::get('modules/permissions', 'ModuleController@permissions');
     Route::get('modules/datatable', 'ModuleController@datatable');
     Route::resource('modules', 'ModuleController', [
         'except' => ['create', 'edit']
@@ -90,8 +91,8 @@ Route::prefix('api')->group( function () {
         'except' => ['create', 'edit']
     ]);
 
-    Route::resource('submodule-action', 'SubmoduleActionController', [
-        'except' => ['create', 'edit']
+    Route::resource('modules.submodules', 'ModuleSubmoduleController', [
+        'only' => ['index']
     ]);
 
     /**

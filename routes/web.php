@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/{any?}', 'HomeController@index')->where('any', '^(?!storage).*$');
+Route::get('/{any?}', 'HomeController@index')->where('any', '^(?!storage).*$')->name('home');

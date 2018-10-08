@@ -24,8 +24,21 @@ import GlobalComponents from './global-components';
 import Auth from './packages/auth/Auth';
 import VTooltip from 'v-tooltip';
 import Croppa from 'vue-croppa';
-import vbclass from 'vue-body-class'
+import vbclass from 'vue-body-class';
+import VueHtmlToPaper from 'vue-html-to-paper';
 
+const options = {
+    name: '_blank',
+    specs: [
+        'fullscreen=yes',
+        'titlebar=yes',
+        'scrollbars=yes'
+    ],
+    styles: [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+};
 
 window.lang = new Lang({ messages });
 Validator.localize('es', es);
@@ -35,6 +48,7 @@ Vue.use(VTooltip);
 Vue.use(Croppa, { componentName: 'upload-image' });
 Vue.use(Auth);
 Vue.use( vbclass, router );
+Vue.use(VueHtmlToPaper, options);
 
 Vue.config.productionTip = false
 
@@ -45,6 +59,23 @@ Vue.config.productionTip = false
  */
 
 window.axios.defaults.headers.common['Authorization'] = store.getters.getToken;
+
+window.axios.interceptors.response.use(undefined, function (err) {
+    return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+            // if you ever get an unauthorized, logout the user
+            store.dispatch('logout')
+                .then(() => {
+                    this.$auth.destroyCookie()
+                })
+                .then(() => {
+                    window.location.reload();
+                })
+            // you can also redirect to /login if needed !
+        }
+        throw err;
+    });
+});
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.forVisitors)) {

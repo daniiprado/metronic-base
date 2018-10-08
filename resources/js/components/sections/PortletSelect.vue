@@ -70,6 +70,17 @@
                     request.setRequestHeader("Accept", 'application/json');
                     request.setRequestHeader("Content-Type", 'application/json');
                 };
+                this.options.ajax.error = function (XMLHttpRequest) {
+                    if (XMLHttpRequest.status === 401) {
+                        that.$store.dispatch('logout')
+                            .then(() => {
+                                that.$auth.destroyCookie()
+                            })
+                            .then(() => {
+                                window.location.reload();
+                            })
+                    }
+                };
                 this.options.minimumInputLength = 1;
                 this.options.cache = false;
             }
@@ -98,12 +109,10 @@
             },
             data: function (data) {
                 // update options
-                if ( this.data.length > 0 ) {
-                    this.options.data = data;
-                    $(this.$refs.select2Input).select2('destroy');
-                    $(this.$refs.select2Input).empty();
-                    $(this.$refs.select2Input).select2( this.options ).val(null).trigger('change');
-                }
+                this.options.data = data;
+                $(this.$refs.select2Input).select2('destroy');
+                $(this.$refs.select2Input).empty();
+                $(this.$refs.select2Input).select2( this.options ).val(null).trigger('change');
             }
         },
     }

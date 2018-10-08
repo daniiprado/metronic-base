@@ -32,6 +32,23 @@
                                        :input-attrs="{'minlength': 6, 'maxlength': 191, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>
 
+                        <portlet-select :options="modules"
+                                        :value="form.module_id"
+                                        v-model.number="form.module_id"
+                                        :has-errors="form.errors"
+                                        :input-attrs="{'required': true}"
+                                        name="module_id" validation="required">
+                        </portlet-select>
+
+                        <portlet-select :options="submodules"
+                                        :data="options"
+                                        :value="form.submodule_id"
+                                        v-model.number="form.submodule_id"
+                                        :has-errors="form.errors"
+                                        :input-attrs="{'required': true}"
+                                        name="submodule_id" validation="required">
+                        </portlet-select>
+
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">
@@ -48,6 +65,8 @@
 
 <script>
     import {Permission} from "../../../services/models/Permission";
+    import {ModuleSubmodule} from "../../../services/models/ModuleSubmodule";
+    import {API} from "../../../services/Api";
     import swal from 'sweetalert2'
 
     export default {
@@ -61,7 +80,41 @@
                     name: null,
                     display_name: null,
                     description: null,
+                    module_id: null,
+                    submodule_id: null
                 }),
+                modules: {
+                    placeholder: lang.get('pages.buttons.select'),
+                    allowClear: true,
+                    dir: mUtil.isRTL() ? "rtl" : null,
+                    ajax: {
+                        url: API.END_POINTS.SECURITY.MODULES.ROOT,
+                        data: function (params) {
+                            let query = {
+                                query: params.term,
+                                per_page: 15,
+                            }
+                            return query;
+                        },
+                        processResults: function (data, params) {
+                            return {
+                                results: data.data.map( (item) => {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    }
+                                }),
+                            }
+                        },
+                    }
+                },
+                submodules: {
+                    disabled: true,
+                    placeholder: lang.get('pages.buttons.select'),
+                    allowClear: true,
+                    dir: mUtil.isRTL() ? "rtl" : null,
+                },
+                options: []
             }
         },
         mounted: function () {
@@ -86,7 +139,7 @@
             onRemoveForm: function () {
                 let that = this;
                 this.portlet_form.on('beforeRemove', function (portlet) {
-                    that.$router.push({ name: 'roles'  })
+                    that.$router.push({ name: 'permissions'  })
                 });
             },
             onSubmit: function () {
@@ -118,6 +171,35 @@
                     }
                 })
             },
+        },
+        watch: {
+            form: {
+                handler: function(form) {
+                    console.log("Module with ID:" + typeof form.module_id + " modified");
+                    console.log("Subodule with ID:" + typeof form.submodule_id + " modified");
+                    if ( typeof form.module_id === 'number' && typeof form.submodule_id !== 'number') {
+                        console.log('run');
+                        (new ModuleSubmodule(form.module_id, {})).index()
+                            .then((response) => {
+                                this.submodules.disabled = false;
+                                this.options = response.data.map((submodule) => {
+                                    return {
+                                        id: submodule.id,
+                                        text: submodule.name
+                                    }
+                                })
+                            })
+                            .catch(() => {
+                                this.options = [];
+                                this.submodules.disabled = true;
+                            })
+                    } else if ( typeof form.module_id !== 'number' &&  typeof form.submodule_id === 'number') {
+                        this.options = [];
+                        this.submodules.disabled = true;
+                    }
+                },
+                deep: true
+            }
         }
     }
 </script>

@@ -28,6 +28,9 @@ return [
     'attach' => [
         'title' =>  'Asignar permisos para :role',
     ],
+    'attach_role' => [
+        'title' =>  'Asignar rol para :user',
+    ],
     'modules' => [
         'title' =>  '{0} :prefix Módulo|{2} Módulos',
     ],
@@ -54,6 +57,8 @@ return [
         'select'        =>  'Seleccionar',
         'update'        =>  'Actualizar',
         'edit'          =>  'Modificar',
+        'attach_perm'   =>  'Asignar Permisos',
+        'attach_role'   =>  'Asignar Roles',
         'delete'        =>  'Eliminar',
         'restore'       =>  'Restaurar',
         'save'          =>  'Guardar',
@@ -69,6 +74,8 @@ return [
         'excel'         =>  'Excel',
         'csv'           =>  'CSV',
         'pdf'           =>  'PDF',
+        'qr'            =>  'Generar QR',
+        'bar'           =>  'Generar Códigos de Barras',
         'export_tools'  =>  'Herramientas de Exportación',
     ],
 
