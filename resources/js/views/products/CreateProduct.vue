@@ -10,42 +10,32 @@
 
                 <form @submit.prevent="onSubmit" class="m-form m-form--fit m-form--label-align-right">
                     <div class="m-portlet__body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <portlet-input :value="form.code" v-model.trim="form.code"
-                                               :has-errors="form.errors"
-                                               validation="required|alpha_num|min:10|max:10"
-                                               name="code"
-                                               :input-attrs="{'minlength': 10, 'maxlength': 10, 'required': true, 'autocomplete': 'off' }">
-                                </portlet-input>
-                            </div>
-                            <div class="col-md-6">
-                                <portlet-input :value="form.name" v-model="form.name"
-                                               :has-errors="form.errors"
-                                               validation="required|min:3|max:80"
-                                               name="name"
-                                               :input-attrs="{'minlength': 3, 'maxlength': 80, 'required': true, 'autocomplete': 'off' }">
-                                </portlet-input>
-                            </div>
-                            <div class="col-md-6">
-                                <portlet-input :value="form.price" v-model="form.price"
-                                               type="number"
-                                               :has-errors="form.errors"
-                                               validation="required|min_value:20|max_value:99999999|max:8|decimal:2"
-                                               name="price"
-                                               :input-attrs="{'min': 20, 'max': 99999999, size: 8, 'required': true, 'autocomplete': 'off' }">
-                                </portlet-input>
-                            </div>
-                            <div class="col-md-6">
-                                <portlet-select :options="companies"
-                                                :value="form.company_id"
-                                                v-model.number="form.company_id"
-                                                :has-errors="form.errors"
-                                                :input-attrs="{'required': true}"
-                                                name="company_id" validation="required">
-                                </portlet-select>
-                            </div>
-                        </div>
+                        <portlet-input :value="form.code" v-model.trim="form.code"
+                                       :has-errors="form.errors"
+                                       validation="required|alpha_num|min:10|max:10"
+                                       name="code"
+                                       :input-attrs="{'minlength': 10, 'maxlength': 10, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+                        <portlet-input :value="form.name" v-model="form.name"
+                                       :has-errors="form.errors"
+                                       validation="required|min:3|max:80"
+                                       name="name"
+                                       :input-attrs="{'minlength': 3, 'maxlength': 80, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+                        <portlet-input :value="form.price" v-model="form.price"
+                                       type="number"
+                                       :has-errors="form.errors"
+                                       validation="required|min_value:20|max_value:99999999|max:8|decimal:2"
+                                       name="price"
+                                       :input-attrs="{'min': 20, 'max': 99999999, size: 8, 'required': true, 'autocomplete': 'off' }">
+                        </portlet-input>
+                        <portlet-select :options="companies"
+                                        :value="form.company_id"
+                                        v-model.number="form.company_id"
+                                        :has-errors="form.errors"
+                                        :input-attrs="{'required': true}"
+                                        name="company_id" validation="required">
+                        </portlet-select>
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">
