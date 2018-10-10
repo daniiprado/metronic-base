@@ -4,6 +4,7 @@ namespace Logistic\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Logistic\Company;
+use Logistic\Http\Resources\CompanyResource;
 
 class CompanyProductController extends ApiController
 {
@@ -11,11 +12,14 @@ class CompanyProductController extends ApiController
      * Display a listing of the resource.
      *
      * @param Company $company
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Company $company)
     {
-        return response()->json( $company->products()->get(), 200 );
+        return $this->collectionResponse(
+            new CompanyResource( $company->load('products') ),
+            200
+        );
     }
 
     /**

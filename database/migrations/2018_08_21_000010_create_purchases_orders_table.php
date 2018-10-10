@@ -19,11 +19,15 @@ class CreatePurchasesOrdersTable extends Migration
             $table->dateTime('delivery_at');
             $table->dateTime('requested_at');
             $table->unsignedInteger('status_id');
+            $table->unsignedInteger('business_unity_id');
+            $table->unsignedInteger('provider_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('status_id')->references('id')->on('status');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('business_unity_id')->references('id')->on('business_unities');
+            $table->foreign('provider_id')->references('id')->on('companies');
         });
     }
 

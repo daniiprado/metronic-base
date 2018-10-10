@@ -3,10 +3,10 @@ export const API = {
     APP_NAME: 'Logistimatic',
     COOKIE: 'logistimatic',
     PATH: '/api/',
-    CLIENT_ID: 10,
-    //CLIENT_ID: 2,
-    CLIENT_SECRET: 'CrgtOULIcfGz3v0BQQKXHrKcuRClZHfJPNsEDPe4',
-    //CLIENT_SECRET: 'HWkacMnPJpg2TyDEcpElx2Sgx1vHKlSCSkhTEOSC',
+    //CLIENT_ID: 10,
+    CLIENT_ID: 2,
+    //CLIENT_SECRET: 'CrgtOULIcfGz3v0BQQKXHrKcuRClZHfJPNsEDPe4',
+    CLIENT_SECRET: 'HWkacMnPJpg2TyDEcpElx2Sgx1vHKlSCSkhTEOSC',
     GRANT_TYPE: 'password',
     END_POINTS: {
         SECURITY: {
@@ -53,7 +53,10 @@ export const API = {
         CUSTOMERS: {
             COMPANY: {
                 ROOT: '/api/companies',
-                DATATABLE: '/api/companies/datatable'
+                DATATABLE: '/api/companies/datatable',
+                PRODUCTS: function (id) {
+                    return `/api/companies/${id}/products`
+                }
             },
             UNITY: {
                 ROOT: '/api/business-unity',

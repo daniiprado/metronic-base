@@ -175,10 +175,7 @@
         watch: {
             form: {
                 handler: function(form) {
-                    console.log("Module with ID:" + typeof form.module_id + " modified");
-                    console.log("Subodule with ID:" + typeof form.submodule_id + " modified");
                     if ( typeof form.module_id === 'number' && typeof form.submodule_id !== 'number') {
-                        console.log('run');
                         (new ModuleSubmodule(form.module_id, {})).index()
                             .then((response) => {
                                 this.submodules.disabled = false;

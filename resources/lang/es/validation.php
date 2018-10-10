@@ -249,5 +249,6 @@ return [
         'business_unities'      => 'unidades de negocio',
         'products'              => 'productos',
         'purchase_order'        => 'órdenes de compra',
+        'quantity'              => 'cantidad',
     ],
 ];

@@ -24,29 +24,31 @@
                 <div class="m-portlet__body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="m_portlet_tab_1_1">
-                            <div class="col-md-6 offset-md-3" v-for="data in permissions">
-                                <div class="m-section">
+                            <div class="row">
+                                <div class="col-md-6" v-for="data in permissions">
+                                    <div class="m-section">
                                 <span class="m-section__sub">
                                     Module: {{ data.module }}
                                 </span>
-                                    <div class="m-section__content">
-                                        <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
-                                            <div class="m-demo__preview">
-                                                <!--begin::Form-->
-                                                <form class="m-form">
-                                                    <div class="m-form__group form-group row" v-for="perm in data.perms" :key="perm.id">
-                                                        <label class="col-6 col-form-label">{{ perm.display_name }}</label>
-                                                        <div class="col-6">
+                                        <div class="m-section__content">
+                                            <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+                                                <div class="m-demo__preview">
+                                                    <!--begin::Form-->
+                                                    <form class="m-form">
+                                                        <div class="m-form__group form-group row" v-for="perm in data.perms" :key="perm.id">
+                                                            <label class="col-6 col-form-label">{{ perm.display_name }}</label>
+                                                            <div class="col-6">
                                                         <span class="m-switch m-switch--icon">
                                                             <label>
                                                                 <input type="checkbox" :checked="checked(perm.id)" :value="{id: perm.id}" v-model="form.permissions">
                                                                 <span></span>
                                                             </label>
                                                         </span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </form>
-                                                <!--end::Form-->
+                                                    </form>
+                                                    <!--end::Form-->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

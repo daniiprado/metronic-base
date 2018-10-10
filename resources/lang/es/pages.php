@@ -60,11 +60,13 @@ return [
         'attach_perm'   =>  'Asignar Permisos',
         'attach_role'   =>  'Asignar Roles',
         'delete'        =>  'Eliminar',
+        'remove'        =>  'Remover',
         'restore'       =>  'Restaurar',
         'save'          =>  'Guardar',
         'cancel'        =>  'Cancelar',
         'add'           =>  'Añadir',
         'add_file'      =>  'Añadir Archivo',
+        'add_product'   =>  'Añadir Producto',
         'zoom_in'       =>  'Ampliar',
         'zoom_out'      =>  'Alejar',
         'rotate'        =>  'Girar',
@@ -85,7 +87,8 @@ return [
         'error'     =>  'Error',
         'info'      =>  'Información',
         'question'  =>  'Pregunta',
-        'comfirm_delete' => '{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?'
+        'comfirm_delete' => '{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?',
+        'check_products' => 'Para enviar esta solicitud debes añadir al menos un producto.'
     ],
 
     'responses' =>  [

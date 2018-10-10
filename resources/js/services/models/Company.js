@@ -9,4 +9,8 @@ export class Company extends Model {
     datatable(){
         return this.get( API.END_POINTS.CUSTOMERS.COMPANY.DATATABLE )
     }
+
+    products(id) {
+        return this.get( API.END_POINTS.CUSTOMERS.COMPANY.PRODUCTS(id) )
+    }
 }

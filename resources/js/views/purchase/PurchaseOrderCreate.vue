@@ -49,33 +49,95 @@
                                                    :input-attrs="{'required': true, 'autocomplete': 'off' }">
                                 </portlet-date-time>
                             </div>
-                            <div class="col-md-6">
-                                <portlet-input :value="form.requested_at" v-model="form.requested_at"
-                                               :has-errors="form.errors"
-                                               validation="required"
-                                               name="requested_at"
-                                               :input-attrs="{'minlength': 19, 'maxlength': 19, 'readonly': true, 'required': true, 'autocomplete': 'off' }">
-                                </portlet-input>
+                            <hr>
+                            <div class="col-md-12">
+                                <div v-if="show" class="m-alert m-alert--icon alert alert-danger" role="alert">
+                                    <div class="m-alert__icon">
+                                        <i class="flaticon-danger"></i>
+                                    </div>
+                                    <div class="m-alert__text">
+                                        <strong v-text="lang.get('pages.messages.warning')"></strong>
+                                        {{ lang.get('pages.messages.check_products') }}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <!--
-                            <portlet-select :value="form.status_id" v-model.number="form.status_id"
-                                            :options="options"
-                                            :data="options.data"
-                                            :has-errors="form.errors"
-                                            validation="required|numeric"
-                                            name="status_id"
-                                            :input-attrs="{'required': true }">
+                            <div class="col-md-6">
+                                <portlet-select :value="selected" v-model.number="selected"
+                                                :options="product_options"
+                                                :data="products"
+                                                :has-errors="form.errors"
+                                                validation="numeric"
+                                                name="products">
 
-                            </portlet-select>
-                            -->
+                                </portlet-select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group">
+                                    <label v-text="lang.get('validation.attributes.quantity').capitalize()"></label>
+                                    <div class="input-group">
+                                        <input  v-model.number="quantity"
+                                               type="number"
+                                               :has-errors="form.errors"
+                                               v-validate="'numeric'"
+                                               name="quantity"
+                                               class="form-control"
+                                               :placeholder="lang.get('validation.attributes.quantity').capitalize()">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" @click="onAddProduct" type="button" v-text="lang.get('pages.buttons.add_product')"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div v-if="form.products.length > 0" class="col-md-8 offset-md-2">
+                                <div class="m-section">
+                                    <div class="m-section__content">
+                                        <div class="table-responsive">
+                                            <table class="table m-table m-table--head-separator-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th v-text="lang.get('validation.attributes.code').capitalize()"></th>
+                                                    <th v-text="lang.get('validation.attributes.name').capitalize()"></th>
+                                                    <th v-text="lang.get('validation.attributes.price').capitalize()"></th>
+                                                    <th v-text="lang.get('validation.attributes.quantity').capitalize()"></th>
+                                                    <th>Subtotal</th>
+                                                    <th v-text="lang.get('pages.buttons.remove').capitalize()"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="product in form.products">
+                                                    <td scope="row" v-text="product.product_id"></td>
+                                                    <td v-text="product.code"></td>
+                                                    <td v-text="product.name"></td>
+                                                    <td v-text="`$ ${product.price}`"></td>
+                                                    <td v-text="product.quantity"></td>
+                                                    <td class="text-right" v-text="`$ ${product.subtotal}`"></td>
+                                                    <td>
+                                                        <a href="javascript:;" @click="onRemoveProduct(product.product_id)" class="btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+                                                            <i class="fas fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5" class="text-right">Total:</td>
+                                                    <td class="text-right">$ {{ total }}</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions m-form__actions--solid m-form__actions--right">
                             <portlet-submit :loadiing="loading" :form="form"></portlet-submit>
-                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                            <button type="reset" class="btn btn-secondary" v-text="lang.get('pages.buttons.cancel')"></button>
                         </div>
                     </div>
                 </form>
@@ -105,7 +167,6 @@
                     delivery_address: null,
                     delivery_at: null,
                     requested_at: moment().format('YYYY-MM-DD HH:mm:ss'),
-                    //status_id: null,
                     business_unity_id: null,
                     provider_id: null,
                     products: []
@@ -134,6 +195,18 @@
                     minimumResultsForSearch: Infinity,
                     data: []
                 },
+                product_options: {
+                    placeholder: lang.get('pages.buttons.select'),
+                    allowClear: true,
+                    dir: mUtil.isRTL() ? "rtl" : null,
+                    minimumResultsForSearch: Infinity,
+                    data: []
+                },
+                products: [],
+                selected: null,
+                quantity: null,
+                total: 0,
+                show: false
             }
         },
         mounted: function () {
@@ -161,12 +234,13 @@
             onRemoveForm: function () {
                 let that = this;
                 this.portlet_form.on('beforeRemove', function (portlet) {
-                    that.$router.push({ name: 'companies'  })
+                    that.$router.push({ name: 'purchase.orders'  })
                 });
             },
             onSubmit: function () {
                 this.$validator.validateAll().then( (result) => {
-                    if (result) {
+                    if (result && this.form.products.length > 0) {
+                        this.show = false;
                         this.loading = true;
                         mApp.blockPage();
                         this.form.store()
@@ -191,6 +265,9 @@
                                         mUtil.scrollTop();
                                     })
                             })
+                    }
+                    if ( this.form.products.length < 1 ) {
+                        this.show = true;
                     }
                 });
             },
@@ -235,11 +312,49 @@
                     .catch((error) => {
                         console.log( error )
                     })
+            },
+            onAddProduct: function () {
+                let product = JSON.parse( this.selected );
+                this.form.products.push({
+                    product_id: product.id,
+                    code: product.code,
+                    price: product.price,
+                    name: product.name,
+                    quantity: this.quantity,
+                    subtotal: product.price * this.quantity
+                });
+                this.total = 0;
+                this.form.products.map((p) => {
+                     this.setTotal( p.subtotal );
+                });
+                this.quantity = null;
+                this.selected = [];
+            },
+            setTotal: function (value) {
+                this.total += value;
+            },
+            onRemoveProduct: function (id) {
+                this.form.products = this.form.products.filter( (product) => {
+                    return product.product_id !== id
+                })
             }
         },
         watch: {
-            form: function (form) {
-                console.log(form);
+            form: {
+                handler: function (form) {
+                    if ( typeof form.provider_id === 'number') {
+                        this.provider.products( form.provider_id )
+                            .then((response) => {
+                                this.products = response.data.products.map((product) => {
+                                    return {
+                                        id: JSON.stringify(product),
+                                        text: `${ product.code} | ${product.name} | $ ${product.price}`,
+                                    }
+                                })
+                            })
+                    }
+                },
+                deep: true
             }
         }
     }

@@ -7,6 +7,7 @@ use Logistic\Http\Requests\UpdatePurchaseOrderRequest;
 use Logistic\Http\Requests\UpdatePurchaseOrderStatusRequest;
 use Logistic\Http\Resources\PurchaseOrderResource;
 use Logistic\PurchaseOrder;
+use Logistic\Status;
 
 class PurchaseOrderController extends ApiController
 {
@@ -34,16 +35,26 @@ class PurchaseOrderController extends ApiController
      *
      * @param StorePurchaseOrderRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function store(StorePurchaseOrderRequest $request)
     {
-        $purchase_order = new PurchaseOrder();
-        $purchase_order->save( $request->except('products') );
-        $purchase_order->products_order()->saveMany( $request->only('products') );
-        return $this->singleResponse(
-            new PurchaseOrderResource( $purchase_order ),
-            201
-        );
+
+        $purchase_order = new PurchaseOrder;
+        $purchase_order->delivery_address   = $request->get('delivery_address');
+        $purchase_order->business_unity_id  = $request->get('business_unity_id');
+        $purchase_order->delivery_at        = $request->get('delivery_at');
+        $purchase_order->requested_at       = now();
+        $purchase_order->user_id            = auth('api')->user()->id;
+        $purchase_order->provider_id        = $request->get('provider_id');
+        $purchase_order->status_id          = 3;
+        $purchase_order->saveOrFail();
+        $purchase_order->products_order()->createMany( $request->get('products') );
+        return $this->api_success([
+            'data'      =>  new PurchaseOrderResource( $purchase_order->load('products_order') ),
+            'message'   =>  __('pages.responses.created'),
+            'code'      =>  201
+        ], 201);
     }
 
     /**
@@ -55,7 +66,7 @@ class PurchaseOrderController extends ApiController
     public function show(PurchaseOrder $purchase_order)
     {
         return $this->singleResponse(
-            new PurchaseOrderResource( $purchase_order ),
+            new PurchaseOrderResource( $purchase_order->load('products_order') ),
             200
         );
     }
@@ -71,7 +82,7 @@ class PurchaseOrderController extends ApiController
     {
         $purchase_order->update( $request->all() );
         return $this->singleResponse(
-            new PurchaseOrderResource( $purchase_order ),
+            new PurchaseOrderResource( $purchase_order->load('products_order') ),
             200
         );
     }

@@ -61,6 +61,16 @@ class Status extends Model implements Auditable
 
     /*
      * ---------------------------------------------------------
+     * Scopes
+     * ---------------------------------------------------------
+     */
+    public function scopeFindByStatus( $name )
+    {
+        return $this->where('name', '=', $name);
+    }
+
+    /*
+     * ---------------------------------------------------------
      * Accessors and Mutator
      * ---------------------------------------------------------
      */
