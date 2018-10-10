@@ -323,20 +323,21 @@
                     quantity: this.quantity,
                     subtotal: product.price * this.quantity
                 });
-                this.total = 0;
-                this.form.products.map((p) => {
-                     this.setTotal( p.subtotal );
-                });
+                this.setTotal();
                 this.quantity = null;
                 this.selected = [];
             },
-            setTotal: function (value) {
-                this.total += value;
+            setTotal: function () {
+                this.total = 0;
+                this.form.products.map((p) => {
+                    this.total += value;
+                });
             },
             onRemoveProduct: function (id) {
                 this.form.products = this.form.products.filter( (product) => {
                     return product.product_id !== id
                 })
+                this.setTotal();
             }
         },
         watch: {
