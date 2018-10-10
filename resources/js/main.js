@@ -15,7 +15,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './registerServiceWorker'
+//import './registerServiceWorker'
 import es from 'vee-validate/dist/locale/es';
 import VeeValidate, {Validator} from 'vee-validate';
 import Lang from 'lang.js';
