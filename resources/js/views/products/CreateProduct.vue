@@ -14,9 +14,9 @@
                             <div class="col-md-6">
                                 <portlet-input :value="form.code" v-model.trim="form.code"
                                                :has-errors="form.errors"
-                                               validation="required|alpha_num|min:7|max:7"
+                                               validation="required|alpha_num|min:10|max:10"
                                                name="code"
-                                               :input-attrs="{'minlength': 7, 'maxlength': 7, 'required': true, 'autocomplete': 'off' }">
+                                               :input-attrs="{'minlength': 10, 'maxlength': 10, 'required': true, 'autocomplete': 'off' }">
                                 </portlet-input>
                             </div>
                             <div class="col-md-6">

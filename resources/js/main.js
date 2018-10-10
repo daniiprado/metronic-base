@@ -88,7 +88,17 @@ router.beforeEach((to, from, next) => {
         }
     } else if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!Vue.auth.isAuthenticated()) {
-            next({name: 'login'})
+            if (to.fullPath === '/') {
+                next({ name: 'login' })
+            } else {
+                window.localStorage.setItem('next', to.fullPath);
+                next({
+                    name: 'login',
+                    query: {
+                        next: to.fullPath
+                    }
+                })
+            }
         } else if ( to.matched.some((record) => record.meta.can) ) {
             next()
         } else {

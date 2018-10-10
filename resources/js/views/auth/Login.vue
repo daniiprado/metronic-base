@@ -90,7 +90,8 @@
                             .then(() => {
                                 this.$store.dispatch('auth_user')
                                     .then(() => {
-                                        window.location.reload();
+                                        window.location = window.localStorage.getItem('next') || '/';
+                                        window.localStorage.removeItem('next');
                                     })
                             })
                             .catch((error) => {
