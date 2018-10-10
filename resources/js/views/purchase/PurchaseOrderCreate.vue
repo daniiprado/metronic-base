@@ -330,7 +330,7 @@
             setTotal: function () {
                 this.total = 0;
                 this.form.products.map((p) => {
-                    this.total += value;
+                    this.total += p.subtotal;
                 });
             },
             onRemoveProduct: function (id) {

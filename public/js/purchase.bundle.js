@@ -27457,7 +27457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.total = 0;
             this.form.products.map(function (p) {
-                _this5.total += value;
+                _this5.total += p.subtotal;
             });
         },
         onRemoveProduct: function onRemoveProduct(id) {
