@@ -385,23 +385,18 @@
                     showCancelButton: true,
                     showLoaderOnConfirm: true,
                     preConfirm: () => {
-                        return new Promise( resolve, reject => {
-                            that.selected.map( (item) => {
-                                that.form.destroy( item.id )
-                                    .then((response) => {
+                        that.selected.map( (item) => {
+                            that.form.destroy( item.id )
+                                .then((response) => {
 
-                                    })
-                                    .catch((error) => {
-                                        console.log(error);
-                                        swal(error.error, {
-                                            type: "error",
-                                        });
-                                        reject()
-                                    })
-                            });
-                            that.selected = [];
-                            resolve();
-                        })
+                                })
+                                .catch((error) => {
+                                    swal(error.error, {
+                                        type: "error",
+                                    });
+                                })
+                        });
+                        that.selected = [];
                     },
                     allowOutsideClick: () => !swal.isLoading()
                 }).then((result) => {
