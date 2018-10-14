@@ -254,8 +254,8 @@ return [
         'number'                => 'número',
         'received'              => 'recibido',
         'delivered'             => 'entregado',
-        'done with novelty'     => 'finalizado con novedad',
-        'in transit'            => 'en tránsito',
-        'in transit with novelty'   => 'en tránsito con novedad',
+        //'done with novelty'     => 'finalizado con novedad',
+        //'in transit'            => 'en tránsito',
+        //'in transit with novelty'   => 'en tránsito con novedad',
     ],
 ];
