@@ -105,7 +105,10 @@ class PurchaseOrder extends Model implements Auditable
     public function getDisabledAttribute()
     {
         return ($this->status_id == Status::findByName('canceled')->first(['id'])->id
-                || $this->status_id == Status::findByName('delivered')->first(['id'])->id );
+                || $this->status_id == Status::findByName('done')->first(['id'])->id
+                || $this->status_id == Status::findByName('done with novelty')->first(['id'])->id
+                || $this->status_id == Status::findByName('in transit')->first(['id'])->id
+                || $this->status_id == Status::findByName('in transit with novelty')->first(['id'])->id );
     }
 
     /*
