@@ -22,15 +22,15 @@ export const MixinMoment = {
         },
         humanize: function (date) {
             if (typeof date === 'object') {
-                return (date && moment(date.date).isValid() ) ? moment(date.date).tz(date.timezone).locale( this.locale ).format("ddd, MMM YYYY, hA") : null;
+                return (date && moment(date.date).isValid() ) ? moment(date.date).tz(date.timezone).locale( this.locale ).format("ddd DD, MMM YYYY, hA") : null;
             }
-            return (date && moment(date).isValid() ) ? moment(date.date).tz( this.tz ).locale( this.locale ).format("ddd, MMM YYYY, hA") : null;
+            return (date && moment(date).isValid() ) ? moment(date).tz( this.tz ).locale( this.locale ).format("ddd DD, MMM YYYY, hA") : null;
         },
         input: function (date) {
             if (typeof date === 'object') {
                 return (date && moment(date.date).isValid() ) ? moment(date.date).tz(date.timezone).locale( this.locale ).format("YYYY-MM-DD HH:mm:ss") : null;
             }
-            return (date && moment(date).isValid() ) ? moment(date.date).tz( this.tz ).locale( this.locale ).format("YYYY-MM-DD HH:mm:ss") : null;
+            return (date && moment(date).isValid() ) ? moment(date).tz( this.tz ).locale( this.locale ).format("YYYY-MM-DD HH:mm:ss") : null;
         }
     }
 };

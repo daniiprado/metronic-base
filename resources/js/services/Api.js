@@ -5,7 +5,7 @@ export const API = {
     PATH: '/api/',
     CLIENT_ID: 2,
     //CLIENT_ID: 2,
-    CLIENT_SECRET: 'ufPh7Yzz9P00IazpzDKi6jYM8s0OeF8Uh20nEfjR',
+    CLIENT_SECRET: 'TkxWbqIf7YpwOiHi2koRgjP41bArPBruCdJVSYzf',
     //CLIENT_SECRET: 'HWkacMnPJpg2TyDEcpElx2Sgx1vHKlSCSkhTEOSC',
     GRANT_TYPE: 'password',
     END_POINTS: {
@@ -89,7 +89,13 @@ export const API = {
             },
             PRODUCTS_ORDER: {
                 ROOT: '/api/products-order',
-                STATUS: '/api/products-order/status'
+                STATUS: '/api/products-order/status',
+                /**
+                 * @return {string}
+                 */
+                PRODUCTS_ORDER_ISSUE: function (id) {
+                    return `/api/products-order/${id}/issues`
+                },
             },
             ISSUE: {
                 ROOT: '/api/issues',

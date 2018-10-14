@@ -13,7 +13,7 @@ class StoreProductsOrderIssueRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,9 +23,15 @@ class StoreProductsOrderIssueRequest extends FormRequest
      */
     public function rules()
     {
+        if ( is_array( request()->get('issues') ) ) {
+            return [
+                'issues'            =>  'required|array',
+                'issues.*.issue'    =>  'required|string|max:3000'
+            ];
+        }
+
         return [
-            'issues'            =>  'required|array',
-            'issues.*.issue'    =>  'required|string|max:3000'
+            'issues'            =>  'required|string|max:3000'
         ];
     }
 }

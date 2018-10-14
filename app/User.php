@@ -76,6 +76,17 @@ class User extends Authenticatable implements Auditable
 
     /*
      * ---------------------------------------------------------
+     * Accessors and Mutator
+     * ---------------------------------------------------------
+     */
+
+    public function setPasswordAttribute( $password )
+    {
+        $this->attributes['password'] = bcrypt( $password );
+    }
+
+    /*
+     * ---------------------------------------------------------
      * Eloquent Relationship
      * ---------------------------------------------------------
      */

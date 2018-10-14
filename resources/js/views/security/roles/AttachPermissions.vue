@@ -144,6 +144,7 @@
             },
             /** Permissions **/
             setPermissions: function () {
+                mApp.blockPage();
                 this.form = new RolePermission(
                     this.$route.params.id,
                     {
@@ -160,7 +161,11 @@
                             }
                         });
                     })
+                    .then(() => {
+                        mApp.unblockPage();
+                    })
                     .catch( error => {
+                        mApp.unblockPage();
                         console.log(error)
                     })
             },

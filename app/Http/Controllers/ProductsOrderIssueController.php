@@ -12,7 +12,14 @@ class ProductsOrderIssueController extends ApiController
 
     public function store(StoreProductsOrderIssueRequest $request, ProductsOrder $products_order)
     {
-        $products_order->issues()->saveMany( $request->all() );
+        if ( is_array( $request->get('issues') ) ) {
+            $products_order->issues()->createMany( $request->all() );
+        }
+
+        $products_order->issues()->create([
+            'issue' => $request->get('issues' )
+        ]);
+
         return $this->api_success([
             'message'   =>  __('pages.responses.created'),
             'code'      =>  201

@@ -1,5 +1,4 @@
 <template>
-
     <div class="row">
         <div class="col-lg-12">
             <div class="m-portlet">
@@ -122,7 +121,7 @@
 
         <div class="modal fade" id="m_modal_issue" tabindex="-1" role="dialog" aria-labelledby="log_content" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <form v-if="details" @submit.prevent="onIssue" class="modal-content">
+                <form v-if="details" class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="">{{ lang.get('validation.attributes.issue').capitalize() }}</h5>
                         <button type="button" @click="onClose" class="close" data-dismiss="modal" aria-label="Close">
@@ -169,62 +168,16 @@
                                     <li v-for="issue in details.issues" :key="issue.id">{{ issue.issue }} <span class="m-badge m-badge--brand m-badge--wide"><small>{{ humanize(issue.created_at) }}</small></span> </li>
                                 </ul>
 
-                                <hr>
-
-                                <portlet-text-area  v-if="$auth.can('add-purchase-order-issue')" :value="issue.issues" v-model="issue.issues"
-                                                   :has-errors="issue.errors"
-                                                   validation="required|min:3|max:3000"
-                                                   name="issue"
-                                                   :input-attrs="{'minlength': 3, 'maxlength': 3000, 'required': true, 'autocomplete': 'off' }">
-
-                                </portlet-text-area>
 
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <portlet-submit v-if="$auth.can('add-purchase-order-issue')" :loadiing="loading" :form="issue"></portlet-submit>
                         <button type="button" @click="onClose" data-dismiss="modal"  class="btn btn-default" v-text="lang.get('pages.buttons.cancel')">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
-
-        <div v-if="$auth.can('change-purchase-order-status')" class="modal fade" id="m_modal_status" tabindex="-1" role="dialog" aria-labelledby="log_content" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <form @submit.prevent="onSubmit" class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ lang.get('validation.attributes.status').capitalize() }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="modal_status" class="m-form">
-                                    <div class="col-md-12">
-                                        <portlet-select :value="form.status_id" v-model.number="form.status_id"
-                                                        :options="options"
-                                                        :data="options.data"
-                                                        :has-errors="form.errors"
-                                                        validation="required|numeric"
-                                                        name="status">
-
-                                        </portlet-select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <portlet-submit :loadiing="loading" :form="form"></portlet-submit>
-                        <button type="button" data-dismiss="modal"  class="btn btn-default" v-text="lang.get('pages.buttons.cancel')">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
     </div>
 </template>
 
@@ -242,7 +195,6 @@
             return {
                 loading: false,
                 lang: lang,
-                portlet: null,
                 total: 0,
                 qr: null,
                 purchase: {
@@ -264,62 +216,18 @@
                     user_id: 0,
                 },
                 details: null,
-                status: new Status({}, { params: { query: 'received' } }),
-                options: {
-                    placeholder: lang.get('pages.buttons.select'),
-                    allowClear: true,
-                    dir: mUtil.isRTL() ? "rtl" : null,
-                    minimumResultsForSearch: Infinity,
-                    data: []
-                },
-                form: new PurchaseOrder({
-                    status_id: null
-                }),
-                issue: null
             }
         },
         created: function () {
             mApp.block('#m_modal_status .modal-content', {})
-            this.status.index()
-                .then((response) => {
-                    this.options.data = response.data.map((option) => {
-                        return {
-                            id: option.id,
-                            text: option.name
-                        }
-                    });
-                })
-                .then(() => {
-                    mApp.unblock('#m_modal_status .modal-content', {})
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-            this.$nextTick(() => {
-                this.getPurchaseOrder();
-            })
+            this.getPurchaseOrder();
         },
         methods: {
-            onPortlet: function (portlet) {
-                this.portlet = portlet;
-                if ( this.portlet !== null ) {
-                    this.onRemoveForm();
-                }
-            },
-            onRemoveForm: function () {
-                let that = this;
-                this.portlet_form.on('beforeRemove', function (portlet) {
-                    that.$router.push({ name: 'purchase.orders'  })
-                });
-            },
             onPrintImages: function (id) {
                 this.$htmlToPaper( id );
             },
             onDetails: function (details) {
                 this.details = details;
-                this.issue = new ProductOrderIssue( details.id, {
-                    issues: []
-                })
             },
             onClose: function () {
                 this.details  = null;
@@ -342,46 +250,6 @@
                     })
                     .catch((error) => console.log( error ));
             },
-            onSubmit: function () {
-               this.$validator.validateAll()
-                   .then((result) => {
-                       if (result) {
-                           mApp.block('#m_modal_status .modal-content', {})
-                           this.form.status( this.$route.params.id )
-                               .then((response) => {
-                                   $('#m_modal_status').modal('hide')
-                                   this.getPurchaseOrder()
-                               })
-                               .then(() => {
-                                   mApp.unblock('#m_modal_status .modal-content', {})
-                               })
-                               .catch((error) => {
-                                   mApp.unblock('#m_modal_status .modal-content', {})
-                                   console.log(error)
-                               })
-                       }
-                   })
-            },
-            onIssue: function () {
-                this.$validator.validateAll()
-                    .then((result) => {
-                        if (result) {
-                            mApp.block('#m_modal_issue .modal-content', {})
-                            this.issue.store()
-                                .then((response) => {
-                                    $('#m_modal_issue').modal('hide')
-                                    this.getPurchaseOrder()
-                                })
-                                .then(() => {
-                                    mApp.unblock('#m_modal_issue .modal-content', {})
-                                })
-                                .catch((error) => {
-                                    mApp.unblock('#m_modal_issue .modal-content', {})
-                                    console.log( error )
-                                })
-                        }
-                    })
-            }
         },
     }
 </script>

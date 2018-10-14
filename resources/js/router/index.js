@@ -26,6 +26,16 @@ export default new Router({
             }
         },
         {
+            path: '/',
+            name: 'index',
+            component: () => import(/* webpackChunkName: "dashboard" */ './../views/dashboard/Dashboard'),
+            meta: {
+                requiresAuth: true,
+                can: true,
+                //bodyClass: common
+            }
+        },
+        {
             path: '/home',
             name: 'home',
             component: () => import(/* webpackChunkName: "dashboard" */ './../views/dashboard/Dashboard'),
@@ -282,6 +292,15 @@ export default new Router({
                     }
                 },
                 {
+                    path: '/purchase-view/:id',
+                    name: 'purchase.view',
+                    component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrderDetailsView'),
+                    meta: {
+                        requiresAuth: true,
+                        can: Vue.auth.can('view-purchase-order-details-unique')
+                    }
+                },
+                {
                     path: '/purchase-order/create',
                     name: 'purchase.orders.create',
                     component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrderCreate'),
@@ -307,9 +326,17 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrderDetails'),
                     meta: {
                         requiresAuth: true,
-                        can: true //Vue.auth.can('view-purchase-order-details')
+                        can: Vue.auth.can('view-purchase-order-details')
                         //bodyClass: common
                     }
                 },
+        {
+            path: '**',
+            name: 'error',
+            component: () => import(/* webpackChunkName: "error" */ './../views/error/error'),
+            meta: {
+                requiresAuth: false,
+            }
+        }
     ]
 })

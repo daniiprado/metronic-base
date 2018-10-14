@@ -108,6 +108,11 @@ class PurchaseOrderController extends ApiController
      */
     public function destroy(PurchaseOrder $purchase_order)
     {
+        if ( $purchase_order->disabled ) {
+            return $this->errorResponse(
+                __('pages.responses.cant_delete', ['status' => $purchase_order->status->name ])
+            );
+        }
         $purchase_order->delete();
         return $this->api_success([
             'data'      =>  new PurchaseOrderResource( $purchase_order ),
@@ -147,6 +152,7 @@ class PurchaseOrderController extends ApiController
      */
     public function status(UpdatePurchaseOrderStatusRequest $request, PurchaseOrder $purchase_order)
     {
+
         $purchase_order->status_id = $request->get('status_id');
         $purchase_order->saveOrFail();
         return $this->api_success([

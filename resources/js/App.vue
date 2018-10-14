@@ -16,10 +16,13 @@
 
             <vue-footer></vue-footer>
         </div>
-        <div class="m-grid m-grid--hor m-grid--root m-page" v-else>
+        <div class="m-grid m-grid--hor m-grid--root m-page" v-else-if="!is_auth">
             <login-layout>
                 <router-view></router-view>
             </login-layout>
+        </div>
+        <div class="m-grid m-grid--hor m-grid--root m-page" v-else>
+            <error-page></error-page>
         </div>
     </transition>
 </template>

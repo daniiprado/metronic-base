@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.purchase_order.title', 2)">
                 <template slot="actions">
-                    <action-item v-if="selected.length === 1">
+                    <action-item v-if="selected.length === 1 && $auth.can('view-purchase-order-details')">
                         <a href="javascript:;"
                            @click.prevent="onDetails"
                            data-skin="dark" data-toggle="m-tooltip" data-placement="top" :title="lang.get('pages.buttons.details')"
@@ -385,17 +385,22 @@
                     showCancelButton: true,
                     showLoaderOnConfirm: true,
                     preConfirm: () => {
-                        that.selected.map( (item) => {
-                            that.form.destroy( item.id )
-                                .then((response) => {
-                                    that.datatable.ajax.reload(false);
-                                    console.log( response.message )
-                                })
-                                .catch((error) => {
-                                    swal(error.error, {
-                                        type: "success",
-                                    });
-                                })
+                        return new Promise( resolve, reject => {
+                            that.selected.map( (item) => {
+                                that.form.destroy( item.id )
+                                    .then((response) => {
+
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        swal(error.error, {
+                                            type: "error",
+                                        });
+                                        reject()
+                                    })
+                            });
+                            that.selected = [];
+                            resolve();
                         })
                     },
                     allowOutsideClick: () => !swal.isLoading()

@@ -103,10 +103,12 @@ class ProductsOrderController extends ApiController
         if ( $request->has('data') ) {
             foreach ( $request->get('data') as $purchase ) {
                 $product = ProductsOrder::find( $purchase['id'] );
-                $product->received = $purchase['status'];
-                $product->picked = $purchase['picked'];
-                $product->saveOrFail();
-                $i++;
+                if ( $product->picked <= $product->quantity ) {
+                    $product->received = $purchase['status'];
+                    $product->picked = $purchase['picked'];
+                    $product->saveOrFail();
+                    $i++;
+                }
             }
             return $this->api_success([
                 'message'   =>  "Se ha actualizado el estado de {$i} productos",

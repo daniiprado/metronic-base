@@ -105,6 +105,9 @@ class ProductsOrder extends Model implements Auditable
 
     public function getSubtotalAttribute()
     {
+        if ( $this->picked > 0 ) {
+            return (float) $this->price * (float) $this->picked;
+        }
         return (float) $this->price * (float) $this->quantity;
     }
 

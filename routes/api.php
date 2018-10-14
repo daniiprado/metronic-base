@@ -29,6 +29,8 @@ Route::prefix('api')->group( function () {
         );
     });
 
+    Route::get('purchase-view/{purchase_order}', 'PurchaseOrderViewController@index');
+
     /**
      * Application Routes
      */

@@ -107,6 +107,8 @@ class PurchaseOrder extends Model implements Auditable
         return ($this->status_id == Status::findByName('canceled')->first(['id'])->id
                 || $this->status_id == Status::findByName('done')->first(['id'])->id
                 || $this->status_id == Status::findByName('done with novelty')->first(['id'])->id
+                || $this->status_id == Status::findByName('received')->first(['id'])->id
+                || $this->status_id == Status::findByName('received with novelty')->first(['id'])->id
                 || $this->status_id == Status::findByName('in transit')->first(['id'])->id
                 || $this->status_id == Status::findByName('in transit with novelty')->first(['id'])->id );
     }

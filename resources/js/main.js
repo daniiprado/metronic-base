@@ -26,6 +26,7 @@ import VTooltip from 'v-tooltip';
 import Croppa from 'vue-croppa';
 import vbclass from 'vue-body-class';
 import VueHtmlToPaper from 'vue-html-to-paper';
+import swal from 'sweetalert2';
 
 const options = {
     name: '_blank',
@@ -63,7 +64,6 @@ window.axios.defaults.headers.common['Authorization'] = store.getters.getToken;
 window.axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    console.log( error );
     if (error.status === 401 && error.config && !error.config.__isRetryRequest) {
         // if you ever get an unauthorized, logout the user
         store.dispatch('logout')
@@ -74,6 +74,19 @@ window.axios.interceptors.response.use(function (response) {
                 window.location.reload();
             })
         // you can also redirect to /login if needed !
+    }
+    if ( error.status === 422 && error.response) {
+        if ( typeof error.response.data.error === 'string') {
+            swal(error.response.data.error, {
+                type: "error",
+            });
+        }
+        if ( typeof error.response.data.message === 'string') {
+            swal(error.response.data.message, {
+                type: "error",
+            });
+        }
+        return error;
     }
 
     return error;
