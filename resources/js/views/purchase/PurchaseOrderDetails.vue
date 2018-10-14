@@ -332,7 +332,7 @@
                         this.purchase = response;
                     })
                     .then(() => {
-                        this.qr = window.location.protocol+'//'+ window.location.host + '/purchase-order/' + this.purchase.id + '/products-order';
+                        this.qr = this.purchase.id;
                         this.purchase.products_order.map((product) => {
                             this.total += product.subtotal;
                         });

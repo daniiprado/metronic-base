@@ -133,7 +133,7 @@
                         <div class="row" id="print_that">
                             <div class="col-md-6" v-for="qr in qr_codes">
                                 <p>Número de Orden: {{ qr.id }}</p>
-                                <qrcode :value="qr.url" :options="{ size: 300, level: 'H' }" tag="img"></qrcode>
+                                <qrcode :value="qr.id" :options="{ size: 300, level: 'H' }" tag="img"></qrcode>
                             </div>
                         </div>
                     </div>
