@@ -15,6 +15,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Logistic\Status::class, function (Faker $faker) {
     return [
-        'name' => $faker->unique()->randomElement( ['canceled', 'active', 'modified'] ),
+        'name' => $faker->unique()->randomElement( ['canceled', 'active', 'modified', 'delivered'] ),
     ];
 });

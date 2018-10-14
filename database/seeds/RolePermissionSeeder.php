@@ -151,6 +151,13 @@ class RolePermissionSeeder extends Seeder
                     'module_id'     =>  $security_module->id,
                     'submodule_id'  =>  $submodule_submodules->id
                 ],
+                [
+                    'name'          =>  'attach-roles',
+                    'display_name'  =>  'Asignar Roles',
+                    'description'   =>  'Permite asignar roles a los usuarios de la aplicación.',
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_submodules->id
+                ],
             ],
             'users'   =>  [
                 [
@@ -222,6 +229,13 @@ class RolePermissionSeeder extends Seeder
                     'name'          =>  'restore-roles',
                     'display_name'  =>  'Restaurar Roles',
                     'description'   =>  'Permite restaurar roles eliminados en la aplicación.',
+                    'module_id'     =>  $security_module->id,
+                    'submodule_id'  =>  $submodule_roles->id
+                ],
+                [
+                    'name'          =>  'attach-permissions',
+                    'display_name'  =>  'Asignar Permisos',
+                    'description'   =>  'Permite asignar permisos a los roles de la aplicación.',
                     'module_id'     =>  $security_module->id,
                     'submodule_id'  =>  $submodule_roles->id
                 ],
@@ -648,7 +662,7 @@ class RolePermissionSeeder extends Seeder
 
         factory( \Logistic\User::class )->create([
             'email'         =>  'root@app.com',
-            'company_id'    =>  1
+            'company_id'    =>  \Logistic\Company::query()->first(['id'])->id
         ])->attachRole($root);
     }
 }

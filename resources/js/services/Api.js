@@ -3,9 +3,9 @@ export const API = {
     APP_NAME: 'Logistimatic',
     COOKIE: 'logistimatic',
     PATH: '/api/',
-    CLIENT_ID: 10,
+    CLIENT_ID: 2,
     //CLIENT_ID: 2,
-    CLIENT_SECRET: 'CrgtOULIcfGz3v0BQQKXHrKcuRClZHfJPNsEDPe4',
+    CLIENT_SECRET: 'ufPh7Yzz9P00IazpzDKi6jYM8s0OeF8Uh20nEfjR',
     //CLIENT_SECRET: 'HWkacMnPJpg2TyDEcpElx2Sgx1vHKlSCSkhTEOSC',
     GRANT_TYPE: 'password',
     END_POINTS: {
