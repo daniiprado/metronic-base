@@ -110,6 +110,7 @@ return [
         'updated_fail'  =>  'No se han actualizado los datos intenta de nuevo.',
         'deleted'       =>  'Se han eliminado los datos satisfactoriamente.',
         'deleted_fail'  =>  'No se han eliminado los datos intenta de nuevo.',
+        'cant_delete'   =>  'No se puede eliminar esta orden con estado :status',
     ],
 
 ];
