@@ -9,4 +9,8 @@ export class PurchaseOrder extends Model {
     datatable(){
         return this.get( API.END_POINTS.PURCHASE.PURCHASE_ORDER.DATATABLE )
     }
+
+    status( id ) {
+        return this.patch( API.END_POINTS.PURCHASE.PURCHASE_ORDER.PURCHASE_ORDER_STATUS(id) )
+    }
 }

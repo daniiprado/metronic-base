@@ -12,9 +12,9 @@
                     <div class="m-portlet__body">
                         <portlet-input :value="form.code" v-model.trim="form.code"
                                        :has-errors="form.errors"
-                                       validation="required|alpha_num|min:10|max:10"
+                                       validation="required|alpha_num|min:7|max:14"
                                        name="code"
-                                       :input-attrs="{'minlength': 10, 'maxlength': 10, 'required': true, 'autocomplete': 'off' }">
+                                       :input-attrs="{'minlength': 7, 'maxlength': 14, 'required': true, 'autocomplete': 'off' }">
                         </portlet-input>
                         <portlet-input :value="form.name" v-model="form.name"
                                        :has-errors="form.errors"

@@ -1,7 +1,7 @@
 <template>
     <draggable-row>
         <div class="col-lg-6 offset-lg-3">
-            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.company.title', 0, {prefix: lang.get('pages.buttons.create')})">
+            <portlet-form @onPortletForm="onPortletForm" id="m_portlet_tools_form" :title="lang.choice('pages.business_unity.title', 0, {prefix: lang.get('pages.buttons.create')})">
                 <template slot="actions">
                     <action-item>
                         <portlet-tool tool="remove"></portlet-tool>

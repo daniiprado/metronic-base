@@ -49,11 +49,22 @@ return [
     'purchase_order' => [
         'title' =>  '{0} :prefix Orden de Compra|{2} Ordenes de compra',
     ],
+    'purchase' => [
+        'title' =>  '{0} :prefix Compra|{2} Compras',
+    ],
+    'security' => [
+        'title' =>  '{0} :prefix Seguridad|{2} Seguridad',
+    ],
+    'customer' => [
+        'title' =>  '{0} :prefix Cliente|{2} Clientes',
+    ],
 
     'buttons' => [
+        'details'       =>  'Detalles',
         'sign_in'       =>  'Iniciar Sesión',
         'log_out'       =>  'Cerrar Sesión',
         'create'        =>  'Crear',
+        'view'          =>  'Ver',
         'select'        =>  'Seleccionar',
         'update'        =>  'Actualizar',
         'edit'          =>  'Modificar',
@@ -88,7 +99,8 @@ return [
         'info'      =>  'Información',
         'question'  =>  'Pregunta',
         'comfirm_delete' => '{1} ¿Estás seguro que deseas eliminar este elemento?|[2,*] ¿Estás seguro que deseas eliminar :quantity elementos?',
-        'check_products' => 'Para enviar esta solicitud debes añadir al menos un producto.'
+        'check_products' => 'Para enviar esta solicitud debes añadir al menos un producto.',
+        'confirm_cancel' => '¿Estás seguro de cancelar la orden de compra?',
     ],
 
     'responses' =>  [
@@ -98,6 +110,6 @@ return [
         'updated_fail'  =>  'No se han actualizado los datos intenta de nuevo.',
         'deleted'       =>  'Se han eliminado los datos satisfactoriamente.',
         'deleted_fail'  =>  'No se han eliminado los datos intenta de nuevo.',
-    ]
+    ],
 
 ];

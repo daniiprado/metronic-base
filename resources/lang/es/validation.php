@@ -250,5 +250,9 @@ return [
         'products'              => 'productos',
         'purchase_order'        => 'órdenes de compra',
         'quantity'              => 'cantidad',
+        'issue'                 => 'novedad',
+        'number'                => 'número',
+        'received'              => 'recibido',
+        'delivered'             => 'entregado',
     ],
 ];

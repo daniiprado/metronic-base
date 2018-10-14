@@ -12,15 +12,24 @@
             </div>
             <div class="m-portlet__head-tools">
                 <ul class="m-portlet__nav">
-                    <action-item>
-                        <portlet-tool></portlet-tool>
-                    </action-item>
-                    <action-item>
-                        <portlet-tool tool="reload"></portlet-tool>
-                    </action-item>
-                    <action-item>
-                        <portlet-tool tool="fullscreen"></portlet-tool>
-                    </action-item>
+                    <li class="m-portlet__nav-item">
+                        <a href="javascript:;"  m-portlet-tool="toggle"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="la la-angle-down"></i>
+                        </a>
+                    </li>
+                    <li class="m-portlet__nav-item">
+                        <a href="javascript:;"  m-portlet-tool="reload"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="la la-refresh"></i>
+                        </a>
+                    </li>
+                    <li class="m-portlet__nav-item">
+                        <a href="javascript:;"  m-portlet-tool="fullscreen"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="la la-expand"></i>
+                        </a>
+                    </li>
                     <slot name="actions"></slot>
                 </ul>
             </div>

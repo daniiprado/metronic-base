@@ -54,6 +54,9 @@ export const API = {
             COMPANY: {
                 ROOT: '/api/companies',
                 DATATABLE: '/api/companies/datatable',
+                /**
+                 * @return {string}
+                 */
                 PRODUCTS: function (id) {
                     return `/api/companies/${id}/products`
                 }
@@ -70,7 +73,19 @@ export const API = {
         PURCHASE: {
             PURCHASE_ORDER: {
                 ROOT: '/api/purchase-order',
-                DATATABLE: '/api/purchase-order/datatable'
+                DATATABLE: '/api/purchase-order/datatable',
+                /**
+                 * @return {string}
+                 */
+                PRODUCTS_ORDER: function (id) {
+                    return `/api/purchase-order/${id}/products-order`
+                },
+                /**
+                 * @return {string}
+                 */
+                PURCHASE_ORDER_STATUS: function (id) {
+                    return `/api/purchase-order/${id}/status`
+                },
             },
             PRODUCTS_ORDER: {
                 ROOT: '/api/products-order',

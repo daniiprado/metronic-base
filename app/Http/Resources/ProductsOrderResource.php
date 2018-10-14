@@ -17,6 +17,7 @@ class ProductsOrderResource extends JsonResource
         return [
             'id'                =>  isset( $this->id ) ? $this->id : (int) 0,
             'quantity'          =>  isset( $this->quantity ) ? $this->quantity : (int) 0,
+            'subtotal'          =>  isset( $this->subtotal ) ? $this->subtotal : (int) 0,
             'picked'            =>  isset( $this->quantity ) ? $this->picked : (int) 0,
             'packed'            =>  isset( $this->quantity ) ? $this->packed : (int) 0,
             'price'             =>  isset( $this->price ) ? $this->price : (double) 0,

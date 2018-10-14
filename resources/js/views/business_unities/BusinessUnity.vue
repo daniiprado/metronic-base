@@ -1,7 +1,7 @@
 <template>
     <draggable-row>
         <div class="col-lg-12">
-            <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.company.title', 2)">
+            <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.business_unity.title', 2)">
                 <template slot="actions">
                     <action-item v-if="selected.length === 1 && $auth.can('edit-business-unities')">
                         <a href="javascript:;"

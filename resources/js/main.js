@@ -60,21 +60,23 @@ Vue.config.productionTip = false
 
 window.axios.defaults.headers.common['Authorization'] = store.getters.getToken;
 
-window.axios.interceptors.response.use(undefined, function (err) {
-    return new Promise(function (resolve, reject) {
-        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-            // if you ever get an unauthorized, logout the user
-            store.dispatch('logout')
-                .then(() => {
-                    this.$auth.destroyCookie()
-                })
-                .then(() => {
-                    window.location.reload();
-                })
-            // you can also redirect to /login if needed !
-        }
-        throw err;
-    });
+window.axios.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    console.log( error );
+    if (error.status === 401 && error.config && !error.config.__isRetryRequest) {
+        // if you ever get an unauthorized, logout the user
+        store.dispatch('logout')
+            .then(() => {
+                this.$auth.destroyCookie()
+            })
+            .then(() => {
+                window.location.reload();
+            })
+        // you can also redirect to /login if needed !
+    }
+
+    return error;
 });
 
 router.beforeEach((to, from, next) => {

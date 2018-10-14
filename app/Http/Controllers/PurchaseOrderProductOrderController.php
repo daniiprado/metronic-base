@@ -16,7 +16,15 @@ class PurchaseOrderProductOrderController extends ApiController
      */
     public function index($purchase_order)
     {
-        $purchase = PurchaseOrder::with('products_order')->find( $purchase_order );
+        $purchase = PurchaseOrder::with([
+            'products_order' => function ($query) {
+                return $query->withCount('issues')->with('product', 'issues');
+            },
+            'status:id,name',
+            'user:id,name',
+            'provider:id,name,nit',
+            'business_unity:id,name',
+        ])->find( $purchase_order );
 
         return response()->json( $purchase, 200 );
     }
@@ -45,12 +53,17 @@ class PurchaseOrderProductOrderController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param PurchaseOrder $purchase_order
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(PurchaseOrder $purchase_order)
     {
-        //
+        return $this->collectionResponse(
+            PurchaseOrderResource::collection( $purchase_order->load([
+
+            ])),
+            200
+        );
     }
 
     /**

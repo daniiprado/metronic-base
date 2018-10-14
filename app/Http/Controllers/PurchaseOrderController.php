@@ -47,7 +47,7 @@ class PurchaseOrderController extends ApiController
         $purchase_order->requested_at       = now();
         $purchase_order->user_id            = auth('api')->user()->id;
         $purchase_order->provider_id        = $request->get('provider_id');
-        $purchase_order->status_id          = 3;
+        $purchase_order->status_id          = Status::findByName('active')->first(['id'])->id;
         $purchase_order->saveOrFail();
         $purchase_order->products_order()->createMany( $request->get('products') );
         return $this->api_success([
@@ -66,7 +66,11 @@ class PurchaseOrderController extends ApiController
     public function show(PurchaseOrder $purchase_order)
     {
         return $this->singleResponse(
-            new PurchaseOrderResource( $purchase_order->load('products_order') ),
+            new PurchaseOrderResource( $purchase_order->load([
+                'products_order' => function ( $query ) {
+                    return $query->with('product', 'issues');
+                },
+            ]) ),
             200
         );
     }
@@ -77,14 +81,22 @@ class PurchaseOrderController extends ApiController
      * @param UpdatePurchaseOrderRequest $request
      * @param PurchaseOrder $purchase_order
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchase_order)
     {
-        $purchase_order->update( $request->all() );
-        return $this->singleResponse(
-            new PurchaseOrderResource( $purchase_order->load('products_order') ),
-            200
-        );
+        $purchase_order->delivery_address   = $request->get('delivery_address');
+        $purchase_order->delivery_at        = $request->get('delivery_at');
+        $purchase_order->user_id            = auth('api')->user()->id;
+        $purchase_order->status_id          = Status::findByName('modified')->first(['id'])->id;
+        $purchase_order->saveOrFail();
+        $purchase_order->products_order()->delete();
+        $purchase_order->products_order()->createMany( $request->get('products') );
+        return $this->api_success([
+            'data'      =>  new PurchaseOrderResource( $purchase_order->load('products_order') ),
+            'message'   =>  __('pages.responses.updated'),
+            'code'      =>  200
+        ], 200);
     }
 
     /**
@@ -97,10 +109,11 @@ class PurchaseOrderController extends ApiController
     public function destroy(PurchaseOrder $purchase_order)
     {
         $purchase_order->delete();
-        return $this->singleResponse(
-            new PurchaseOrderResource( $purchase_order ),
-            200
-        );
+        return $this->api_success([
+            'data'      =>  new PurchaseOrderResource( $purchase_order ),
+            'message'   =>  __('pages.responses.deleted'),
+            'code'      =>  204
+        ], 204);
     }
 
     /**

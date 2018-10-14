@@ -3,17 +3,25 @@
         <div class="col-lg-12">
             <portlet @onPortlet="onPortlet" id="m_portlet_tools_modules" :title="lang.choice('pages.purchase_order.title', 2)">
                 <template slot="actions">
+                    <action-item v-if="selected.length === 1">
+                        <a href="javascript:;"
+                           @click.prevent="onDetails"
+                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" :title="lang.get('pages.buttons.details')"
+                           class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
+                            <i class="la la-eye"></i>
+                        </a>
+                    </action-item>
                     <action-item v-if="selected.length === 1 && $auth.can('edit-purchase-order')">
                         <a href="javascript:;"
                            @click.prevent="onEdit"
-                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.edit')"
+                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" :title="lang.get('pages.buttons.edit')"
                            class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
                             <i class="la la-pencil"></i>
                         </a>
                     </action-item>
                     <action-item v-if="selected.length > 0 && $auth.can('delete-purchase-order')" >
                         <a href="javascript:;"
-                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" title="" :data-original-title="lang.get('pages.buttons.delete')"
+                           data-skin="dark" data-toggle="m-tooltip" data-placement="top" :title="lang.get('pages.buttons.delete')"
                            @click.prevent="onDelete"
                            class="m-portlet__nav-link btn btn-secondary m-btn m-btn--icon m-btn--icon-only m-btn--pill">
                             <i class="la la-trash"></i>
@@ -143,7 +151,7 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="">QR Codes</h5>
+                        <h5 class="modal-title" id="">Barcodes</h5>
                         <button type="button" class="close" @click="onClose" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -174,9 +182,11 @@
     import {API} from "../../services/Api";
     import swal from 'sweetalert2'
     import moment from 'moment-timezone';
+    import {MixinTooltip} from "../../mixins/mixin-tooltip";
 
     export default {
         name: "PurchaseOrder",
+        mixins: [ MixinTooltip ],
         components: {
             VueBarcode
         },
@@ -309,6 +319,9 @@
                 bar_codes: [],
             }
         },
+        mounted: function () {
+            mApp.initTooltips();
+        },
         methods: {
             /** Actions for Portlet **/
             onPortlet: function (portlet) {
@@ -347,7 +360,7 @@
                 this.qr_codes = this.selected.map((qr) => {
                     return {
                         'id': qr.id,
-                        'url': window.location.protocol+'//'+ window.location.host + '/purchase-order/' + qr.id
+                        'url': window.location.protocol+'//'+ window.location.host + '/purchase-order/' + qr.id + '/products-order'
                     }
                 });
             },
@@ -355,7 +368,7 @@
                 this.bar_codes = this.selected.map((qr) => {
                     return {
                         'id': qr.id,
-                        'url': window.location.protocol+'//'+ window.location.host + '/purchase-order/' + qr.id
+                        'url': window.location.protocol+'//'+ window.location.host + '/purchase-order/' + qr.id + '/products-order'
                     }
                 });
             },
@@ -399,11 +412,19 @@
                 })
             },
             onEdit: function () {
-                //this.$router.push({ name: 'products.edit', params: { id: this.selected[0].id } })
+                this.$router.push({ name: 'purchase.orders.edit', params: { id: this.selected[0].id } })
+            },
+            onDetails: function () {
+                this.$router.push({ name: 'purchase.orders.details', params: { id: this.selected[0].id } })
             },
             onClose: function () {
                 this.qr_codes  = [];
                 this.bar_codes = [];
+            }
+        },
+        watch: {
+            selected: function (selected) {
+                this.initTooltips();
             }
         },
         beforeDestroy: function () {

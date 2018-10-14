@@ -32,9 +32,21 @@ class ProductsOrder extends Model implements Auditable
         'product_id',
     ];
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = [
         'received', 'transit'
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['subtotal'];
 
     /**
      * The attributes that should be cast to native types.
@@ -82,6 +94,18 @@ class ProductsOrder extends Model implements Auditable
     public function generateTags() : array
     {
         return ['company'];
+    }
+
+
+    /*
+    * ---------------------------------------------------------
+    * Accessors and Mutator
+    * ---------------------------------------------------------
+    */
+
+    public function getSubtotalAttribute()
+    {
+        return (float) $this->price * (float) $this->quantity;
     }
 
     /*

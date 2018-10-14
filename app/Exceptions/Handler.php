@@ -19,7 +19,10 @@ use Predis\Connection\ConnectionException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Auth\{ AuthenticationException, Access\AuthorizationException };
-use Symfony\Component\HttpKernel\Exception\{ HttpException, NotFoundHttpException, MethodNotAllowedHttpException };
+use Symfony\Component\HttpKernel\Exception\{AccessDeniedHttpException,
+    HttpException,
+    NotFoundHttpException,
+    MethodNotAllowedHttpException};
 
 class Handler extends ExceptionHandler
 {
@@ -69,9 +72,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (env('APP_ENV') === 'local') {
-            return parent::render($request, $exception);
-        }
+        //if (env('APP_ENV') === 'local') {
+        //    return parent::render($request, $exception);
+        //}
         /**
          * Api Request
          */
@@ -96,6 +99,9 @@ class Handler extends ExceptionHandler
                 return $this->errorResponse(__('validation.handler.relation_not_found'), 404);
 
             if ($exception instanceof AuthorizationException)
+                return $this->errorResponse(__('validation.handler.unauthorized'), 403);
+
+            if ($exception instanceof AccessDeniedHttpException)
                 return $this->errorResponse(__('validation.handler.unauthorized'), 403);
 
             if ($exception instanceof MethodNotAllowedHttpException)

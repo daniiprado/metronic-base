@@ -15,7 +15,7 @@
             }
         },
         mounted: function () {
-            //this.initTooltips();
+
         },
         computed: {
             icon: function () {

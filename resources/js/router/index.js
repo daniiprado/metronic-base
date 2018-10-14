@@ -291,5 +291,25 @@ export default new Router({
                         //bodyClass: common
                     }
                 },
+                {
+                    path: '/purchase-order/:id/edit',
+                    name: 'purchase.orders.edit',
+                    component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrderEdit'),
+                    meta: {
+                        requiresAuth: true,
+                        can: Vue.auth.can('edit-purchase-order')
+                        //bodyClass: common
+                    }
+                },
+                {
+                    path: '/purchase-order/:id/products-order',
+                    name: 'purchase.orders.details',
+                    component: () => import(/* webpackChunkName: "purchase" */ './../views/purchase/PurchaseOrderDetails'),
+                    meta: {
+                        requiresAuth: true,
+                        can: true //Vue.auth.can('view-purchase-order-details')
+                        //bodyClass: common
+                    }
+                },
     ]
 })

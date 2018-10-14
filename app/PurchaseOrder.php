@@ -4,6 +4,7 @@ namespace Logistic;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use NunoMaduro\Collision\Provider;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditor;
 
@@ -92,6 +93,23 @@ class PurchaseOrder extends Model implements Auditable
 
     /*
      * ---------------------------------------------------------
+     * Accessors and Mutator
+     * ---------------------------------------------------------
+     */
+
+    /**
+     * Attribute to enable or disable form controls
+     *
+     * @return bool
+     */
+    public function getDisabledAttribute()
+    {
+        return ($this->status_id == Status::findByName('canceled')->first(['id'])->id
+                || $this->status_id == Status::findByName('delivered')->first(['id'])->id );
+    }
+
+    /*
+     * ---------------------------------------------------------
      * Eloquent Relationship
      * ---------------------------------------------------------
      */
@@ -133,10 +151,21 @@ class PurchaseOrder extends Model implements Auditable
      * Purchase order has one provider
      *
      * @Relation
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function provider()
     {
-        return $this->hasOne( Company::class, 'provider_id' );
+        return $this->belongsTo( Company::class, 'provider_id', 'id' );
+    }
+
+    /**
+     * Purchase order has one provider
+     *
+     * @Relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function business_unity()
+    {
+        return $this->belongsTo( BusinessUnity::class );
     }
 }

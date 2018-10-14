@@ -59,7 +59,7 @@ Route::prefix('api')->group( function () {
     Route::patch('purchase-order/{purchase_order}/status', 'PurchaseOrderController@status');
     Route::get('purchase-order/datatable', 'PurchaseOrderController@datatable');
     Route::resource('purchase-order.products-order', 'PurchaseOrderProductOrderController', [
-        'only' => ['index']
+        'only' => ['index', 'show']
     ]);
     Route::resource('purchase-order', 'PurchaseOrderController', [
         'except' => ['create', 'edit']
