@@ -14,6 +14,7 @@ export default new Router({
     mode: 'history',
     linkActiveClass: 'm-menu__item--active',
     base: process.env.BASE_URL,
+
     routes: [
         {
             path: '/login',
@@ -28,12 +29,7 @@ export default new Router({
         {
             path: '/',
             name: 'index',
-            component: () => import(/* webpackChunkName: "dashboard" */ './../views/dashboard/Dashboard'),
-            meta: {
-                requiresAuth: true,
-                can: true,
-                //bodyClass: common
-            }
+            redirect: 'home'
         },
         {
             path: '/home',
@@ -327,13 +323,12 @@ export default new Router({
                     meta: {
                         requiresAuth: true,
                         can: Vue.auth.can('view-purchase-order-details')
-                        //bodyClass: common
                     }
                 },
         {
             path: '**',
             name: 'error',
-            component: () => import(/* webpackChunkName: "error" */ './../views/error/error'),
+            component: () => import(/* webpackChunkName: "error" */ './../views/error/Error'),
             meta: {
                 requiresAuth: false,
             }

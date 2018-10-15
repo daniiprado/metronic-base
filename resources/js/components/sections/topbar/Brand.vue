@@ -1,7 +1,3 @@
-<!--
-  - Copyright (c) 2017 - 2018. Daniel Prado. All Rights Reserved. All material on this project, including design, text, images, logos, code and sounds, are owned by Daniel Prado, either through copyright or trademark, unless otherwise indicated. Content may not be copied, reproduced, transmitted, distributed, downloaded or transferred in any form or by any means without Daniel Prado's prior written consent, and with express attribution to Daniel Prado. The only exception is that one temporary copy may be downloaded into a single computer's memory and one unaltered permanent copy may be used by the viewer for personal and non-commercial use only, with an attached copy of Daniel Prado's Disclaimer Notice. No part of the downloaded copy may be subsequently reproduced, disseminated or transferred. Copyright infringement is a violation of federal law subject to criminal and civil penalties. (For permission to reprint, please contact Daniel Prado at (+571) 318-603-7095 or via email at danii.prado@outlook.com.ar)
-  -->
-
 <template>
     <!-- BEGIN: Brand -->
     <div class="m-stack__item m-brand  m-brand--skin-dark ">
@@ -50,6 +46,11 @@
                 brand: 'Contingencias',
                 logo: require('./../../../assets/img/logos/logo_default_dark.png')
             }
+        },
+        mounted: function () {
+            $('#m_aside_header_topbar_mobile_toggle').click(function() {
+                $('body').toggleClass('m-topbar--on');
+            });
         }
     }
 </script>

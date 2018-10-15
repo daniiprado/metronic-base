@@ -16,8 +16,8 @@ class CreateProductsOrderTable extends Migration
         Schema::create('products_order', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('quantity');
-            $table->unsignedInteger('picked')->nullable();
-            $table->unsignedInteger('packed')->nullable();
+            $table->unsignedInteger('picked')->nullable()->default(0);
+            $table->unsignedInteger('packed')->nullable()->default(0);
             $table->double('price', 8, 2);
             $table->boolean('received')->default( false );
             $table->boolean('transit')->default( false );

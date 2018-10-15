@@ -36,13 +36,15 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Logistic\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            'signature'
+            'signature',
+            'location'
         ],
 
         'api' => [
             'signature',
-            'api.throttle:60,1',
+            'api.throttle:300,1',
             'bindings',
+            'location'
         ],
     ];
 
@@ -72,5 +74,6 @@ class Kernel extends HttpKernel
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'signature' => \Logistic\Http\Middleware\Signature::class,
         'api.throttle' => \Logistic\Http\Middleware\ApiThrottleRequest::class,
+        'location'  =>  \Logistic\Http\Middleware\Location::class,
     ];
 }

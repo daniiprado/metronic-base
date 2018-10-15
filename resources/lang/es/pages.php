@@ -13,9 +13,17 @@ return [
     |
     */
 
-    'login' => [
-        'forget_password'   =>  '¿Olvidaste tu contraseña?'
+    'top-bar'   =>  [
+        'language'  =>  'Selecciona tu idioma.',
     ],
+
+    'login' => [
+        'sign_in'           =>  'Inicia Sesión en tu cuenta',
+        'forget_password'   =>  '¿Olvidaste tu contraseña?',
+        'enter_email'       =>  'Escribe tu correo para recuperar tu contraseña.',
+        'description'       =>  'Sistema de Control de Contingencias',
+    ],
+
     'users' => [
         'title' =>  '{0} :prefix Usuario|{2} Usuarios',
     ],

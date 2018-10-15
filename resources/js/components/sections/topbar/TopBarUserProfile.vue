@@ -1,7 +1,3 @@
-<!--
-  - Copyright (c) 2017 - 2018. Daniel Prado. All Rights Reserved. All material on this project, including design, text, images, logos, code and sounds, are owned by Daniel Prado, either through copyright or trademark, unless otherwise indicated. Content may not be copied, reproduced, transmitted, distributed, downloaded or transferred in any form or by any means without Daniel Prado's prior written consent, and with express attribution to Daniel Prado. The only exception is that one temporary copy may be downloaded into a single computer's memory and one unaltered permanent copy may be used by the viewer for personal and non-commercial use only, with an attached copy of Daniel Prado's Disclaimer Notice. No part of the downloaded copy may be subsequently reproduced, disseminated or transferred. Copyright infringement is a violation of federal law subject to criminal and civil penalties. (For permission to reprint, please contact Daniel Prado at (+571) 318-603-7095 or via email at danii.prado@outlook.com.ar)
-  -->
-
 <template>
     <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
         <a href="javascript:;" class="m-nav__link m-dropdown__toggle">
@@ -48,7 +44,7 @@
 
                             <li class="m-nav__item">
                                 <a href="javascript:;" @click.prevent="onLogout" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-                                    Cerrar Sesión
+                                    {{ lang.get('pages.buttons.log_out') }}
                                 </a>
                             </li>
                         </ul>
@@ -70,6 +66,7 @@
         },
         data: () => {
             return {
+                lang: lang,
                 user: {
                     name: API.APP_NAME,
                     email: 'root@app.com',

@@ -76,14 +76,18 @@
             }
         },
         created: function () {
+            mApp.blockPage();
             this.form.show( this.$route.params.id )
                 .then( (response) => {
                     this.form.name = response.data.name
                     this.form.email = response.data.email
                     this.form.company_id = response.data.company_id
                 })
+                .then(() => {
+                    mApp.unblockPage();
+                })
                 .catch( error => {
-                    console.log(error)
+                    mApp.unblockPage();
                 })
         },
         mounted: function () {

@@ -65,13 +65,16 @@
             }
         },
         created: function () {
+            mApp.blockPage();
             this.form.show( this.$route.params.id )
                 .then( (response) => {
+                    mApp.unblockPage();
                     this.form.name = response.data.name
                     this.form.nit = response.data.nit
                     this.form.phone = response.data.phone
                 })
                 .catch( error => {
+                    mApp.unblockPage();
                     console.log(error)
                 })
         },

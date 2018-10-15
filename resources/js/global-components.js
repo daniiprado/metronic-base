@@ -2,7 +2,7 @@ import VueQrcode from '@xkeshi/vue-qrcode';
 const GlobalComponents = {
     install(Vue) {
         Vue.component('login', () => import(/* webpackChunkName: "global" */ './views/auth/Login.vue'));
-        Vue.component('error-page', () => import(/* webpackChunkName: "global" */ './views/error/error'));
+        Vue.component('error-page', () => import(/* webpackChunkName: "global" */ './views/error/Error'));
         Vue.component('portlet-wizard-step', () => import(/* webpackChunkName: "global" */ './components/sections/WizardStep'));
         Vue.component('portlet-wizard', () => import(/* webpackChunkName: "global" */ './components/sections/PortletWizard'));
         Vue.component('portlet-date-time', () => import(/* webpackChunkName: "global" */ './components/sections/DateTimePicker'));

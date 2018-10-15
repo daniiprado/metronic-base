@@ -16,7 +16,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 //import './registerServiceWorker'
-import es from 'vee-validate/dist/locale/es';
 import VeeValidate, {Validator} from 'vee-validate';
 import Lang from 'lang.js';
 import messages from './lang/messages';
@@ -27,6 +26,20 @@ import Croppa from 'vue-croppa';
 import vbclass from 'vue-body-class';
 import VueHtmlToPaper from 'vue-html-to-paper';
 import swal from 'sweetalert2';
+
+let localize = Cookies.get('lang') || 'es';
+
+import es from 'vee-validate/dist/locale/es';
+import en from 'vee-validate/dist/locale/en';
+
+window.lang = new Lang({ messages: messages, locale: localize, fallback: 'es' });
+
+if ( localize === 'es' ) {
+    Validator.localize( localize , es);
+} else {
+    Validator.localize( localize , en);
+}
+
 
 const options = {
     name: '_blank',
@@ -41,8 +54,8 @@ const options = {
     ]
 };
 
-window.lang = new Lang({ messages });
-Validator.localize('es', es);
+window.lang = new Lang({ messages: messages, locale: localize, fallback: 'es' });
+
 Vue.use(VeeValidate);
 Vue.use(GlobalComponents);
 Vue.use(VTooltip);

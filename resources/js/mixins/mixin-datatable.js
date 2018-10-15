@@ -6,10 +6,59 @@ export const mixinDataTable = {
     name: 'mixin-data-table',
     data: () => {
         return {
-            lang: 'es',
+            lang: Cookies.get('lang') || 'es',
             langSource: {
-                es: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                en: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                es: {
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar _MENU_ registros",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Ningún dato disponible en esta tabla",
+                    sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    language: {
+                        paginate: {
+                            first: '<i class="la la-angle-double-left"></i>',
+                            last: '<i class="la la-angle-double-right"></i>',
+                            next: '<i class="la la-angle-right"></i>',
+                            previous: '<i class="la la-angle-left"></i>'
+                        }
+                    },
+                    oAria: {
+                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending: ": Activar para ordenar la columna de manera descendente",
+                    },
+                },
+                en: {
+                    sEmptyTable: "No data available in table",
+                    sInfo: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    sInfoEmpty: "Showing 0 to 0 of 0 entries",
+                    sInfoFiltered: "(filtered from _MAX_ total entries)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ",",
+                    sLengthMenu: "Show _MENU_ entries",
+                    sLoadingRecords: "Loading...",
+                    sProcessing: "Processing...",
+                    sSearch: "Search:",
+                    sZeroRecords: "No matching records found",
+                    language: {
+                        paginate: {
+                            first: '<i class="la la-angle-double-left"></i>',
+                            last: '<i class="la la-angle-double-right"></i>',
+                            next: '<i class="la la-angle-right"></i>',
+                            previous: '<i class="la la-angle-left"></i>'
+                        }
+                    },
+                    oAria: {
+                        sSortAscending: ": activate to sort column ascending",
+                        sSortDescending: ": activate to sort column descending"
+                    }
+                },
             },
             settings: {
                 dom:
@@ -21,6 +70,7 @@ export const mixinDataTable = {
                 ajax: {
                     beforeSend: null,
                     error: function (XMLHttpRequest) {
+                        mApp.unblockPage();
                         if (XMLHttpRequest.status === 401) {
                             store.dispatch('logout')
                                 .then(() => {
@@ -69,6 +119,9 @@ export const mixinDataTable = {
                         <span></span>
                     </label>`;
                 },
+                initComplete: function () {
+                    mApp.unblockPage();
+                },
                 buttons: [
                     'print',
                     'copyHtml5',
@@ -84,47 +137,8 @@ export const mixinDataTable = {
     },
     methods: {
         settingsDataTable: function () {
-            let defaults = {
-                sProcessing: "Procesando...",
-                sLengthMenu: "Mostrar _MENU_ registros",
-                sZeroRecords: "No se encontraron resultados",
-                sEmptyTable: "Ningún dato disponible en esta tabla",
-                sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-                sInfoPostFix: "",
-                sSearch: "Buscar:",
-                sUrl: "",
-                sInfoThousands: ",",
-                sLoadingRecords: "Cargando...",
-                language: {
-                    paginate: {
-                        first: '<i class="la la-angle-double-left"></i>',
-                        last: '<i class="la la-angle-double-right"></i>',
-                        next: '<i class="la la-angle-right"></i>',
-                        previous: '<i class="la la-angle-left"></i>'
-                    }
-                },
-                oAria: {
-                    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
-                    sSortDescending: ": Activar para ordenar la columna de manera descendente",
-                },
-            };
-
             if (mUtil.isRTL()) {
-                defaults = {
-                    sProcessing: "Procesando...",
-                    sLengthMenu: "Mostrar _MENU_ registros",
-                    sZeroRecords: "No se encontraron resultados",
-                    sEmptyTable: "Ningún dato disponible en esta tabla",
-                    sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-                    sInfoPostFix: "",
-                    sSearch: "Buscar:",
-                    sUrl: "",
-                    sInfoThousands: ",",
-                    sLoadingRecords: "Cargando...",
+                this.langSource[ this.lang ] = {
                     language: {
                         paginate: {
                             first: '<i class="la la-angle-double-right"></i>',
@@ -133,16 +147,13 @@ export const mixinDataTable = {
                             previous: '<i class="la la-angle-right"></i>'
                         }
                     },
-                    oAria: {
-                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
-                        sSortDescending: ": Activar para ordenar la columna de manera descendente",
-                    },
                 }
             }
             let self = this;
-            this.settings.language = { url: self.langSource[ self.lang ] };
-            this.settings.language = defaults;
+
+            this.settings.language = self.langSource[ self.lang ];
             this.settings.ajax.beforeSend = function (request) {
+                mApp.blockPage();
                 request.setRequestHeader("Authorization", self.$store.getters.getToken);
                 request.setRequestHeader("Accept", 'application/json');
                 request.setRequestHeader("Content-Type", 'application/json');
